@@ -1,9 +1,9 @@
-<link href="<?php echo base_url('assets/admin/plugins/iCheck/all.css')?>" rel="stylesheet" type="text/css" />
+<?php /*?><link href="<?php echo base_url('assets/admin/plugins/iCheck/all.css')?>" rel="stylesheet" type="text/css" />
        <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-3.3.2.min.css" type="text/css">
         <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/jquery-2.1.3.min.js"></script>
         <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/js/bootstrap-3.3.2.min.js" type="text/css">
         <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-multiselect.css" type="text/css">
-        <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/bootstrap-multiselect.js"></script>
+        <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/bootstrap-multiselect.js"></script><?php */?>
 <style>
 .error{
     color: #FF0000;
@@ -30,9 +30,10 @@
 	.table-bordered>thead>tr>th {background-color: #2c3542!important;}
 	.terms_conditions_s{padding-left: 20px;}
 	.terms_conditions_s li{line-height: 28px;}
+	.form-control{border-radius: 0px;}
 </style>    
   <?php   $seg= $this->uri->segment(5);?>
-<section class="content-header">
+<?php /*?><section class="content-header">
 	 <div class="row">
 		<div class="col-md-5">
 <!--			<h3>Application | Booking Form</h3>-->
@@ -45,7 +46,8 @@
 		  </ol>
 		</div>
 	 </div>
-</section>
+</section><?php */?>
+
 	<section class="content">
 		  <div class="row">
             <div class="col-xs-12">

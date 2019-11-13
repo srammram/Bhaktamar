@@ -2,31 +2,73 @@
  <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/bootstrap-multiselect.min.js">
  </script>
  <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
- <style>
-.btn-group {
-    width: 100%;
-}
-
-.multiselect {
-    width: 100%;
-}
-
-.multiselect-container {
-    width: 100%;
-}
-
-.error {
+<style>
+.error{
     color: #FF0000;
 }
-
-.datepicker td,
-.datepicker th {
-    width: 1.5em;
-    height: 1.5em;
+.content-header .breadcrumb{ margin-bottom: 0px;background-color: transparent;}
+	.content-header h3{margin: 0px;}
+	fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
 }
- </style>
+
+    legend.scheduler-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+		border: 1px solid;
+    }
+	.table-bordered>thead>tr>th {background-color: #2c3542!important;}
+	.terms_conditions_s{padding-left: 20px;}
+	.terms_conditions_s li{line-height: 28px;}
+	.form-control{border-radius: 0px;}
+	.checkbox_group label:before {
+	  content:'';
+	  -webkit-appearance: none;
+	  background-color: transparent;
+	  border: 2px solid #0079bf;
+	  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+	  padding: 8px;
+	  display: inline-block;
+	  position: relative;
+	  vertical-align: middle;
+	  cursor: pointer;
+	  margin-right: 5px;
+	}
+	.checkbox_group input:checked + label:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 5px;
+		left: 7px;
+		width: 6px;
+		height: 12px;
+		border: solid #0079bf;
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
+	.checkbox_group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+	.checkbox_group label {
+  position: relative;
+  cursor: pointer;
+}
+</style>
  <?php   $seg= $this->uri->segment(5);?>
- <section class="content-header">
+ <?php /*?><section class="content-header">
      <h1>
          <?php echo lang('enquirs_form'); ?>
      </h1>
@@ -36,213 +78,295 @@
          <li><a href="<?php echo site_url('admin/crm/Crm/Enquiry') ?>"> <?php echo lang('Enquiry')?> </a></li>
          <li class="active"><?php echo (empty($seg))?lang('add'):lang('edit');?></li>
      </ol>
- </section>
+ </section><?php */?>
  <section class="content">
      <div class="row">
          <div class="col-xs-12">
              <div class="box">
                  <div class="box-header">
-                     <h3 class="box-title"><?php echo lang('enquirs_form'); ?></h3>
+                     <h3 class="box-title">Enquiry Form</h3>
                  </div><!-- /.box-header -->
                  <div class="box-body">
-                     <form method="post" action="<?php echo site_url('admin/crm/Crm/Enquiryform/'.$enquiry_id); ?>"
-                         enctype="multipart/form-data" id="enquiryform">
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Customer_name') ?></label> <span style="color:red">*</span>
-                             <!--	<input class="checkbox_s is_display1" value="1" name="is_display1"type="checkbox" <?php if(isset($is_display1)){if($is_display1 == 1){  echo 'checked';  } }   ?>  />-->
-
-                             <input type="text" autocomplete="off" name="Customername" class="form-control"
-                                 value="<?php if(isset($customer_name)){ echo $customer_name;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Customer_name2') ?></label> <span style="color:red">*</span>
-                             <!--<input class="checkbox_s is_display2" value="1" name="is_display2"type="checkbox" <?php if(isset($is_display2)){if($is_display2 == 1){  echo 'checked';  } }   ?>  />-->
-                             <input type="text" autocomplete="off" name="Customername2" class="form-control"
-                                 value="<?php if(isset($customername2)){ echo $customername2;  }   ?>">
-                         </div>
-
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('NationalId') ?></label>
-                             <input type="text" name="NationalId" class="form-control " autocomplete='off'
-                                 value="<?php if(isset($NationalId)){ echo $NationalId;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('NationalId2') ?></label>
-                             <input type="text" name="NationalId2" class="form-control " autocomplete='off'
-                                 value="<?php if(isset($NationalId2)){ echo $NationalId2;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('DOB') ?></label>
-                             <input type="text" name="dob" class="form-control datepicker" autocomplete='off'
-                                 value="<?php if(isset($dob)){ echo $dob;  }   ?>" onkeydown="return false">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('DOB2') ?></label>
-                             <input type="text" name="dob2" class="form-control datepicker" autocomplete='off'
-                                 value="<?php if(isset($dob2)){ echo $dob2;  }   ?>" onkeydown="return false">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Contact_number') ?></label><span style="color:red"> *</span>
-                             <input type="text" name="contactnumber" class="form-control allownumber" autocomplete='off'
-                                 value="<?php if(isset($contact_number)){ echo $contact_number;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('email') ?></label>
-                             <input type="text" name="email" class="form-control " autocomplete='off'
-                                 value="<?php if(isset($email)){ echo $email;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Customer_address1') ?></label>
-                             <textarea autocomplete="off" name="address1"
-                                 class="form-control"><?php if(isset($address)){ echo $address;  }   ?></textarea>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Customer_address2') ?></label>
-                             <textarea name="address2" autocomplete="off"
-                                 class="form-control"><?php if(isset($customeraddress2)){ echo $customeraddress2;  }   ?></textarea>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Project') ?></label><span style="color:red"> *</span>
-                             <select name="project" class="form-control" onchange="get_units(this.value)">
-                                 <option value="">Select</option>
-                                 <?php if(isset($projects)){ foreach($projects as $project){ ?>
-                                 <option value="<?php  echo $project->id   ?>"
-                                     <?php  if(isset($project_id)){ echo $project_id == $project->id ?'selected':'' ;  } ?>>
-                                     <?php  echo $project->Name  ?></option> <?php } } ?>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Type_for') ?></label>
-                             <select name="pertypes[]"  multiple="multiple" 
-                                 class="form-control my-select">
-                                 <option value="">Select</option>
-                                 <?php  if(isset($type)){ foreach($type as $row){ $selected = in_array( $row->id, $ptype ) ? ' selected="selected" ' : '';   ?>
-                                 <option value="<?php  echo $row->id   ?>"<?php echo $selected; ?>>
-                                     <?php  echo $row->unit_group_type  ?></option>
-                                 <?php }  } ?>
-                             </select>
-                         </div>
-
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Units') ?></label>
-                             <select name="units" class="form-control" id="units">
-                                 <option value="">Select</option>
-                                 <?php 
-								if(isset($unitslists)){ foreach($unitslists as $unitslist){ ?>
-                                 <option value="<?php  echo $unitslist->uid   ?>"
-                                     <?php  if(isset($unit)){ echo $unit == $unitslist->uid ?'selected':'' ;  } ?>>
-                                     <?php  echo $unitslist->unit_no  ?></option>
-                                 <?php } } ?>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Enquiry_date') ?></label><span style="color:red"> *</span>
-                             <input type="text" name="Enquiry_date" class="form-control datepicker" autocomplete='off'
-                                 value="<?php if(isset($enquiry_date)){ echo $enquiry_date;  }   ?>"
-                                 onkeydown="return false">
-                         </div>
-
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Budget') ?></label>
-                             <input type="text" name="Budget" autocomplete='off' class="form-control"
-                                 value="<?php if(isset($Budget)){ echo $Budget;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Suggets_modification') ?></label>
-                             <select name="suggestsmodification[]" multiple="multiple" id="my-select"
-                                 class="form-control my-select">
-                                 <option>Select</option>
-                                 <?php 
-								if(isset($Amenities)){  foreach($Amenities as $Amenitie){ $selected = in_array( $Amenitie->id, $suggest_modification ) ? ' selected="selected" ' : '';  ?>
-                                 <option value="<?php  echo $Amenitie->id   ?>" <?php echo $selected; ?>>
-                                     <?php  echo $Amenitie->Name  ?></option>
-                                 <?php } } ?>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('occupation') ?> </label>
-                             <input type="text" name="occupation" autocomplete='off' class="form-control"
-                                 value="<?php if(isset($occupation)){ echo $occupation;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('Location_preference') ?></label>
-                             <input type="text" name="locationpreference" autocomplete='off' class="form-control"
-                                 value="<?php if(isset($location_preference)){ echo $location_preference;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('select_country') ?></label>
-                             <select name="country" class="form-control">
-                                 <option>Select</option>
-                                 <?php  if(isset($countries)){ foreach($countries as $country){ ?>
-                                 <option value="<?php  echo $country->id   ?>"
-                                     <?php  if(isset($country_id)){ echo $country_id == $country->id ?'selected':'' ;  } ?>>
-                                     <?php  echo $country->name  ?></option> <?php } } ?>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('City') ?></label>
-
-                             <input type="text" name="city" class="form-control " autocomplete='off'
-                                 value="<?php if(isset($city)){ echo $city;  }   ?>">
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('SalesPersontype') ?></label>
-                             <select name="salespersontype" class="form-control" onchange="get_agent(this.value)">
-                                 <option>Select</option>
-                                 <option value="<?php echo lang('Executive')  ?>"
-                                     <?php  if(isset($SalesPersontype)){ echo $SalesPersontype == lang('Executive')  ?'selected':'' ;  } ?>>
-                                     <?php echo lang('Executive')  ?></option>
-                                 <option value="<?php echo lang('Agent')  ?>"
-                                     <?php  if(isset($SalesPersontype)){ echo $SalesPersontype == lang('Agent') ?'selected':'' ;  } ?>>
-                                     <?php echo lang('Agent')  ?></option>
-                                 <option value="<?php echo lang('pmc')  ?>"
-                                     <?php  if(isset($SalesPersontype)){ echo $SalesPersontype == lang('pmc') ?'selected':'' ;  } ?>>
-                                     <?php echo lang('pmc')  ?></option>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('SalesPerson') ?></label>
-                             <select name="salesperson" class="form-control" id="salesperson">
-                                 <?php  if(isset($salespersons)){ foreach($salespersons as $salesperson){ ?>
-                                 <option value="<?php  echo $salesperson->id   ?>"
-                                     <?php  if(isset($Agent_id)){ echo $Agent_id == $salesperson->id ?'selected':'' ;  } ?>>
-                                     <?php  echo $salesperson->Name  ?></option>
-                                 <?php } } ?>
-                             </select>
-
-                         </div>
-                         <div class="form-group col-md-5">
-                             <label><?php echo lang('remarks') ?></label>
-                             <textarea name="remarks" autocomplete="off"
-                                 class="form-control"><?php if(isset($remarks)){ echo $remarks;  }   ?></textarea>
-                         </div>
-                         <br>
-                         <br>
-                         <br>
-                         <div class="form-group">
-                             <div class="row">
-                                 <div class="col-md-2 col-md-offset-1"><span style="color:red"> *</span>
-                                     <input class="checkbox_s status" value="1" name="status" type="radio"
-                                         <?php if(isset($enquiry_status)){if($enquiry_status == 1){  echo 'checked';  } }   ?> />
-                                     <label><?php echo lang('Follow_up') ?></label>
-                                 </div>
-                                 <div class="col-md-2">
-                                     <input class="checkbox_s status" value="2" name="status" type="radio"
-                                         <?php if( isset($enquiry_status)){if($enquiry_status == 2){  echo 'checked' ;  }  } ?>>
-                                     <label><?php echo lang('Trash') ?></label>
-                                     <input type="hidden"
-                                         value="<?php if(isset($enquiry_id)){ echo $enquiry_id;  }   ?>"
-                                         name="enquiry_id">
-                                 </div>
-                                 <!-- /.input group -->
-                             </div>
-                         </div>
-                 </div>
-                 <div class="box-footer">
-                     <input class="btn btn-primary" type="submit" id="enquirybtn" value="Save" />
-                 </div>
-                 </form>
-             </div><!-- /.box-body -->
+					 <form method="post" action="" id="enquiryform">
+						<fieldset class="scheduler-border">
+					<legend class="scheduler-border">Form</legend>
+					<div class="row">
+               			<div class="form-group col-md-4 col-md-offset-8">
+							<div class="form-group col-md-12">
+								<label class="col-sm-4">Date</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-sm-4">Serial No</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							
+						</div>
+					</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label>Name</label>
+                			<input type="text" class="form-control">
+                		</div>
+                		
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label>Contact No</label>
+                			<input type="text" class="form-control">
+                		</div>
+                		<div class="form-group col-md-5">
+                			<label>Alternate No</label>
+                			<input type="text" class="form-control">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label>Address</label>
+                			<input type="text" class="form-control">
+                		</div>
+                		<div class="form-group col-md-5">
+                			<label>Email</label>
+                			<input type="email" class="form-control">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label>Profession</label>
+                			<input type="text" class="form-control">
+                		</div>
+                		<div class="form-group col-md-5">
+                			<label>Organization Name</label>
+                			<input type="text" class="form-control">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label>Convenient time to call you</label>
+                			<input type="text" class="form-control">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-12" style="margin-bottom: 0px;">
+                			<label>When do you plan to book the flat</label>
+                		</div>
+						<div class="form-group checkbox_group col-md-3">
+							<input type="checkbox" id="withinaweek">
+							<label for="withinaweek">Within a Week</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="within15days">
+						  <label for="within15days">Within 15 Days</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="withinamonth">
+						  <label for="withinamonth">Within a Month</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="within45days">
+						  <label for="within45days">Within 45 Days</label>
+						</div>
+                	</div><hr>
+                	<div class="row">
+						<div class="form-group col-md-4">
+							<label>FAMILY</label>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">Adult:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">Child:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-4">
+							<label>VEHICLE</label>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">4 Wheeler:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">2 Wheeler:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-4">
+							<label>BUILDING</label>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-4" style="padding-left: 0px;padding-right: 0px;">Preferred Wing:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-4" style="padding-left: 0px;">Floor:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+                		<div class="form-group col-md-12" style="margin-bottom: 0px;">
+                			<label>When do you plan to book the flat</label>
+                		</div>
+						<div class="form-group checkbox_group col-md-3">
+							<input type="checkbox" id="hoarding">
+							<label for="hoarding">Hoarding</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="pole_kosk">
+						  <label for="pole_kosk">pole Kosk</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="paper_ads">
+						  <label for="paper_ads">Paper Ads</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="tv_radio">
+						  <label for="tv_radio">TV/Radio</label>
+						</div>
+               			<div class="form-group checkbox_group col-md-3">
+							<input type="checkbox" id="portal">
+							<label for="portal">Portal</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="pamphlet">
+						  <label for="pamphlet">Pamphlet</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="areavisit">
+						  <label for="areavisit">Area Visit</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="associate">
+						  <label for="associate">Associate</label>
+						</div>
+               			<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="expo">
+						  <label for="expo">Expo/BTL</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="sms_email">
+						  <label for="sms_email">SMS/Email</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="others">
+						  <label for="others">Others(if any)</label>
+						</div>
+						<div class="clearfix"></div>
+               			<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="clientreference">
+						  <label for="clientreference">Client Reference</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="mgtreference">
+						  <label for="mgtreference">Mgt Reference</label>
+						</div>
+						<div class="form-group checkbox_group col-md-3">
+						  <input type="checkbox" id="website">
+						  <label for="website">Website</label>
+						</div>
+                	</div>
+                	<hr>
+                	<div class="row">
+                		<div class="form-group col-md-8">
+                			<label class="col-sm-3">Post Visit Remarks :</label>
+                			<div class="col-sm-7">
+                				<textarea rows="2" style="width: 100%"></textarea>
+                			</div>
+                		</div>
+                		<div class="form-group col-md-8">
+                			<label class="col-sm-3">Follow Up:</label>
+                			<div class="col-sm-7">
+                				<textarea rows="4" style="width: 100%"></textarea>
+                			</div>
+                		</div>
+                		<div class="form-group col-md-4 col-md-offset-8">
+                			<label class="col-sm-5">Attended by:</label>
+                			<div class="col-sm-7">
+                				<input type="text" class="form-control">
+                			</div>
+                		</div>
+                	</div>
+					</fieldset>
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Post Enquiry</legend>
+						<div class="row">
+							<div class="form-group col-md-5">
+								<label>Status:</label>
+								<select class="form-control">
+									<option>Hot</option>
+									<option>Warm</option>
+									<option>Cold</option>
+								</select>
+							</div>
+							<div class="form-group col-md-5">
+								<label>Looking For:</label>
+								<select class="form-control">
+									<option>Flat</option>
+									<option>Garden Flat</option>
+									<option>4-BHK</option>
+									<option>Shop</option>
+									<option>Office</option>
+									<option>O-1BHK</option>
+									<option>0-3BHK</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5">
+								<label>Budget:</label>
+								<select class="form-control">
+									<option>Less 40</option>
+									<option>40-50 </option>
+									<option>50-60</option>
+									<option>60-70</option>
+									<option>70-80</option>
+									<option>80-1Cr</option>
+									<option>1-1.2Cr</option>
+									<option>1.2-1.5Cr</option>
+									<option>1.5-1.75Cr</option>
+									<option>1.75 Cr+</option>
+								</select>
+							</div>
+							<div class="form-group col-md-5">
+								<label>Purpose:</label>
+								<select class="form-control">
+									<option>Investment</option>
+									<option>Self</option>
+									<option>Looking For Other</option>
+									<option>Channel Partner</option>
+									<option>Random Enquiry</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5">
+								<label>Breif Remark</label>
+								<textarea rows="4" style="width: 100%;"></textarea>
+							</div>
+							<div class="form-group col-md-5">
+								<label>Next Followup </label>
+								<input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy">
+							</div>
+						</div>
+                	</fieldset>
+					 </form>
+				</div><!-- /.box-body -->
          </div><!-- /.box -->
 
      </div><!-- /.col -->
