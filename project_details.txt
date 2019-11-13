@@ -1,0 +1,4 @@
+
+*Support php version 5.6
+
+*need change var_input _max in php.in more than 10000 size;

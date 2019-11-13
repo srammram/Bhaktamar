@@ -1,0 +1,1 @@
+ALTER TABLE `sales_emi`  ADD `Beginning Balance` DECIMAL(12,3) NOT NULL DEFAULT '0'  AFTER `balance`,  ADD `Principal` DECIMAL(12,3) NOT NULL DEFAULT '0'  AFTER `Beginning Balance`,  ADD `Interest` DECIMAL(12,3) NOT NULL DEFAULT '0'  AFTER `Principal`,  ADD `Ending Balance` DECIMAL(12,3) NOT NULL DEFAULT '0'  AFTER `Interest`;

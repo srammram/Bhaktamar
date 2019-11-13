@@ -1,0 +1,3 @@
+ALTER TABLE `crm_enquiry`  ADD `displayname1` INT NOT NULL DEFAULT '0'  AFTER `nationalid2`,  ADD `dislayname2` INT NOT NULL DEFAULT '0'  AFTER `displayname1`;
+
+ALTER TABLE `crm_customer`  ADD `displayname1` INT NOT NULL DEFAULT '0'  AFTER `contractNumber`,  ADD `dislayname2` INT NOT NULL DEFAULT '0'  AFTER `displayname1`;

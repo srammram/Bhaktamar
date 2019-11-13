@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Calibri';
+    src: url('Calibri-Bold.woff2') format('woff2'),
+        url('Calibri-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Khmer OS Muol';
+    src: url('KhmerOSMuolLight.woff2') format('woff2'),
+        url('KhmerOSMuolLight.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+

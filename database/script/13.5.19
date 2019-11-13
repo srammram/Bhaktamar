@@ -1,0 +1,10 @@
+ALTER TABLE `crm_enquiry`  ADD `dob2` DATE NOT NULL  AFTER `dob`;
+
+ALTER TABLE `crm_enquiry` CHANGE `nationalid` `nationalid` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `crm_enquiry`  ADD `nationalid2` VARCHAR(255) NOT NULL  AFTER `nationalid`;
+
+ALTER TABLE `crm_customer`  ADD `dob2` DATE NOT NULL  AFTER `dob`;
+
+ALTER TABLE `crm_customer`  ADD `nationalid2` VARCHAR(255) NOT NULL  AFTER `nationalid`;
+
+ALTER TABLE `crm_customer`  ADD `contractNumber` VARCHAR(255) NOT NULL  AFTER `nationalid2`;

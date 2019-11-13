@@ -1,0 +1,1 @@
+ALTER TABLE `settings`  ADD `soft_delete` INT NOT NULL DEFAULT '0'  AFTER `decimals_sep`;
