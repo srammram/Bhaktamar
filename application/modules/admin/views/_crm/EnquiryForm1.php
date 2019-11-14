@@ -126,7 +126,7 @@
 							<div class="form-group col-md-12">
 								<label class="col-sm-4">Date</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control datepicker">
 								</div>
 							</div>
 							<div class="form-group col-md-12">
@@ -604,7 +604,7 @@ $('.datepicker').datepicker({
     weekStart: 1,
     autoclose: true,
     todayHighlight: true,
-    format: "yyyy-mm-dd",
+    format: "dd-mm-yyyy",
 });
 // $('.datepicker').datepicker("setDate", new Date());
  </script>
