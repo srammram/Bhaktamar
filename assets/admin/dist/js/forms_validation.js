@@ -14,7 +14,6 @@ $.validator.addMethod("minAge", function(value, element, min) {
 
 $.validator.addMethod("greaterThan", 
 function(value, element, params) {
-
     if (!/Invalid|NaN/.test(new Date(value))) {
         return new Date(value) > new Date($(params).val());
     }
@@ -385,6 +384,40 @@ $(".saveestimation_form").click(function ()  {
                 required: true,
             },
 			  
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+		
+        errorElement: 'span',
+        errorClass: 'help-block animated fadeInDown',
+        errorPlacement: function(error, element) {
+            if (element.parent('.form-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    })
+});
+
+
+
+
+$("#booking").click(function ()  {
+    $("#bookingform").validate({
+        excluded: ':disabled',
+         rules: {
+            date: {
+                required: true,
+            },
+			  applicantname: {
+                required: true,
+            },
         },
 
         highlight: function(element) {

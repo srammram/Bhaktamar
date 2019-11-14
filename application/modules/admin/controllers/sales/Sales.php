@@ -1347,8 +1347,8 @@ function getEmi($t,$data,$payment_date){
 			 }
 			  redirect('admin/sales/Sales/bookingViewDetail/'.$sales_id);
 	}
-	function bookingForm1(){
-		$this->render_admin('_sales/bookingform1');		
+	function booking(){
+		$this->render_admin('_sales/bookingform');		
 	}
 	
 }
