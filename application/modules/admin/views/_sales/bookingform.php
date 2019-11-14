@@ -105,7 +105,7 @@ legend.scheduler-border {
 #customFields>tbody>tr>td:first-child {
     text-align: center;
 }
-
+	.table-bordered>tbody>tr>td{border: 1px solid #ddd;}
 .file-upload-wrapper {
     position: relative;
     width: 100%;
@@ -170,6 +170,8 @@ legend.scheduler-border {
     cursor: pointer;
     width: 100%;
 }
+	.payment_tk{width: 75%;float: left;margin-right: 1px;text-align: center;}
+	.percentage_s{margin-top: 5px;position: relative;float: left;}
 </style>
 <?php   $seg= $this->uri->segment(5);?>
 <section class="content-header">
@@ -403,8 +405,7 @@ legend.scheduler-border {
                                     <div class="input-group">
                                         <input type="text" class="form-control"  name="adhar2">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-list"></i>fa fa-building
-                                        </div>
+                                            <i class="fa fa-list"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -563,14 +564,13 @@ legend.scheduler-border {
                                 <h4>Payment Schedule<sup>*</sup>:</h4>
                                 
                                    <div class="form-group">
-                                         
                                             <label class="css-input css-radio css-radio-success push-10-r">
                                                 <input name="scheduletype" value="1" 
-                                                    type="radio" class="scheduletype"><span></span>Custom Plan
-                                            </label>   
+                                                    type="radio" class="scheduletype"><span></span> Custom Plan
+                                            </label> &nbsp;  &nbsp;  &nbsp;  &nbsp;  
                                             <label class="css-input css-radio css-radio-success push-10-r">
                                                 <input name="scheduletype" value="2"
-                                                    type="radio" class="scheduletype" checked><span></span>Regular Plan
+                                                    type="radio" class="scheduletype" checked><span></span> Regular Plan
                                             </label>
                                         </div>
                                 
@@ -582,55 +582,55 @@ legend.scheduler-border {
                                     <tbody>
                                         <tr>
                                             <td>Token/Booking Amount</td>
-                                            <td><input type="text" value="10%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="10" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Execution of Agreement</td>
-                                            <td><input type="text" value="20" class="payment_tk form-control"><span>%</span></td>
+                                            <td><input type="text" value="20" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Plinth</td>
-                                            <td><input type="text" value="15%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="15" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Parking & 1st Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 2nd Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 5th Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 8th Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 11th Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Topmost Slab</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Brick Work,Plaster & Flooring</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Sanitary Fitting & Paint</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of MEP & Finishing Work</td>
-                                            <td><input type="text" value="10%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="10" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Handover/Possesion</td>
-                                            <td><input type="text" value="5%" class="payment_tk form-control"></td>
+                                            <td><input type="text" value="5" class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

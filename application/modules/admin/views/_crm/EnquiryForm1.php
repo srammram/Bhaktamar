@@ -97,6 +97,58 @@
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #2c3542;  } 
+	
+/*	radio*/
+	.feed_back [type="radio"]:checked,
+.feed_back [type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+.feed_back [type="radio"]:checked + label,
+.feed_back [type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+.feed_back [type="radio"]:checked + label:before,
+.feed_back [type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #0079bf;
+    border-radius: 100%;
+    background: #fff;
+}
+.feed_back [type="radio"]:checked + label:after,
+.feed_back [type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #0079bf;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.feed_back [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.feed_back [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
 </style>
  <?php   $seg= $this->uri->segment(5);?>
  <?php /*?><section class="content-header">
@@ -396,10 +448,10 @@
 							</div>
 						</div>
                 	</fieldset>
-                	<fieldset class="scheduler-border">
+                	<fieldset class="scheduler-border ">
 						<legend class="scheduler-border">Feedback Link </legend>
 						<div class="form-group col-md-10">
-							<label class="col-sm-8">1) How Whould You Rate The Waiting Time To Be Attended ? </label>
+							<label class="col-sm-8">1) How Would You Rate The Waiting Time To Be Attended ? </label>
 							<div class="rating col-sm-4">
 								<input type="radio" id="star5" name="rating" value="5" />
 								<label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -424,103 +476,218 @@
 							</div>
 						</div>
 						<div class="form-group col-md-10">
-							<label class="col-sm-8">2) How Whould You Rate Our Representative Communication ? </label>
+							<label class="col-sm-8">2) How Would You Rate Our Representative Communication ? </label>
 							<div class="rating col-sm-4">
-								<input type="radio" id="1star5" name="rating" value="5" />
+								<input type="radio" id="1star5" name="rating1" value="5" />
 								<label class ="full" for="1star5" title="Awesome - 5 stars"></label>
-								<input type="radio" id="1star4half" name="rating" value="4 and a half" />
+								<input type="radio" id="1star4half" name="rating1" value="4 and a half" />
 								<label class="half" for="1star4half" title="Pretty good - 4.5 stars"></label>
-								<input type="radio" id="1star4" name="rating" value="4" />
+								<input type="radio" id="1star4" name="rating1" value="4" />
 								<label class ="full" for="1star4" title="Pretty good - 4 stars"></label>
-								<input type="radio" id="1star3half" name="rating" value="3 and a half" />
+								<input type="radio" id="1star3half" name="rating1" value="3 and a half" />
 								<label class="half" for="1star3half" title="Meh - 3.5 stars"></label>
-								<input type="radio" id="1star3" name="rating" value="3" />
+								<input type="radio" id="1star3" name="rating1" value="3" />
 								<label class ="full" for="1star3" title="Meh - 3 stars"></label>
-								<input type="radio" id="1star2half" name="rating" value="2 and a half" />
+								<input type="radio" id="1star2half" name="rating1" value="2 and a half" />
 								<label class="half" for="1star2half" title="Kinda bad - 2.5 stars"></label>
-								<input type="radio" id="1star2" name="rating" value="2" />
+								<input type="radio" id="1star2" name="rating1" value="2" />
 								<label class ="full" for="1star2" title="Kinda bad - 2 stars"></label>
-								<input type="radio" id="1star1half" name="rating" value="1 and a half" />
+								<input type="radio" id="1star1half" name="rating1" value="1 and a half" />
 								<label class="half" for="1star1half" title="Meh - 1.5 stars"></label>
-								<input type="radio" id="1star1" name="rating" value="1" />
+								<input type="radio" id="1star1" name="rating1" value="1" />
 								<label class ="full" for="1star1" title="Sucks big time - 1 star"></label>
-								<input type="radio" id="1starhalf" name="rating" value="half" />
+								<input type="radio" id="1starhalf" name="rating1" value="half" />
 								<label class="half" for="1starhalf" title="Sucks big time - 0.5 stars"></label>
 							</div>
 						</div>
 						<div class="form-group col-md-10">
-							<label class="col-sm-8">3) How Whould You Rate Our Overall Hospitality ? </label>
+							<label class="col-sm-8">3) How Would You Rate Our Overall Hospitality ? </label>
 							<div class="rating col-sm-4">
-								<input type="radio" id="2star5" name="rating" value="5" />
+								<input type="radio" id="2star5" name="rating3" value="5" />
 								<label class ="full" for="2star5" title="Awesome - 5 stars"></label>
-								<input type="radio" id="2star4half" name="rating" value="4 and a half" />
+								<input type="radio" id="2star4half" name="rating3" value="4 and a half" />
 								<label class="half" for="2star4half" title="Pretty good - 4.5 stars"></label>
-								<input type="radio" id="2star4" name="rating" value="4" />
+								<input type="radio" id="2star4" name="rating3" value="4" />
 								<label class ="full" for="2star4" title="Pretty good - 4 stars"></label>
-								<input type="radio" id="2star3half" name="rating" value="3 and a half" />
+								<input type="radio" id="2star3half" name="rating3" value="3 and a half" />
 								<label class="half" for="2star3half" title="Meh - 3.5 stars"></label>
-								<input type="radio" id="2star3" name="rating" value="3" />
+								<input type="radio" id="2star3" name="rating3" value="3" />
 								<label class ="full" for="2star3" title="Meh - 3 stars"></label>
-								<input type="radio" id="2star2half" name="rating" value="2 and a half" />
+								<input type="radio" id="2star2half" name="rating3" value="2 and a half" />
 								<label class="half" for="2star2half" title="Kinda bad - 2.5 stars"></label>
-								<input type="radio" id="2star2" name="rating" value="2" />
+								<input type="radio" id="2star2" name="rating3" value="2" />
 								<label class ="full" for="2star2" title="Kinda bad - 2 stars"></label>
-								<input type="radio" id="2star1half" name="rating" value="1 and a half" />
+								<input type="radio" id="2star1half" name="rating3" value="1 and a half" />
 								<label class="half" for="2star1half" title="Meh - 1.5 stars"></label>
-								<input type="radio" id="2star1" name="rating" value="1" />
+								<input type="radio" id="2star1" name="rating3" value="1" />
 								<label class ="full" for="2star1" title="Sucks big time - 1 star"></label>
-								<input type="radio" id="2starhalf" name="rating" value="half" />
+								<input type="radio" id="2starhalf" name="rating3" value="half" />
 								<label class="half" for="2starhalf" title="Sucks big time - 0.5 stars"></label>
 							</div>
 						</div>
 						<div class="form-group col-md-10">
-							<label class="col-sm-8">4) How Whould You Rate Our Project Presentation ? </label>
+							<label class="col-sm-8">4) How Would You Rate Our Project Presentation ? </label>
 							<div class="rating col-sm-4">
-								<input type="radio" id="3star5" name="rating" value="5" />
+								<input type="radio" id="3star5" name="rating4" value="5" />
 								<label class ="full" for="3star5" title="Awesome - 5 stars"></label>
-								<input type="radio" id="3star4half" name="rating" value="4 and a half" />
+								<input type="radio" id="3star4half" name="rating4" value="4 and a half" />
 								<label class="half" for="3star4half" title="Pretty good - 4.5 stars"></label>
-								<input type="radio" id="3star4" name="rating" value="4" />
+								<input type="radio" id="3star4" name="rating4" value="4" />
 								<label class ="full" for="3star4" title="Pretty good - 4 stars"></label>
-								<input type="radio" id="3star3half" name="rating" value="3 and a half" />
+								<input type="radio" id="3star3half" name="rating4" value="3 and a half" />
 								<label class="half" for="3star3half" title="Meh - 3.5 stars"></label>
-								<input type="radio" id="3star3" name="rating" value="3" />
+								<input type="radio" id="3star3" name="rating4" value="3" />
 								<label class ="full" for="3star3" title="Meh - 3 stars"></label>
-								<input type="radio" id="3star2half" name="rating" value="2 and a half" />
+								<input type="radio" id="3star2half" name="rating4" value="2 and a half" />
 								<label class="half" for="3star2half" title="Kinda bad - 2.5 stars"></label>
-								<input type="radio" id="3star2" name="rating" value="2" />
+								<input type="radio" id="3star2" name="rating4" value="2" />
 								<label class ="full" for="3star2" title="Kinda bad - 2 stars"></label>
-								<input type="radio" id="3star1half" name="rating" value="1 and a half" />
+								<input type="radio" id="3star1half" name="rating4" value="1 and a half" />
 								<label class="half" for="3star1half" title="Meh - 1.5 stars"></label>
-								<input type="radio" id="3star1" name="rating" value="1" />
+								<input type="radio" id="3star1" name="rating4" value="1" />
 								<label class ="full" for="3star1" title="Sucks big time - 1 star"></label>
-								<input type="radio" id="3starhalf" name="rating" value="half" />
+								<input type="radio" id="3starhalf" name="rating4" value="half" />
 								<label class="half" for="3starhalf" title="Sucks big time - 0.5 stars"></label>
 							</div>
 						</div>
 						<div class="form-group col-md-10">
-							<label class="col-sm-8">5) How Whould You Rate The Project Overall ?</label>
+							<label class="col-sm-8">5) How Would You Rate The Project Overall ?</label>
 							<div class="rating col-sm-4">
-								<input type="radio" id="4star5" name="rating" value="5" />
+								<input type="radio" id="4star5" name="rating5" value="5" />
 								<label class ="full" for="4star5" title="Awesome - 5 stars"></label>
-								<input type="radio" id="4star4half" name="rating" value="4 and a half" />
+								<input type="radio" id="4star4half" name="rating5" value="4 and a half" />
 								<label class="half" for="4star4half" title="Pretty good - 4.5 stars"></label>
-								<input type="radio" id="4star4" name="rating" value="4" />
+								<input type="radio" id="4star4" name="rating5" value="4" />
 								<label class ="full" for="4star4" title="Pretty good - 4 stars"></label>
-								<input type="radio" id="4star3half" name="rating" value="3 and a half" />
+								<input type="radio" id="4star3half" name="rating5" value="3 and a half" />
 								<label class="half" for="4star3half" title="Meh - 3.5 stars"></label>
-								<input type="radio" id="4star3" name="rating" value="3" />
+								<input type="radio" id="4star3" name="rating5" value="3" />
 								<label class ="full" for="4star3" title="Meh - 3 stars"></label>
-								<input type="radio" id="4star2half" name="rating" value="2 and a half" />
+								<input type="radio" id="4star2half" name="rating5" value="2 and a half" />
 								<label class="half" for="4star2half" title="Kinda bad - 2.5 stars"></label>
-								<input type="radio" id="4star2" name="rating" value="2" />
+								<input type="radio" id="4star2" name="rating5" value="2" />
 								<label class ="full" for="4star2" title="Kinda bad - 2 stars"></label>
-								<input type="radio" id="4star1half" name="rating" value="1 and a half" />
+								<input type="radio" id="4star1half" name="rating5" value="1 and a half" />
 								<label class="half" for="4star1half" title="Meh - 1.5 stars"></label>
-								<input type="radio" id="4star1" name="rating" value="1" />
+								<input type="radio" id="4star1" name="rating5" value="1" />
 								<label class ="full" for="4star1" title="Sucks big time - 1 star"></label>
-								<input type="radio" id="4starhalf" name="rating" value="half" />
+								<input type="radio" id="4starhalf" name="rating5" value="half" />
 								<label class="half" for="4starhalf" title="Sucks big time - 0.5 stars"></label>
+							</div>
+						</div>
+						<div class="col-md-12 feed_back">
+							<h4><b>If Rating 4+ Following Questions</b></h4>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">1. Which Impressed You The Most</label>
+								<div class="form-group checkbox_group col-md-2">
+									<input type="checkbox" id="location">
+									<label for="location">Location</label>
+								</div>
+								<div class="form-group checkbox_group col-md-2">
+								  <input type="checkbox" id="plan">
+								  <label for="plan">Plan</label>
+								</div>
+								<div class="form-group checkbox_group col-md-2">
+								  <input type="checkbox" id="amenities">
+								  <label for="amenities">Amenities</label>
+								</div>
+								<div class="form-group checkbox_group col-md-3">
+								  <input type="checkbox" id="construction_quality">
+								  <label for="construction_quality">Construction Quality</label>
+								</div>
+							  	<div class="form-group checkbox_group col-md-3">
+								  <input type="checkbox" id="builders_goodwill">
+								  <label for="builders_goodwill">Builders Goodwill</label>
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">2. How Do You Think The Price Point Was ?</label>
+								<div class="form-group col-md-2">
+									<input type="radio" id="very_high" name="radio-group">
+									<label for="very_high">Very High</label>
+								</div>
+								<div class="form-group col-md-2">
+								  <input type="radio" id="high" name="radio-group">
+								  <label for="high">High</label>
+								</div>
+								<div class="form-group col-md-2">
+								  <input type="radio" id="fair" name="radio-group">
+								  <label for="fair">Fair</label>
+								</div>
+							  <div class="form-group col-md-2">
+								  <input type="radio" id="low" name="radio-group">
+								  <label for="low">Low</label>
+								</div>
+								
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">3. Would You Recommend Our Project To A Friend/Relative ?</label>
+								<div class="form-group col-md-2">
+									<input type="radio" id="yes" name="radio-group1">
+									<label for="yes">Yes</label>
+								</div>
+								<div class="form-group col-md-2">
+								  <input type="radio" id="no" name="radio-group1">
+								  <label for="no">No</label>
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">4. Detail Review ()</label>
+								<div class="form-group col-md-5">
+									<textarea rows="3" style="width: 100%;"></textarea>
+								</div>
+								
+							</div>
+						</div>
+						<div class="col-md-12 feed_back">
+							<h4><b>If Rating less than 4- Following Questions</b></h4>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">1. On Which Fields You Feel The Project Could Have Done Better</label>
+								
+								<div class="form-group checkbox_group col-md-2">
+								  <input type="checkbox" id="pln">
+								  <label for="pln">Plan</label>
+								</div>
+								<div class="form-group checkbox_group col-md-2">
+								  <input type="checkbox" id="amenit">
+								  <label for="amenit">Amenities</label>
+								</div>
+								<div class="form-group checkbox_group col-md-3">
+								  <input type="checkbox" id="construction_qty">
+								  <label for="construction_qty">Construction Quality</label>
+								</div>
+							  	<div class="form-group checkbox_group col-md-3">
+								  <input type="checkbox" id="other_text_box">
+								  <label for="other_text_box">Other-Text Box</label>
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-12">2. How Do You Think The Price Point Was ?</label>
+								<div class="form-group col-md-2">
+									<input type="radio" id="very_hig" name="radio-group">
+									<label for="very_hig">Very High</label>
+								</div>
+								<div class="form-group col-md-2">
+								  <input type="radio" id="hig" name="radio-group">
+								  <label for="hig">High</label>
+								</div>
+								<div class="form-group col-md-2">
+								  <input type="radio" id="fai" name="radio-group">
+								  <label for="fai">Fair</label>
+								</div>
+							  <div class="form-group col-md-2">
+								  <input type="radio" id="lo" name="radio-group">
+								  <label for="lo">Low</label>
+								</div>
+								
+							</div>
+							
+							<div class="form-group col-md-12">
+								<label class="col-md-12">3. Detail Review ()</label>
+								<div class="form-group col-md-5">
+									<textarea rows="3" style="width: 100%;"></textarea>
+								</div>
+								
 							</div>
 						</div>
 					</fieldset>
