@@ -219,7 +219,9 @@ class Site extends CI_Model
 	 }
 	 function get_floor($projectid,$buildingid){      
 		 $this->db->select("*");
+		 if(!empty($projectid)){
 		 $this->db->where("projectid",$projectid);
+		 }
 		 $this->db->where("building_id",$buildingid);
 		 $q=$this->db->get("floors");
 		 if($q->num_rows()>0){
@@ -232,8 +234,12 @@ class Site extends CI_Model
 	 }
 	  function get_unit($projectid,$buildingid,$floorid){      
 		 $this->db->select("*");
+	 if(!empty($projectid)){
 		 $this->db->where("Project_id",$projectid);
+	 }
+	  if(!empty($buildingid)){
 		 $this->db->where("building_id",$buildingid);
+	  }
 		 $this->db->where("floor_no",$floorid);
 		 $q=$this->db->get("add_unit");
 		 if($q->num_rows()>0){

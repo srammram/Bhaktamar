@@ -59,12 +59,9 @@ class Complaint extends Admin_Controller {
 		$this->form_validation->set_rules('txtCTitle', 'lang:Complaint_title', 'trim|required');
 		$this->form_validation->set_rules('txtCDescription', 'lang:Complaint_desc', 'trim|required');
 		$this->form_validation->set_rules('txtCDate', 'lang:Complaint_date', 'trim|required');
-		if ($this->form_validation->run() == FALSE)
-		{
+		if ($this->form_validation->run() == FALSE){
 			$this->render_admin('Complaint/form', $data);		
-		}
-		else
-		{
+		}else{
 			$ids	= $this->input->post('ids');
 			$save['c_title']	            = $this->input->post('txtCTitle');
 			$save['Unit_id']	            = $this->input->post('Complaintby');

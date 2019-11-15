@@ -192,114 +192,91 @@ legend.scheduler-border {
                     <h3 class="box-title">Application | Booking Form</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <form method="post" action="<?php echo site_url('admin/sales/Sales/booking/'.$agentid); ?>"
+                    <form method="post" action="<?php echo site_url('admin/booking/booking/'.$id); ?>"
                         enctype="multipart/form-data" id="bookingform">
-
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Form</legend>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Date<span class="required" aria-required="true">*</span></label>
-                                   
                                         <input type="text" class="form-control datepicker" id="datepicker"
-                                            name="date" data-date-format="yyyy/mm/dd" onkeydown="return false">
-                                      
-                                   
+                                            name="date" data-date-format="yyyy/mm/dd" onkeydown="return false"  value="<?php  if(!empty($date)){ echo $date;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Serial No</label>
-                                    <input type="text" class="form-control" name="serialno" readonly>
-
+                                    <input type="text" class="form-control" name="serialno" value="<?php echo $serial_no;  ?>"readonly value="<?php  if(!empty($serial_no)){ echo $serial_no ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Applicant Name</label>
                                     <span class="required" aria-required="true">*</span></label>
-                                        <input type="text" class="form-control"  name="applicantname">
+                                        <input type="text" class="form-control"  name="applicantname" value="<?php  if(!empty($applicant_name)){ echo $applicant_name;  } ?>">
                            
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Address</label>
-                                  
-                                        <input type="text" class="form-control" name="address">
-                                       
-                                  
+                                        <input type="text" class="form-control" name="address" value="<?php  if(!empty($address)){ echo $address ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Pincode</label>
-                                    <input type="text" class="form-control" name="pincode">
+                                    <input type="text" class="form-control allownumber" name="pincode" value="<?php  if(!empty($pincode)){ echo $pincode ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Contact No</label>
-                                   
-                                        <input type="text" class="form-control" name="contact">
-                                    
-                                    
+                                        <input type="text" class="form-control allownumber" name="contact" value="<?php  if(!empty($contactno)){ echo $contactno ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Whats app</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control" name="whatapp">
-                                      
-                                    
+                                    </label>
+                                        <input type="text" class="form-control allownumber" name="whatapp" value="<?php  if(!empty($whatapp)){ echo $whatapp;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Email id</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control" name="email">
-                                       
-                                    
+                                    </label>
+                                        <input type="email" class="form-control" name="email" value="<?php  if(!empty($email)){ echo $email ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Occupation</label>
-                                    <input type="text" class="form-control"  name="occupation">
+                                    <input type="text" class="form-control"  name="occupation" value="<?php  if(!empty($occuption)){ echo $occuption ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Organization</label>
-                                    <input type="text" class="form-control"  name="organization">
+                                    <input type="text" class="form-control"  name="organization" value="<?php  if(!empty($organization)){ echo $organization ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Desigantion</label>
-                                    <input type="text" class="form-control"  name="desigantion">
+                                    <input type="text" class="form-control"  name="desigantion" value="<?php  if(!empty($desigantion)){ echo $desigantion;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>D.O.B (Age)</label>
-                                    <input type="text" class="form-control"  name="age">
+                                    <input type="text" class="form-control allownumber"  name="age" value="<?php  if(!empty($d_o_b)){ echo $d_o_b;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Anniversary</label>
-                                    <input type="text" class="form-control"  name="Anniversary">
+                                    <input type="text" class="form-control"  name="Anniversary" value="<?php  if(!empty($anniversary)){ echo $anniversary;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Pan No</label>
                                     <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="pan">
-                                        
-                                    
+                                        <input type="text" class="form-control"  name="pan" value="<?php  if(!empty($pan_no)){ echo $pan_no;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Aadhar No</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="adhar">
-                                      
-                                    
+                                    </label>
+                                        <input type="text" class="form-control allownumber"  name="adhar" value="<?php  if(!empty($aadhar_no)){ echo $aadhar_no;  } ?>">
                                 </div>
                             </div>
                         </fieldset>
@@ -307,33 +284,24 @@ legend.scheduler-border {
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Co-Applicant's Name</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="co_applicant">
-                                      
-                                    
+                                    </label>
+                                        <input type="text" class="form-control"  name="co_applicant" value="<?php  if(!empty($co_applicant_name)){ echo $co_applicant_name;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Relationship</label>
-                                    <input type="text" class="form-control"  name="relantionship">
+                                    <input type="text" class="form-control"  name="relationship" value="<?php  if(!empty($relationship)){ echo $relationship ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Contact No</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="contact2">
-                                   
+                                    </label>
+                                        <input type="text" class="form-control allownumber"  name="contact2" value="<?php  if(!empty($co_app_contact_no)){ echo $co_app_contact_no;  } ?>">
                                     </div>
-                                
                                 <div class="form-group col-md-5">
                                     <label>Email id</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="email2">
-                                       
-                                    
+                                    </label>
+                                        <input type="email" class="form-control"  name="email2" value="<?php  if(!empty($co_app_email)){ echo $co_app_email;  } ?>">
                                 </div>
 
                             </div>
@@ -341,45 +309,38 @@ legend.scheduler-border {
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Occupation</label>
-                                    <input type="text" class="form-control" name="occupation">
+                                    <input type="text" class="form-control" name="occupation2" value="<?php  if(!empty($co_app_occupation)){ echo $co_app_occupation;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Organization</label>
-                                    <input type="text" class="form-control"  name="organization">
+                                    <input type="text" class="form-control"  name="organization2" value="<?php  if(!empty($co_app_organization)){ echo $co_app_organization;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Desigantion</label>
-                                    <input type="text" class="form-control"  name="desigantion">
+                                    <input type="text" class="form-control"  name="desigantion2" value="<?php  if(!empty($co_app_desigantion)){ echo $co_app_desigantion;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>D.O.B (Age)</label>
-                                    <input type="text" class="form-control" name="dob2">
+                                    <input type="text" class="form-control" name="dob2" value="<?php  if(!empty($co_app_d_o_b)){ echo $co_app_d_o_b;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Anniversary</label>
-                                    <input type="text" class="form-control" name="anniversary2">
+                                    <input type="text" class="form-control" name="anniversary2" value="<?php  if(!empty($co_app_anniversary)){ echo $co_app_anniversary ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Pan No</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control" name="pan2">
-                                       
-                                    
+                                    </label>
+                                        <input type="text" class="form-control" name="pan2" value="<?php  if(!empty($co_app_pan_no)){ echo $co_app_pan_no;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Aadhar No</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="adhar2">
-                                      
-                                
+                                        <input type="text" class="form-control allownumber"  name="adhar2" value="<?php  if(!empty($co_app_aadhar_no)){ echo  $co_app_aadhar_no ;  } ?>">
                             </div>
                         </fieldset>
                         <fieldset class="scheduler-border">
@@ -389,22 +350,22 @@ legend.scheduler-border {
                                     <div class="form-group col-md-6">
                                         <label>Wing No</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="select2 form-control">
-                                                <option>wing</option>
-                                                <option>wing</option>
-                                                <option>wing</option>
-                                                <option>wing</option>
-                                            </select>
+                                            <select class="select2 form-control" name="building_id" onchange="get_buildingfloors(this.value)">
+                                                <option value="">Select Wing</option>
+                                                    <?php  if(!empty($building)){ foreach($building as  $row) 
+                                                        { ?>
+													<option value="<?php   echo $row->bldid ; ?>"  <?php  if(isset($building_no)){ echo $building_no == $row->bldid ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+												<?php   }  }  ?>	
+												</select>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Floor</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="select2 form-control">
-                                                <option>Floor</option>
-                                                <option>Floor</option>
-                                                <option>Floor</option>
-                                                <option>Floor</option>
+                                            <select class="select2 form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
+                                                 <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
+													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($floor)){ echo $floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+												<?php   }  }  ?>	
                                             </select>
                                         </div>
                                     </div>
@@ -412,11 +373,10 @@ legend.scheduler-border {
                                 <div class="form-group col-md-5">
                                     <label>Shop/Flat No</label>
                                     <div class="col-md-12" style="padding: 0px;">
-                                        <select class="select2 form-control">
-                                            <option>Flat</option>
-                                            <option>Flat</option>
-                                            <option>Flat</option>
-                                            <option>Flat</option>
+                                        <select class="select2 form-control" id="units" name="unit_id">
+                                             <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
+													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($flat)){ echo $flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
+												<?php   }  }  ?>	
                                         </select>
                                     </div>
                                 </div>
@@ -424,67 +384,53 @@ legend.scheduler-border {
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Carpet Area(5q. mtr)</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control" name="carpetarea">
-                                      
-                                    
+                                    </label>
+                                        <input type="text" class="form-control allowdecimalpoint" name="carpetarea" value="<?php  if(!empty($carpet_area)){ echo  $carpet_area ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Enclosed Balcony Carpet Area(5q. mtr)</label>
-                                    <input type="text" class="form-control" name="enclosed_balconycarpet_area">
+                                    <input type="text" class="form-control allowdecimalpoint" name="enclosed_balconycarpet_area" value="<?php  if(!empty($enclosed_balcony_area)){ echo $enclosed_balcony_area;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Open Balcony Carpet Area(5q. mtr)</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="open_balcony_carpet_area">
-                                       
-                                    
+                                   </label>
+                                        <input type="text" class="form-control allowdecimalpoint"  name="open_balcony_carpet_area" value="<?php  if(!empty($open_balcony_carpet)){ echo$open_balcony_carpet ;  } ?>">
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Basic Cost</label>
-                                    <input type="text" class="form-control" name="basic_cost">
+                                    <input type="text" class="form-control allowdecimalpoint" name="basic_cost" value="<?php  if(!empty($basic_cost)){ echo $basic_cost;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Intra Charges</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control" name="intra_charges">
-                                    
-                                    
+                                   </label>
+                                        <input type="text" class="form-control allowdecimalpoint" name="intra_charges" value="<?php  if(!empty($intra_charges)){ echo  $intra_charges ;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Agreement Value</label>
-                                    <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="agreementvalue">
-                                     
-                                    
+                                   </label>
+                                        <input type="text" class="form-control allowdecimalpoint"  name="agreementvalue" value="<?php  if(!empty($agreement_value)){ echo $agreement_value;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Stamp Duty @</label>
-                                    <input type="text" class="form-control"  name="stamp_duty">
+                                    <input type="text" class="form-control allowdecimalpoint"  name="stamp_duty" value="<?php  if(!empty($stamp_duty)){ echo $stamp_duty;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Registration Fees</label>
-                                    <input type="text" class="form-control"  name="registration_fees">
+                                    <input type="text" class="form-control allowdecimalpoint"  name="registration_fees" value="<?php  if(!empty($registration_fee)){ echo $registration_fee;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Legal Charges</label>
                                     <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="legal_charges">
-                                       
+                                        <input type="text" class="form-control allowdecimalpoint"  name="legal_charges" value="<?php  if(!empty($legal_charges)){ echo  $legal_charges ;  } ?>">
                                     
                                 </div>
                             </div>
@@ -492,43 +438,37 @@ legend.scheduler-border {
                                 <div class="form-group col-md-5">
                                     <label>GST</label>
                                     <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="gst">
-                                   
-                                    
+                                        <input type="text" class="form-control allowdecimalpoint"  name="gst" value="<?php  if(!empty($gst)){ echo  $gst ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>GRAND TOTAL COST</label>
                                     <span class="required" aria-required="true">*</span></label>
-                                    
-                                        <input type="text" class="form-control"  name="total_cost">
-                                       
-                                    
+                                        <input type="text" class="form-control allowdecimalpoint"  name="total_cost" value="<?php  if(!empty($grand_total_cost)){ echo $grand_total_cost;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Own Contribution</label>
-                                    <input type="text" class="form-control"  name="own_contribution">
+                                    <input type="text" class="form-control allowdecimalpoint"  name="own_contribution" value="<?php  if(!empty($owner_contribution)){ echo $owner_contribution ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Bank Loan</label>
-                                    <input type="text" class="form-control"  name="bank_loan">
+                                    <input type="text" class="form-control allowdecimalpoint"  name="bank_loan" value="<?php  if(!empty($bank_loan)){ echo $bank_loan;  } ?>">
                                 </div>
                             </div>
                         </fieldset>
                         <div class="row">
                             <div class="col-md-6">
-                                <h4>Payment Schedule<sup>*</sup>:</h4>
+                                <h4>Payment Schedule<sup></sup>:</h4>
                                 
                                    <div class="form-group">
                                             <label class="css-input css-radio css-radio-success push-10-r">
                                                 <input name="scheduletype" value="1" 
-                                                    type="radio" class="scheduletype"><span></span> Custom Plan
+                                                    type="radio" class="scheduletype" <?php  if(!empty($payment_schedule_plan)){ if($payment_schedule_plan==1){ echo "checked" ;  }}  ?>><span></span> Custom Plan
                                             </label> &nbsp;  &nbsp;  &nbsp;  &nbsp;  
                                             <label class="css-input css-radio css-radio-success push-10-r">
-                                                <input name="scheduletype" value="2"
-                                                    type="radio" class="scheduletype" checked><span></span> Regular Plan
+                                                <input name="scheduletype" value="2" <?php  if(!empty($payment_schedule_plan)){ if($payment_schedule_plan==2){ echo "checked" ;  }}else{ echo "checked" ; }  ?>
+                                                    type="radio" class="scheduletype" ><span></span> Regular Plan
                                             </label>
                                         </div>
                                 
@@ -540,55 +480,57 @@ legend.scheduler-border {
                                     <tbody>
                                         <tr>
                                             <td>Token/Booking Amount</td>
-                                            <td><input type="text" value="10" name="token_bookin_amt"class="payment_tk form-control"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  name="token_booking_amt"class="payment_tk form-control allowdecimalpoint" value="<?php  if(!empty($token_booking_amt)){ echo round($token_booking_amt);  }else{ echo 10 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Execution of Agreement</td>
-                                            <td><input type="text" value="20" name="execution_of_agreement_amt" class="payment_tk form-control"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  name="execution_of_agreement_amt" class="payment_tk form-control allowdecimalpoint" value="<?php  if(!empty($execution_of_agreement_amt)){ echo round($execution_of_agreement_amt);  }else{ echo 20 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Plinth</td>
-                                            <td><input type="text" value="15" class="payment_tk form-control" name="completion_of_plinth_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_plinth_amt" value="<?php  if(!empty($completion_of_plinth_amt)){ echo round($completion_of_plinth_amt) ;  }else{ echo 15;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Parking & 1st Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="parking_1st_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="parking_1st_slab_amt" value="<?php  if(!empty($parking_1st_slab_amt)){ echo round($parking_1st_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 2nd Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control"  name="completionof_2nd_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint"  name="completionof_2nd_slab_amt"
+											value="<?php  if(!empty($completionof_2nd_slab_amt))
+											{ echo round($completionof_2nd_slab_amt) ;  }else{ echo 5;  } ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 5th Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="completion_of_5th_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_5th_slab_amt" value="<?php  if(!empty($completion_of_5th_slab_amt)){ echo  round($completion_of_5th_slab_amt) ;  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 8th Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="completion_of_8th_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_8th_slab_amt" value="<?php  if(!empty($completion_of_8th_slab_amt)){ echo round($completion_of_8th_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 11th Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="completion_of_11_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_11_slab_amt" value="<?php  if(!empty($completion_of_11_slab_amt)){ echo round($completion_of_11_slab_amt);  }else{ echo 5;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Topmost Slab</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control"  name="completion_of_topmost_slab_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint"  name="completion_of_topmost_slab_amt" value="<?php  if(!empty($completion_of_topmost_slab_amt)){ echo round($completion_of_topmost_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Brick Work,Plaster & Flooring</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="brick_work_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text" class="payment_tk form-control allowdecimalpoint" name="brick_work_amt" value="<?php  if(!empty($paint_stage_amt)){ echo round($paint_stage_amt) ;  }else{ echo 5;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of Sanitary Fitting & Paint</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="paint_stage_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="paint_stage_amt" value="<?php  if(!empty($finishg_work_amt)){ echo round($finishg_work_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of MEP & Finishing Work</td>
-                                            <td><input type="text" value="10" class="payment_tk form-control" name="finishg_work_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="finishg_work_amt" value="<?php  if(!empty($possesion_amt)){ echo round($possesion_amt);  }else{ echo 10 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Handover/Possesion</td>
-                                            <td><input type="text" value="5" class="payment_tk form-control" name="possesion_amt"><span class="percentage_s">%</span></td>
+                                            <td><input type="text" class="payment_tk form-control allowdecimalpoint" name="possesion_amt" value="<?php  if(!empty($possesion_amt)){ echo round($possesion_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -610,12 +552,21 @@ legend.scheduler-border {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $i=1; if(!empty($payment_details)){ foreach($payment_details as $row){  ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="chequen[]"></td>
-                                            <td><input type="text" class="form-control" name="paymentdate[]"></td>
+                                        <td><?php  echo $i;  ?>.</td>
+                                            <td><input type="text" class="form-control" name="cheque[]"  value="<?php echo $row->cheque_no  ;  ?>" ></td>
+                                            <td><input type="text" class="form-control datepicker" name="paymentdate[]" value="<?php echo $row->date  ;  ?>" onkeydown="return false"></td>
+                                            <td><input type="text" class="form-control" name="bank_details[]" value="<?php echo $row->bank_branch  ;  ?>"></td>
+                                            <td><input type="text" class="form-control allowdecimalpoint paymentdue" name="amount[]" value="<?php echo $row->amount  ;  ?>"><a href="javascript:void(0);" class="remCF">x</a></td>
+                                            </tr>
+                                    <?php  $i++; }  }  ?>
+                                        <tr>
+                                            <td><?php   if(isset($i)){ echo $i ; }else{ echo 1; }?>.</td>
+                                            <td><input type="text" class="form-control" name="cheque[]" ></td>
+                                            <td><input type="text" class="form-control datepicker" name="paymentdate[]" onkeydown="return false"></td>
                                             <td><input type="text" class="form-control" name="bank_details[]"></td>
-                                            <td><input type="text" class="form-control" name="amount[]"><a href="javascript:void(0);"
+                                            <td><input type="text" class="form-control allowdecimalpoint paymentdue" name="amount[]"><a href="javascript:void(0);"
                                                     class="addCF">+</a></td>
 
                                         </tr>
@@ -623,14 +574,14 @@ legend.scheduler-border {
                                     <tfoot>
                                         <tr>
                                             <td colspan="4" style="text-align: right;">Total Received Payment</td>
-                                            <td><input type="text" class="form-control"
-                                                    style="border: none;border-bottom: 1px solid #ddd;" name="total_received_payment"></td>
+                                            <td><input type="text" class="form-control total_received"
+                                                    style="border: none;border-bottom: 1px solid #ddd;" name="total_received_payment" value="<?php  if(!empty($total_received_amt)){ echo $total_received_amt ;  } ?>"></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5">
                                                 <input type="text" class="form-control"
                                                     style="border: none;border-bottom: 1px solid #ddd;"
-                                                    placeholder="Rupees(in Words)" name="rupee_in_word">
+                                                    placeholder="Rupees(in Words)" name="rupee_in_word" value="<?php  if(!empty($rupee_in_word)){ echo $rupee_in_word ;  } ?>">
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -649,7 +600,7 @@ legend.scheduler-border {
                                         refunding amount after cancellation.</li>
                                     <li>We are not accepting any kind of internal changes. so please don't request for
                                         any changes.</li>
-                                    <li>The above quotation id valid for <input type="text"  name="valid_days"> days only.</li>
+                                    <li>The above quotation id valid for <input type="text" class="allownumber"  name="valid_days" value="<?php  if(!empty($valid_days)){ echo $valid_days ;  } ?>"> days only.</li>
                                     <li>Payment schedule must be followed. Non receiving of payment on time will cause
                                         interest and penalty.</li>
                                     <li>Above mentioned govt taxed are as per current charges. if it changes, same will
@@ -667,7 +618,7 @@ legend.scheduler-border {
                                     <label class="col-sm-4">Attended By :</label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
-                                            style="border: none;border-bottom: 1px solid #ddd;"  name="attendedby">
+                                            style="border: none;border-bottom: 1px solid #ddd;"  name="attendedby" value="<?php  if(!empty($attended_by)){ echo  $attended_by ;  } ?>">
                                     </div>
                                 </div>
                             </div>
@@ -675,7 +626,7 @@ legend.scheduler-border {
                                 <div class="form-group  col-md-12">
                                     <div class="col-md-12 file_upload">
                                         <div class="file-upload-wrapper" data-text-upload="Upload Document">
-                                            <input name="file-upload-field" type="file" name="purchaser_signature" class="file-upload-field"
+                                            <input  type="file" name="purchaser_signature" class="file-upload-field"
                                                 value="">
                                         </div>
                                     </div>
@@ -686,7 +637,7 @@ legend.scheduler-border {
                                 <div class="form-group col-md-12">
                                     <div class="col-md-12">
                                         <input type="text" class="form-control"
-                                            style="border: none;border-bottom: 1px solid #ddd;" name="witness">
+                                            style="border: none;border-bottom: 1px solid #ddd;" name="witness" value="<?php  if(!empty($witness)){ echo $witness ;  } ?>">
                                     </div>
                                     <label class="col-sm-12">Witness</label>
                                 </div>
@@ -695,7 +646,7 @@ legend.scheduler-border {
                                 <div class="form-group col-md-12">
                                     <div class="col-md-12 file_upload">
                                         <div class="file-upload-wrapper" data-text-upload="Upload Document">
-                                            <input name="signatory" type="file" class="file-upload-field" value=""  name="authorised_signatory">
+                                            <input  type="file" class="file-upload-field" value="<?php  if(!empty($witness)){ echo $witness ;  } ?>"  name="authorised_signatory">
                                         </div>
                                     </div>
                                     <label class="col-sm-12" style="padding-right: 0px;">Authorised Signatory with
@@ -745,10 +696,9 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-    var i = 2;
-    $(".addCF").on('click', function() {
-        var data = '<tr><td>' + i + '.</td><td><input type="text" id="booking_formName' + i +
-            '" name="booking_formName[]" class="form-control"></td><td><input type="text" class="form-control"></td><td><input type="text" class="form-control"></td><td><input type="text" class="form-control"><a href="javascript:void(0);" class="remCF">x</a></td></tr>';
+    var i =<?php   if(isset($i)){ echo $i+1 ; }else{ echo 2; }?>;
+    $(".addCF").on('click', function() { 
+        var data = '<tr><td>' + i + '.</td><td><input type="text" class="form-control" name="cheque[]"></td><td><input type="text" class="form-control datepicker" name="paymentdate[]"  onkeydown="return false"></td><td><input type="text" class="form-control" name="bank_details[]"></td><td><input type="text" class="form-control allowdecimalpoint paymentdue" name="amount[]"><a href="javascript:void(0);" class="remCF">x</a></tr>';
         $('#customFields').append(data);
         i++;
         $(".remCF").on('click', function() {
@@ -775,4 +725,19 @@ $(document).ready(function() {
 	 }
 });
 });
+
+
+$(document).ready(function(){
+  $(".paymentdue").blur(function(){
+   var sum = 0;
+    $('.paymentdue').each(function() {
+        sum += Number($(this).val());
+    });
+$(".total_received").val(sum);
+  });
+});
+</script>
+
+<script>
+$('form').attr('autocomplete', 'off');
 </script>

@@ -1270,5 +1270,23 @@ function get_leads(str){
 			});
 	}
 
+	function get_buildingwise_floor(str){
+	var postUrl  = getBaseURL()+'admin/floors/get_building' ;
+		if (str == '') {
+			$("#building").html("<option value=''>Please Select</option>");
+		} else {
+			$("#building").html("<option value=''>Please Select</option>");
+			$.ajax({
+				type: "POST",
+				url:  postUrl,
+				data: { projectid : str },
+				cache: false,
+				success: function(result){
+					$("#building").html("<option value=''>Please Select</option>");
+					$("#building").append(result);
+				}
+			});
 
+		}
+	}
 

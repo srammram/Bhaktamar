@@ -418,6 +418,15 @@ $("#booking").click(function ()  {
 			  applicantname: {
                 required: true,
             },
+			 building_id: {
+                required: true,
+            },
+			 floor_id: {
+                required: true,
+            },
+			 unit_id: {
+                required: true,
+            },
         },
 
         highlight: function(element) {

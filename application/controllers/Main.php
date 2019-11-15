@@ -15,8 +15,8 @@ class Main extends CI_Controller {
         echo $HTML; 
     }
 	public function get_buildingfloors(){
-        $projectid = $this->input->post('projectid');
-		$buildingid = $this->input->post('building');
+        $projectid = !empty($this->input->post('projectid'))?$this->input->post('projectid'):'';
+		$buildingid = !empty($this->input->post('building'))? $this->input->post('building'):'';
         $HTML = '';
 	    $floors = $this->site->get_floor($projectid,$buildingid);
         if ($floors) {
@@ -27,9 +27,9 @@ class Main extends CI_Controller {
         echo $HTML; 
     }
 	public function get_floorUnits(){
-        $projectid = $this->input->post('projectid');
-		$buildingid = $this->input->post('building');
-		$floorid = $this->input->post('floorid');
+        $projectid = !empty($this->input->post('projectid'))?$this->input->post('projectid'):'';
+		$buildingid = !empty($this->input->post('building'))? $this->input->post('building'):'';
+		$floorid = !empty($this->input->post('floorid'))? $this->input->post('floorid'):''; 
         $HTML = '';
 	    $units = $this->site->get_unit($projectid,$buildingid,$floorid);
         if ($units) {
