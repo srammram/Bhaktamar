@@ -350,7 +350,7 @@ legend.scheduler-border {
                                     <div class="form-group col-md-6">
                                         <label>Wing No</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="select2 form-control" name="building_id" onchange="get_buildingfloors(this.value)">
+                                            <select class="form-control" name="building_id" onchange="get_buildingfloors(this.value)">
                                                 <option value="">Select Wing</option>
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
                                                         { ?>
@@ -358,22 +358,24 @@ legend.scheduler-border {
 												<?php   }  }  ?>	
 												</select>
                                         </div>
+                                        
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Floor</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="select2 form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
+                                            <select class="form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
                                                  <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
 													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($floor)){ echo $floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
 												<?php   }  }  ?>	
                                             </select>
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Shop/Flat No</label>
                                     <div class="col-md-12" style="padding: 0px;">
-                                        <select class="select2 form-control" id="units" name="unit_id">
+                                        <select class="form-control" id="units" name="unit_id">
                                              <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
 													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($flat)){ echo $flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
 												<?php   }  }  ?>	

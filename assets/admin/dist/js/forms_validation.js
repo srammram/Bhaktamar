@@ -439,11 +439,11 @@ $("#booking").click(function ()  {
         errorElement: 'span',
         errorClass: 'help-block animated fadeInDown',
         errorPlacement: function(error, element) {
-            if (element.parent('.form-group').length) {
+            if (element.parent('.form-group .form-control').length) {
                 error.insertAfter(element.parent());
             } else {
                 error.insertAfter(element);
             }
         }
-    })
+    });
 });
