@@ -16,7 +16,19 @@
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 35px;
 }
+	.select2{border: none;background-color: transparent;}
+	.well-sm .form-group{margin-bottom: 0px;}
+select {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
 
+/* For IE10 */
+select::-ms-expand {
+  display: none;
+}
 .content-header .breadcrumb {
     margin-bottom: 0px;
     background-color: transparent;
@@ -67,6 +79,7 @@ legend.scheduler-border {
 
 #customFields {
     position: relative;
+	table-layout: fixed;
 }
 
 .remCF,
@@ -171,7 +184,17 @@ legend.scheduler-border {
     width: 100%;
 }
 	.payment_tk{width: 75%;float: left;margin-right: 1px;text-align: center;}
-	.percentage_s{margin-top: 5px;position: relative;float: left;}
+	.percentage_s{margin-top: 0px;position: relative;float: right;}
+	#customFields thead tr th:first-child{text-align: center;}
+	#customFields thead tr th:last-child{text-align: right;}
+	#customFields tbody tr td:last-child{text-align: right;}
+	#customFields tfoot tr td:last-child{text-align: right;}
+	#customFields tfoot tr:last-child td{text-align: left;}
+	.form-group label::after{content: ':';position: absolute;right: 0px;top: 0px;}
+	.well-sm .form-group label::after{display: none;}
+	.form-group .css-radio::after{display: none;}
+	.bottom_s .form-group label::after{display: none;}
+	.bottom_s .form-group .form-control{border: none!important;}
 </style>
 <?php   $seg= $this->uri->segment(5);?>
 <section class="content-header">
@@ -196,158 +219,200 @@ legend.scheduler-border {
                             <legend class="scheduler-border">View</legend>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Date<span class="required" aria-required="true">*</span></label>
-                                       
-                                            <?php  if(!empty($booking->date)){ echo $booking->date;  } ?>
+                                    <label class="col-md-6">Date</label>
+								   	<div class="col-md-6">
+                               			<?php  if(!empty($booking->date)){ echo $booking->date;  } ?>
+                               		</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Serial No</label>
-                                    <?php  if(!empty($booking->serial_no)){ echo $booking->serial_no ;  } ?>
+                                    <label class="col-md-6">Serial No</label>
+									<div class="col-md-6">
+                                    	<?php  if(!empty($booking->serial_no)){ echo $booking->serial_no ;  } ?>
+                                	</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Applicant Name</label>
-                                    <span class="required" aria-required="true">*</span></label>
+                                    <label class="col-md-6">Applicant Name</label></label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->applicant_name)){ echo $booking->applicant_name;  } ?>
-                           
+                                	</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Address</label>
-                                        <?php  if(!empty($booking->address)){ echo $booking->address ;  } ?>
+                                    <label class="col-md-6">Address</label>
+									<div class="col-md-6">
+										<?php  if(!empty($booking->address)){ echo $booking->address ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Pincode</label>
-                                    <?php  if(!empty($booking->pincode)){ echo $booking->pincode ;  } ?>
+                                    <label class="col-md-6">Pincode</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->pincode)){ echo $booking->pincode ;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Contact No</label>
+                                    <label class="col-md-6">Contact No</label>
+									<div class="col-md-6">
                                         <?php  if(!empty($booking->contactno)){ echo $booking->contactno ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Whats app</label>
-                                    </label>
+									<label class="col-md-6">Whats app</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->whatapp)){ echo $booking->whatapp;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Email id</label>
-                                    </label>
+                                    <label class="col-md-6">Email id</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->email)){ echo $booking->email ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Occupation</label>
-                                    <?php  if(!empty($booking->occuption)){ echo $booking->occuption ;  } ?>
+                                    <label class="col-md-6">Occupation</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->occuption)){ echo $booking->occuption ;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Organization</label>
-                                    <?php  if(!empty($booking->organization)){ echo $booking->organization ;  } ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-5">
-                                    <label>Desigantion</label>
-                                    <?php  if(!empty($booking->desigantion)){ echo $booking->desigantion;  } ?>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label>D.O.B (Age)</label>
-                                    <?php  if(!empty($booking->d_o_b)){ echo $booking->d_o_b;  } ?>
+                                    <label class="col-md-6">Organization</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->organization)){ echo $booking->organization ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Anniversary</label>
-                                    <?php  if(!empty($booking->anniversary)){ echo $booking->anniversary;  } ?>
+                                    <label class="col-md-6">Desigantion</label>
+								 	<div class="col-md-6">
+                                    	<?php  if(!empty($booking->desigantion)){ echo $booking->desigantion;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Pan No</label>
-                                    <span class="required" aria-required="true">*</span></label>
+                                    <label class="col-md-6">D.O.B (Age)</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->d_o_b)){ echo $booking->d_o_b;  } ?>
+									</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <label class="col-md-6">Anniversary</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->anniversary)){ echo $booking->anniversary;  } ?>
+									</div>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="col-md-6">Pan No</label>
+								  	<div class="col-md-6"> 
                                         <?php  if(!empty($booking->pan_no)){ echo $booking->pan_no;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Aadhar No</label>
-                                    </label>
+                                    <label class="col-md-6">Aadhar No</label>
+								   	<div class="col-md-6"> 
                                         <?php  if(!empty($booking->aadhar_no)){ echo $booking->aadhar_no;  } ?>
+									</div>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="scheduler-border" style="padding-top:1.4em !important">
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Co-Applicant's Name</label>
-                                    </label>
+                                    <label class="col-md-6">Co-Applicant's Name</label>
+								   <div class="col-md-6">
                                         <?php  if(!empty($booking->co_applicant_name)){ echo $booking->co_applicant_name;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Relationship</label>
-                                    <?php  if(!empty($booking->relationship)){ echo $booking->relationship ;  } ?>
+                                    <label class="col-md-6">Relationship</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->relationship)){ echo $booking->relationship ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Contact No</label>
-                                    </label>
+                                    <label class="col-md-6">Contact No</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->co_app_contact_no)){ echo $booking->co_app_contact_no;  } ?>
-                                    </div>
+									</div>
+								</div>
                                 <div class="form-group col-md-5">
-                                    <label>Email id</label>
-                                    </label>
+                                    <label class="col-md-6">Email id</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->co_app_email)){ echo $booking->co_app_email;  } ?>
+									</div>
                                 </div>
 
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Occupation</label>
-                                    <?php  if(!empty($booking->co_app_occupation)){ echo $booking->co_app_occupation;  } ?>
+                                    <label class="col-md-6">Occupation</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->co_app_occupation)){ echo $booking->co_app_occupation;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Organization</label>
-                                    <?php  if(!empty($booking->co_app_organization)){ echo $booking->co_app_organization;  } ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-5">
-                                    <label>Desigantion</label>
-                                    <?php  if(!empty($booking->co_app_desigantion)){ echo $booking->co_app_desigantion;  } ?>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label>D.O.B (Age)</label>
-                                    <?php  if(!empty($booking->co_app_d_o_b)){ echo $booking->co_app_d_o_b;  } ?>
+                                    <label class="col-md-6">Organization</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->co_app_organization)){ echo $booking->co_app_organization;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Anniversary</label>
-                                    <?php  if(!empty($booking->co_app_anniversary)){ echo $booking->co_app_anniversary ;  } ?>
+                                    <label class="col-md-6">Desigantion</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->co_app_desigantion)){ echo $booking->co_app_desigantion;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Pan No</label>
-                                    </label>
+                                    <label class="col-md-6">D.O.B (Age)</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->co_app_d_o_b)){ echo $booking->co_app_d_o_b;  } ?>
+									</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <label class="col-md-6">Anniversary</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->co_app_anniversary)){ echo $booking->co_app_anniversary ;  } ?>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="col-md-6">Pan No</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->co_app_pan_no)){ echo $booking->co_app_pan_no;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Aadhar No</label>
-                                        <?php  if(!empty($booking->co_app_aadhar_no)){ echo  $booking->co_app_aadhar_no ;  } ?>
-                            </div>
+									<label class="col-md-6">Aadhar No</label>
+									<div class="col-md-6">
+										<?php  if(!empty($booking->co_app_aadhar_no)){ echo  $booking->co_app_aadhar_no ;  } ?>
+									</div>
+                            	</div>
+							</div>
                         </fieldset>
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Booking Details(For office use only)</legend>
-                            <div class="row">
-                                <div class="form-group col-md-5" style="padding: 0px;">
+                            <div class="row well well-sm">
+                                <div class="form-group col-md-7" style="padding: 0px;">
                                     <div class="form-group col-md-6">
-                                        <label>Wing No</label>
-                                        <div class="col-md-12" style="padding: 0px;">
+                                        <label class="col-md-6" style="padding: 6px 15px;">Wing No</label>
+                                        <div class="col-md-6" style="padding: 0px;">
                                             <select class="select2 form-control" name="building_id" onchange="get_buildingfloors(this.value)">
                                                 <option value="">Select Wing</option>
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
@@ -358,8 +423,8 @@ legend.scheduler-border {
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Floor</label>
-                                        <div class="col-md-12" style="padding: 0px;">
+                                        <label class="col-md-6" style="padding: 6px 15px;">Floor</label>
+                                        <div class="col-md-6" style="padding: 0px;">
                                             <select class="select2 form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
                                                  <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
 													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($booking->floor)){ echo $booking->floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
@@ -369,8 +434,8 @@ legend.scheduler-border {
                                     </div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Shop/Flat No</label>
-                                    <div class="col-md-12" style="padding: 0px;">
+                                    <label class="col-md-6" style="padding: 6px 15px;">Shop/Flat No</label>
+                                    <div class="col-md-6" style="padding: 0px;">
                                         <select class="select2 form-control" id="units" name="unit_id">
                                              <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
 													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($booking->flat)){ echo $booking->flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
@@ -381,77 +446,95 @@ legend.scheduler-border {
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Carpet Area(5q. mtr)</label>
-                                    </label>
+                                    <label class="col-md-6">Carpet Area(5q. mtr)</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->carpet_area)){ echo  $booking->carpet_area ;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Enclosed Balcony Carpet Area(5q. mtr)</label>
-                                    <?php  if(!empty($booking->enclosed_balcony_area)){ echo $booking->enclosed_balcony_area;  } ?>
+                                    <label class="col-md-6">Enclosed Balcony Carpet Area(5q. mtr)</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->enclosed_balcony_area)){ echo $booking->enclosed_balcony_area;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Open Balcony Carpet Area(5q. mtr)</label>
-                                   </label>
+                                    <label class="col-md-6">Open Balcony Carpet Area(5q. mtr)</label>
+									<div class="col-md-6">
                                         <?php  if(!empty($booking->open_balcony_carpet)){ echo $booking->open_balcony_carpet ;  } ?>
+									</div>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Basic Cost</label>
-                                    <?php  if(!empty($booking->basic_cost)){ echo $booking->basic_cost;  } ?>
+                                    <label  class="col-md-6">Basic Cost</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->basic_cost)){ echo $booking->basic_cost;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Intra Charges</label>
-                                   </label>
+                                    <label class="col-md-6">Intra Charges</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->intra_charges)){ echo  $booking->intra_charges ;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Agreement Value</label>
-                                   </label>
+                                    <label class="col-md-6">Agreement Value</label>
+									<div class="col-md-6">
                                         <?php  if(!empty($booking->agreement_value)){ echo $booking->agreement_value;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Stamp Duty @</label>
-                                    <?php  if(!empty($booking->stamp_duty)){ echo $booking->stamp_duty;  } ?>
+                                    <label class="col-md-6">Stamp Duty @</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->stamp_duty)){ echo $booking->stamp_duty;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Registration Fees</label>
-                                    <?php  if(!empty($booking->registration_fee)){ echo $booking->registration_fee;  } ?>
+                                    <label class="col-md-6">Registration Fees</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->registration_fee)){ echo $booking->registration_fee;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Legal Charges</label>
-                                    <span class="required" aria-required="true">*</span></label>
+                                    <label class="col-md-6">Legal Charges</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->legal_charges)){ echo  $booking->legal_charges ;  } ?>
-                                    
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>GST</label>
-                                    <span class="required" aria-required="true">*</span></label>
+                                    <label class="col-md-6">GST</label>
+                                    <div class="col-md-6">
                                         <?php  if(!empty($booking->gst)){ echo  $booking->gst ;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>GRAND TOTAL COST</label>
-                                    <span class="required" aria-required="true">*</span></label>
+                                    <label class="col-md-6">GRAND TOTAL COST</label>
+								   	<div class="col-md-6">
                                         <?php  if(!empty($booking->grand_total_cost)){ echo $booking->grand_total_cost;  } ?>
+									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label>Own Contribution</label>
-                                    <?php  if(!empty($booking->owner_contribution)){ echo $booking->owner_contribution ;  } ?>
+                                    <label class="col-md-6">Own Contribution</label>
+									<div class="col-md-6">
+                                    	<?php  if(!empty($booking->owner_contribution)){ echo $booking->owner_contribution ;  } ?>
+									</div>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <label>Bank Loan</label>
-                                    <?php  if(!empty($booking->bank_loan)){ echo $booking->bank_loan;  } ?>
+                                    <label class="col-md-6">Bank Loan</label>
+                                    <div class="col-md-6">
+                                    	<?php  if(!empty($booking->bank_loan)){ echo $booking->bank_loan;  } ?>
+									</div>
                                 </div>
                             </div>
                         </fieldset>
@@ -473,7 +556,7 @@ legend.scheduler-border {
                                 <table class="table table-bordered">
                                     <colgroup>
                                         <col width="85%">
-                                        <col width="15%">
+                                        <col width="10%">
                                     </colgroup>
                                     <tbody>
                                         <tr>
@@ -598,42 +681,38 @@ legend.scheduler-border {
                                 </ol>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row bottom_s">
                             <div class="col-md-12" style="margin-bottom: 25px;">
                                 <div class="form-group col-md-6">
-                                    <label class="col-sm-4">Attended By :</label>
+                                    <label class="col-sm-3" style="padding: 8px 15px;">Attended By :</label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control"
                                             style="border: none;border-bottom: 1px solid #ddd;"  name="attendedby" value="<?php  if(!empty($booking->attended_by)){ echo  $booking->attended_by ;  } ?>">
                                     </div>
                                 </div>
+                                <div class="form-group col-md-6">
+                                   <label class="col-sm-12" style="padding: 8px 15px;">Witness</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control"
+                                            style="border: none;border-bottom: 1px solid #ddd;" name="witness" value="<?php  if(!empty($booking->witness)){ echo $booking->witness ;  } ?>">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group  col-md-12">
+                            <div class="col-md-4 text-center">
+                                <div class="form-group col-md-12">
                                     <div class="col-md-12 file_upload">
-                                        <div class="file-upload-wrapper" data-text-upload="Upload Document">
-                                            <input  type="file" name="purchaser_signature" class="file-upload-field"
-                                                value="">
-                                        </div>
+                                        <img src="<?=base_url()?>assets/assets/img/client.png">
                                     </div>
                                     <label class="col-sm-12">Purchaser Sign</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group col-md-12">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control"
-                                            style="border: none;border-bottom: 1px solid #ddd;" name="witness" value="<?php  if(!empty($booking->witness)){ echo $booking->witness ;  } ?>">
-                                    </div>
-                                    <label class="col-sm-12">Witness</label>
-                                </div>
+                                
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 text-center">
                                 <div class="form-group col-md-12">
                                     <div class="col-md-12 file_upload">
-                                        <div class="file-upload-wrapper" data-text-upload="Upload Document">
-                                            <input  type="file" class="file-upload-field" value="<?php  if(!empty($booking->witness)){ echo $booking->witness ;  } ?>"  name="authorised_signatory">
-                                        </div>
+                                        <img src="<?=base_url()?>assets/assets/img/client.png">
                                     </div>
                                     <label class="col-sm-12" style="padding-right: 0px;">Authorised Signatory with
                                         company seal</label>

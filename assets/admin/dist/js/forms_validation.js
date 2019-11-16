@@ -408,7 +408,7 @@ $(".saveestimation_form").click(function ()  {
 
 
 
-$("#booking").click(function ()  {
+$("#bookings").click(function ()  {
     $("#bookingform").validate({
         excluded: ':disabled',
          rules: {

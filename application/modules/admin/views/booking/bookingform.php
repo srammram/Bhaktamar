@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/select2.min.css" type="text/css">
 <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/select2.min.js"></script>
+
 <link href='<?php echo base_url()?>assets/assets/plugin/datepicker/datepicker3.css' rel='stylesheet' media='screen'>
 <style>
 .error {
@@ -350,24 +351,26 @@ legend.scheduler-border {
                                     <div class="form-group col-md-6">
                                         <label>Wing No</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="form-control" name="building_id" onchange="get_buildingfloors(this.value)">
+                                            <select class="form-control select2" name="building_id" onchange="get_buildingfloors(this.value)">
                                                 <option value="">Select Wing</option>
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
                                                         { ?>
 													<option value="<?php   echo $row->bldid ; ?>"  <?php  if(isset($building_no)){ echo $building_no == $row->bldid ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
 												<?php   }  }  ?>	
 												</select>
+                                       <label for="building_id" class="error" style="display: none;">Please select your Building.</label>
                                         </div>
                                         
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Floor</label>
                                         <div class="col-md-12" style="padding: 0px;">
-                                            <select class="form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
+                                            <select class="form-control select2" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
                                                  <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
 													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($floor)){ echo $floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
 												<?php   }  }  ?>	
                                             </select>
+                                            <label for="floor" class="error" style="display: none;">Please select your Floor.</label>
                                         </div>
                                         
                                     </div>
@@ -375,11 +378,12 @@ legend.scheduler-border {
                                 <div class="form-group col-md-5">
                                     <label>Shop/Flat No</label>
                                     <div class="col-md-12" style="padding: 0px;">
-                                        <select class="form-control" id="units" name="unit_id">
+                                        <select class="form-control select2" id="units" name="unit_id">
                                              <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
 													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($flat)){ echo $flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
 												<?php   }  }  ?>	
                                         </select>
+                                        <label for="units" class="error" style="display: none;">Please select your Units.</label>
                                     </div>
                                 </div>
                             </div>
@@ -667,11 +671,14 @@ legend.scheduler-border {
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script>
 <script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="<?php echo base_url('assets/admin/plugins')?>/jquery-validation/jquery.validate.min.js"></script>
+
+
 <script>
 $(function() {
     $('.datepicker').datepicker({
@@ -742,4 +749,29 @@ $(".total_received").val(sum);
 
 <script>
 $('form').attr('autocomplete', 'off');
+</script>
+<script type="text/javascript">
+
+	$("#bookingform").validate({
+	ignore: ".ignore",
+	rules: {
+		date:{required: true,},
+		applicantname:{required: true},
+		building_id:{required: true},
+		floor_id:{required: true},
+		unit_id:{required: true},
+		
+	},
+	messages: {
+		date:{required: "Please Select your Date."},
+		applicantname:{required: "Please Write your company name."},
+		building_id:{required: "Please select your Building."},
+		floor_id:{required: "Please select your Floor."},
+		unit_id:{required: "Please select your Unit."},
+	},
+	submitHandler: function (form) {
+	}
+});
+
+
 </script>
