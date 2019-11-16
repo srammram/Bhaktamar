@@ -149,6 +149,8 @@
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+	.form-group label::after{content: ':';position: absolute;right: 0px;top: 0px;}
+	.form-group .fam::after{display: none;}
 </style>
  <?php   $seg= $this->uri->segment(5); ?>
  <?php /*?><section class="content-header">
@@ -192,50 +194,66 @@
 					</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
-                			<label>Name</label>
-                			<?php if(!empty($enquiry->name)){ echo $enquiry->name ; }   ?>
+                			<label class="col-md-6">Name</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->name)){ echo $enquiry->name ; }   ?>
+                			</div>
                 		</div>
                 		
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
-                			<label>Contact No</label>
-                			<?php if(!empty($enquiry->contact_no)){ echo $enquiry->contact_no ; }   ?>
+                			<label class="col-md-6">Contact No</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->contact_no)){ echo $enquiry->contact_no ; }   ?>
+							</div>
                 		</div>
                 		<div class="form-group col-md-5">
-                			<label>Alternate No</label>
-                			<?php if(!empty($enquiry->alernate_no)){ echo $enquiry->alernate_no ; }   ?>
-                		</div>
-                	</div>
-                	<div class="row">
-                		<div class="form-group col-md-5">
-                			<label>Address</label>
-                			<?php if(!empty($enquiry->address)){ echo $enquiry->address ; }   ?>
-                		</div>
-                		<div class="form-group col-md-5">
-                			<label>Email</label>
-                			<?php if(!empty($enquiry->email)){ echo $enquiry->email ; }   ?>
+                			<label class="col-md-6">Alternate No</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->alernate_no)){ echo $enquiry->alernate_no ; }   ?>
+                			</div>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
-                			<label>Profession</label>
-                			<?php if(!empty($enquiry->profession)){ echo $enquiry->profession ; }   ?>
+                			<label class="col-md-6">Address</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->address)){ echo $enquiry->address ; }   ?>
+                			</div>
                 		</div>
                 		<div class="form-group col-md-5">
-                			<label>Organization Name</label>
-                			<?php if(!empty($enquiry->organization)){ echo $enquiry->organization ; }   ?>
+                			<label class="col-md-6">Email</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->email)){ echo $enquiry->email ; }   ?>
+							</div>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
-                			<label>Convenient time to call you</label>
-                			<?php if(!empty($enquiry->convenient)){ echo $enquiry->convenient; }   ?>
+                			<label class="col-md-6">Profession</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->profession)){ echo $enquiry->profession ; }   ?>
+							</div>
+                		</div>
+                		<div class="form-group col-md-5">
+                			<label class="col-md-6">Organization Name</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->organization)){ echo $enquiry->organization ; }   ?>
+							</div>
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="form-group col-md-5">
+                			<label class="col-md-6">Convenient time to call you</label>
+                			<div class="col-md-6">
+                				<?php if(!empty($enquiry->convenient)){ echo $enquiry->convenient; }   ?>
+                			</div>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-12" style="margin-bottom: 0px;">
-                			<label>When do you plan to book the flat</label>
+                			<label class="fam">When do you plan to book the flat</label>
                 		</div>
 						<div class="form-group checkbox_group col-md-3">
 							<input type="checkbox" id="withinaweek" class="plan_to_book"  name="plan_to_book_flat" value="1" <?php  if(!empty($enquiry->plan_to_book_flat)){ if($enquiry->plan_to_book_flat==1){ echo "checked" ;  }}  ?> disabled>
@@ -254,41 +272,41 @@
 						  <label for="within45days">Within 45 Days</label>
 						</div>
                 	</div><hr>
-                	<div class="row">
+                	<div class="row family_dr" >
 						<div class="form-group col-md-4">
-							<label>FAMILY</label>
+							<label class="fam">FAMILY</label>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-3" style="padding-left: 0px">Adult:</label>
+								<label class="col-sm-3" style="padding-left: 0px">Adult</label>
 								<div class="col-sm-7">
 									<?php if(!empty($enquiry->adult)){ echo $enquiry->adult ; }   ?>
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-3" style="padding-left: 0px">Child:</label>
+								<label class="col-sm-3" style="padding-left: 0px">Child</label>
 								<div class="col-sm-7">
 									<?php if(!empty($enquiry->child)){ echo $enquiry->child ; }   ?>
 								</div>
 							</div>
 						</div>
 						<div class="form-group col-md-4">
-							<label>VEHICLE</label>
+							<label class="fam">VEHICLE</label>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-3" style="padding-left: 0px">4 Wheeler:</label>
+								<label class="col-sm-3" style="padding-left: 0px">4 Wheeler</label>
 								<div class="col-sm-7">
 									<?php if(!empty($enquiry->four_wheeler)){ echo $enquiry->four_wheeler ; }   ?>
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-3" style="padding-left: 0px">2 Wheeler:</label>
+								<label class="col-sm-3" style="padding-left: 0px">2 Wheeler</label>
 								<div class="col-sm-7">
 									<?php if(!empty($enquiry->two_wheeler)){ echo $enquiry->two_wheeler ; }   ?>
 								</div>
 							</div>
 						</div>
 						<div class="form-group col-md-4">
-							<label>BUILDING</label>
+							<label class="fam">BUILDING</label>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-4" style="padding-left: 0px;padding-right: 0px;">Preferred Wing:</label>
+								<label class="col-sm-4" style="padding-left: 0px;padding-right: 0px;">Preferred Wing</label>
 								<div class="col-sm-7">
 								
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
@@ -299,7 +317,7 @@
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
-								<label class="col-sm-4" style="padding-left: 0px;">Floor:</label>
+								<label class="col-sm-4" style="padding-left: 0px;">Floor</label>
 								<div class="col-sm-7">
 								
                                                  <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
@@ -313,7 +331,7 @@
 					<hr>
 					<div class="row">
                 		<div class="form-group col-md-12" style="margin-bottom: 0px;">
-                			<label>What brought to here</label>
+                			<label class="fam">What brought to here</label>
                 		</div>
 						<div class="form-group checkbox_group col-md-3">
 							<input type="checkbox" id="hoarding" class="brought_to_here" value="1" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==1){ echo "checked" ;  }}  ?>>
@@ -376,13 +394,13 @@
                 	<hr>
                 	<div class="row">
                 		<div class="form-group col-md-8">
-                			<label class="col-sm-3">Post Visit Remarks :</label>
+                			<label class="col-sm-3">Post Visit Remarks </label>
                 			<div class="col-sm-7">
                 				<?php if(!empty($enquiry->post_visit_remark)){ echo $enquiry->post_visit_remark ; }   ?>
                 			</div>
                 		</div>
                 		<div class="form-group col-md-8">
-                			<label class="col-sm-3">Follow Up:</label>
+                			<label class="col-sm-3">Follow Up</label>
                 			<div class="col-sm-7">
                 				<?php if(!empty($enquiry->followup)){ echo $enquiry->followup ; }   ?>
                 			</div>
@@ -411,52 +429,61 @@
 						<legend class="scheduler-border">Post Enquiry</legend>
 						<div class="row">
 							<div class="form-group col-md-5">
-								<label>Status:</label>
+								<label class="col-md-6">Status</label>
+								<div class="col-md-6">
 									<?php  if(isset($status)){ echo $status == 1 ?'Hot':'' ;  } ?>
 									<?php  if(isset($status)){ echo $status == 2 ?'Warm':'' ;  } ?>
 									<?php  if(isset($status)){ echo $status == 3 ?'Cold':'' ;  } ?>
+								</div>
 							</div>
 							<div class="form-group col-md-5">
-								<label>Looking For:</label>
+								<label class="col-md-6">Looking For</label>
+									<div class="col-md-6">
 									<?php   if(!empty($unit_type)){ foreach($unit_type as $row){  ?>
 									 <?php  if(isset($looking_for)){ echo $looking_for == $row->id ?$row->UnitType:'' ;  } ?>
 									<?php   }  }   ?>
-								</select>
+									</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-md-5">
-								<label>Budget:</label>
-								
-									 <?php  if(isset($budget)){ echo $budget == 1 ?'>Less 40':'' ;  } ?>
-									 <?php  if(isset($budget)){ echo $budget == 2 ?'40-50':'' ;  } ?>
+								<label class="col-md-6">Budget</label>
+								<div class="col-md-6">
+									<?php  if(isset($budget)){ echo $budget == 1 ?'>Less 40':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 2 ?'40-50':'' ;  } ?>
 									<?php  if(isset($budget)){ echo $budget == 3 ?'>50-60':'' ;  } ?>
-									 <?php  if(isset($budget)){ echo $budget == 4 ?'>60-70':'' ;  } ?>
-									 <?php  if(isset($budget)){ echo $budget == 5 ?'>70-80':'' ;  } ?>
-									 <?php  if(isset($budget)){ echo $budget == 6 ?'>80-1Cr':'' ;  } ?>
-									 <?php  if(isset($budget)){ echo $budget == 7 ?'>1-1.2Cr':'' ;  } ?>
-								<?php  if(isset($budget)){ echo $budget == 8 ?'>1.2-1.5Cr':'' ;  } ?>
-								 <?php  if(isset($budget)){ echo $budget == 9 ?'>1.5-1.75Cr':'' ;  } ?>
-									  <?php  if(isset($budget)){ echo $budget == 10 ?'>1.75 Cr+':'' ;  } ?>
-								
+									<?php  if(isset($budget)){ echo $budget == 4 ?'>60-70':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 5 ?'>70-80':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 6 ?'>80-1Cr':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 7 ?'>1-1.2Cr':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 8 ?'>1.2-1.5Cr':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 9 ?'>1.5-1.75Cr':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 10 ?'>1.75 Cr+':'' ;  } ?>
+								</div>
 							</div>
 							<div class="form-group col-md-5">
-								<label>Purpose:</label>
+								<label class="col-md-6">Purpose</label>
+								<div class="col-md-6">
 									<?php  if(isset($purpose)){ echo $purpose == 1 ?'Investment':'' ;  } ?>
 									<?php  if(isset($purpose)){ echo $purpose == 2 ?'Self':'' ;  } ?>
 									<?php  if(isset($purpose)){ echo $purpose == 3 ?'Looking For Other':'' ;  } ?>
 									<?php  if(isset($purpose)){ echo $purpose == 4 ?'Channel Partner':'' ;  } ?>
-									 <?php  if(isset($purpose)){ echo $purpose == 5 ?'Random Enquiry':'' ;  } ?>
+									<?php  if(isset($purpose)){ echo $purpose == 5 ?'Random Enquiry':'' ;  } ?>
+								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-md-5">
-								<label>Breif Remark</label>
-								<?php if(!empty($breif_remark)){ echo $breif_remark ; }   ?>
+								<label class="col-md-6">Breif Remark</label>
+								<div class="col-md-6">
+									<?php if(!empty($breif_remark)){ echo $breif_remark ; }   ?>
+								</div>
 							</div>
 							<div class="form-group col-md-5">
-								<label>Next Followup </label>
-								<?php if(!empty($next_followup)){ echo $next_followup ; }   ?>
+								<label class="col-md-6">Next Followup </label>
+								<div class="col-md-6">
+									<?php if(!empty($next_followup)){ echo $next_followup ; }   ?>
+								</div>
 							</div>
 						</div>
                 	</fieldset>
