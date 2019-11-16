@@ -241,6 +241,7 @@ class Site extends CI_Model
 		 $this->db->where("building_id",$buildingid);
 	  }
 		 $this->db->where("floor_no",$floorid);
+		  $this->db->where("Booked_status",0);
 		 $q=$this->db->get("add_unit");
 		 if($q->num_rows()>0){
 			 foreach($q->result() as $row){

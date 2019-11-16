@@ -826,8 +826,12 @@ class Crm extends Admin_Controller {
 		 $this->render_admin('_crm/enquiry/view',$data);
 	}
 	
-	function  enquirys_delete(){
-		
+	function  enquirys_delete($id){
+		$this->db->where("id",$id);
+		if($this->db->update("crm_enquirys",array("soft_deleted"=>1))){
+			$this->session->set_flashdata('error', 'Enquiry Details Not Found');
+		    redirect('admin/crm/Crm/enquirys');
+		}
 		
 	}
 	

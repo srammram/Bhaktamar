@@ -31,6 +31,7 @@ class Booking extends Admin_Controller {
 	}
 	function view($id){
 		$data['booking']			=	$booking   = $this->Booking_model->getbookingByid($id);
+		$data['building']=$this->Booking_model->getbuilding();
 		$data['floorlist']			    =   $this->Booking_model->get_floor($booking->building_no);
 		$data['unitlist']		     	=   $this->Booking_model->get_units($booking->floor);
 		$data['payment_details']    =   $this->Booking_model->get_payment_details($booking->id);	
@@ -293,6 +294,25 @@ class Booking extends Admin_Controller {
 			}
 		       redirect('admin/booking');
 		}
+		
+	}
+	function delete($id = false){
+		if ($id){	
+			$booking=$this->Booking_model->getbookingByid($id);
+			if (!$booking){
+				$this->session->set_flashdata('error', 'Booking Data not Found');
+				redirect('admin/booking');
+			}else{
+				$delete	= $this->Booking_model->booking_delete($id);
+				$this->session->set_flashdata('message', 'Booking Details Not Found');
+				redirect('admin/booking');
+			}
+		}
+		else{
+			    $this->session->set_flashdata('error','Booking Data not Found');
+				redirect('admin/booking');
+		}
+		
 		
 	}
 	

@@ -31,7 +31,7 @@ Class Booking_model extends CI_Model{
 	   $this->db->select("*");
 	   $this->db->where("building_id",$buildingid);
 	   $q=$this->db->get('floors');
-	if($q->num_rows()>0){
+	   if($q->num_rows()>0){
 		   foreach($q->result() as $row){
 			$data[]=$row;
 		}
@@ -63,6 +63,7 @@ Class Booking_model extends CI_Model{
   }
 function booking_save($save,$paymentdetails){   
 if(!empty($save['id'])){
+	$booking=$this->getbookingByid($save['id']);
 	$this->db->where('id',$save['id']);
 	$this->db->update("booking",$save);
 	$this->db->where('booking_id',$save['id']);
@@ -71,6 +72,7 @@ if(!empty($save['id'])){
 		$row['booking_id']=$save['id'];
 	    $this->db->insert('booking_payment_details',$row);
 	}
+	$this->unitActive($booking->unit_id,$save['unit_id']);
 	return true;
 	
 }else{
@@ -80,6 +82,7 @@ if(!empty($save['id'])){
 		$row['booking_id']=$booking_id;
 	    $this->db->insert('booking_payment_details',$row);
 	}
+	$this->unitActive(NULL,$save['unit_id']);
 	return true;
 }
 return false;
@@ -96,4 +99,19 @@ function get_payment_details($bookingid){
 	}
 	return false;
 }
+function unitActive($oldunitid,$newunitid){
+	if(!empty($oldunit)){
+		$this->db->where('uid',$oldunitid);
+		$this->db->update('add_unit',array('Booked_status'=>0));
+	}
+		$this->db->where('uid',$newunitid);
+		$this->db->update('add_unit',array('Booked_status'=>1));
+		return true;
+}
+
+function booking_delete($id){
+		$this->db->where("id",$id);
+		$this->db->update("booking",array("soft_delete"=>1));
+		return true;
+	}
 }

@@ -151,7 +151,7 @@
 }
 </style>
  <?php   $seg= $this->uri->segment(5); ?>
- <?php /*?><section class="content-header">
+ <section class="content-header">
      <h1>
          <?php echo lang('enquirs_form'); ?>
      </h1>
@@ -161,18 +161,18 @@
          <li><a href="<?php echo site_url('admin/crm/Crm/Enquiry') ?>"> <?php echo lang('Enquiry')?> </a></li>
          <li class="active"><?php echo (empty($seg))?lang('add'):lang('edit');?></li>
      </ol>
- </section><?php */?>
+ </section>
  <section class="content">
      <div class="row">
          <div class="col-xs-12">
              <div class="box">
                  <div class="box-header">
-                     <h3 class="box-title">Enquiry Form</h3>
+                     <h3 class="box-title">Enquiry View</h3>
                  </div><!-- /.box-header -->
                  <div class="box-body">
 					
 				<fieldset class="scheduler-border">
-					<legend class="scheduler-border">Form</legend>
+					<legend class="scheduler-border">View</legend>
 					<div class="row">
                			<div class="form-group col-md-4 col-md-offset-8">
 							<div class="form-group col-md-12">
@@ -400,13 +400,8 @@
                 			</div>
                 		</div>
                 	</div>
-					
 					</fieldset>
-					
-					
 					</form>
-					
-				
 					<fieldset class="scheduler-border">
 						<legend class="scheduler-border">Post Enquiry</legend>
 						<div class="row">

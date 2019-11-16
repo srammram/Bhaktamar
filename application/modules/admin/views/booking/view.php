@@ -413,11 +413,9 @@ legend.scheduler-border {
                                     <div class="form-group col-md-6">
                                         <label class="col-md-6" style="padding: 6px 15px;">Wing No</label>
                                         <div class="col-md-6" style="padding: 0px;">
-                                            <select class="select2 form-control" name="building_id" onchange="get_buildingfloors(this.value)">
-                                                <option value="">Select Wing</option>
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
-                                                        { ?>
-													<option value="<?php   echo $row->bldid ; ?>"  <?php  if(isset($booking->building_no)){ echo $booking->building_no == $row->bldid ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+                                                        {  ?>
+													<?php  if(isset($booking->building_no)){ echo $booking->building_no == $row->bldid ?$row->name:'' ;  } ?>
 												<?php   }  }  ?>	
 												</select>
                                         </div>
@@ -425,22 +423,20 @@ legend.scheduler-border {
                                     <div class="form-group col-md-6">
                                         <label class="col-md-6" style="padding: 6px 15px;">Floor</label>
                                         <div class="col-md-6" style="padding: 0px;">
-                                            <select class="select2 form-control" name="floor_id" id="floor" onchange="get_floorunit(this.value)">
-                                                 <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
-													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($booking->floor)){ echo $booking->floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+                                              <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
+													<?php  if(isset($booking->floor)){ echo $booking->floor == $row->id ?$row->name:'' ;  } ?>
 												<?php   }  }  ?>	
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label class="col-md-6" style="padding: 6px 15px;">Shop/Flat No</label>
                                     <div class="col-md-6" style="padding: 0px;">
-                                        <select class="select2 form-control" id="units" name="unit_id">
+                                      
                                              <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
-													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($booking->flat)){ echo $booking->flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
+													<?php  if(isset($booking->unit_id)){ echo $booking->unit_id == $row->uid ?$row->unit_name:'' ;  } ?>
 												<?php   }  }  ?>	
-                                        </select>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -573,7 +569,7 @@ legend.scheduler-border {
                                         </tr>
                                         <tr>
                                             <td>On Completion of Parking & 1st Slab</td>
-                                            <td><?php  if(!empty($booking->parking_1st_slab_amt)){ echo round($parking_1st_slab_amt);  }else{ echo 5 ;  }  ?><span class="percentage_s">%</span></td>
+                                            <td><?php  if(!empty($booking->parking_1st_slab_amt)){ echo round($booking->parking_1st_slab_amt);  }else{ echo 5 ;  }  ?><span class="percentage_s">%</span></td>
                                         </tr>
                                         <tr>
                                             <td>On Completion of 2nd Slab</td>
@@ -638,7 +634,7 @@ legend.scheduler-border {
                                             <td><?php echo $row->cheque_no  ;  ?></td>
                                             <td><?php echo $row->date  ;  ?></td>
                                             <td><?php echo $row->bank_branch  ;  ?></td>
-                                            <td><?php echo $row->amount  ;  ?></td>
+                                            <td><?php echo $this->sma->formatMoney($row->amount)  ;  ?></td>
                                             </tr>
                                     <?php  $i++; }  }  ?>
                                       
@@ -646,7 +642,7 @@ legend.scheduler-border {
                                     <tfoot>
                                         <tr>
                                             <td colspan="4" style="text-align: right;">Total Received Payment</td>
-                                            <td><?php  if(!empty($booking->total_received_amt)){ echo $booking->total_received_amt ;  } ?></td>
+                                            <td><?php  if(!empty($booking->total_received_amt)){ echo $this->sma->formatMoney($booking->total_received_amt) ;  } ?></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5">
@@ -700,8 +696,9 @@ legend.scheduler-border {
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="form-group col-md-12">
-                                    <div class="col-md-12 file_upload">
-                                        <img src="<?=base_url()?>assets/assets/img/client.png">
+                                    <div class="col-md-6 file_upload">
+									<?php if(!empty($booking->purchaser_signature_path)){ $url="uploads/booking/purchaser_signatory/".$booking->purchaser_signature_path ;   }else{ $url="assets/assets/images/no_image.jpg";  }   ?>
+                                        <img height="100px" width="160px" src="<?=base_url().$url?>">
                                     </div>
                                     <label class="col-sm-12">Purchaser Sign</label>
                                 </div>
@@ -711,8 +708,9 @@ legend.scheduler-border {
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="form-group col-md-12">
-                                    <div class="col-md-12 file_upload">
-                                        <img src="<?=base_url()?>assets/assets/img/client.png">
+                                    <div class="col-md-6 file_upload">
+									<?php if(!empty($booking->authorized_signatory)){ $url1="uploads/booking/authorized_signatory/".$booking->authorized_signatory ;   }else{ $url1="assets/assets/images/no_image.jpg";  }   ?>
+                                        <img height="100px" width="160px"src="<?=base_url().$url1?>">
                                     </div>
                                     <label class="col-sm-12" style="padding-right: 0px;">Authorised Signatory with
                                         company seal</label>

@@ -106,7 +106,7 @@
 			</a>
 		</div>	
 	  <div class="col-sm-2 col-xs-12 col-half-offset disabled ">
-		    <a href="<?php echo site_url('admin/crm/Crm/Enquiry/') ?>">
+		    <a href="<?php echo site_url('admin/crm/Crm/enquirys') ?>">
 				<figure class="text-center">
 					<img src="<?php echo base_url('assets/admin')?>/dist/img/dashboard/CRM.png"  width="150px" height="150px" alt="available">
 					<figcaption>
@@ -126,7 +126,7 @@
 			</a>
 		</div>	-->
 		<div class="col-sm-2 col-xs-12 col-half-offset">
-			<a href="<?php echo site_url('admin/sales/Sales/bookingList') ?>">
+			<a href="<?php echo site_url('admin/booking') ?>">
 				<figure class="text-center">
 					<img src="<?php echo base_url('assets/admin')?>/dist/img/dashboard/Sales.png"  width="150px" height="150px" alt="available">
 					<figcaption>

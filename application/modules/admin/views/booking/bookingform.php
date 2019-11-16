@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/select2.min.css" type="text/css">
 <script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/select2.min.js"></script>
-
- <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
 <style>
 .error {
     color: #FF0000;
@@ -637,6 +636,10 @@ legend.scheduler-border {
                                         </div>
                                     </div>
                                     <label class="col-sm-12">Purchaser Sign</label>
+									<?php if(!empty($purchaser_signature_path)){ $url="uploads/booking/purchaser_signatory/".$purchaser_signature_path ;   }else{ if(!empty($id)){ $url="assets/assets/images/no_image.jpg";  } }   ?>
+                                       <?php  if(!empty($url)){  ?>
+                                        <img height="100px" width="160px" src="<?=base_url().$url?>">
+										<?php   }     ?>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -657,6 +660,10 @@ legend.scheduler-border {
                                     </div>
                                     <label class="col-sm-12" style="padding-right: 0px;">Authorised Signatory with
                                         company seal</label>
+										<?php if(!empty($authorized_signatory)){ $url="uploads/booking/authorized_signatory/".$authorized_signatory ;   }else{ if(!empty($id)){$url="assets/assets/images/no_image.jpg"; } }   ?>
+										<?php  if(!empty($url)){  ?>
+                                        <img height="100px" width="160px" src="<?=base_url().$url?>">
+										<?php   }       ?>
                                 </div>
                             </div>
                         </div>
@@ -671,8 +678,7 @@ legend.scheduler-border {
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script>
+
 <script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
@@ -734,8 +740,6 @@ $(document).ready(function() {
 	 }
 });
 });
-
-
 $(document).ready(function(){
   $(".paymentdue").blur(function(){
    var sum = 0;
@@ -749,29 +753,4 @@ $(".total_received").val(sum);
 
 <script>
 $('form').attr('autocomplete', 'off');
-</script>
-<script type="text/javascript">
-
-	$("#bookingform").validate({
-	ignore: ".ignore",
-	rules: {
-		date:{required: true,},
-		applicantname:{required: true},
-		building_id:{required: true},
-		floor_id:{required: true},
-		unit_id:{required: true},
-		
-	},
-	messages: {
-		date:{required: "Please Select your Date."},
-		applicantname:{required: "Please Write your company name."},
-		building_id:{required: "Please select your Building."},
-		floor_id:{required: "Please select your Floor."},
-		unit_id:{required: "Please select your Unit."},
-	},
-	submitHandler: function (form) {
-	}
-});
-
-
 </script>

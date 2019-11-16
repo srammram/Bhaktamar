@@ -191,7 +191,7 @@
                     <span><?php echo lang('Parking_monitor');?></span></a></li>
             <?php   }  ?>
 
-            <?php    if($this->uri->segment(2)=='crm' || $this->uri->segment(3)=='Crm' ){   ?>
+            <?php  /*   if($this->uri->segment(2)=='crm' || $this->uri->segment(3)=='Crm' ){   ?>
             <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('dashboard');?></span></a></li>
             <li><a href="<?php echo site_url('admin/crm/Crm/Enquiry/')?>"><i class="fa fa-circle-o"></i>
@@ -210,11 +210,27 @@
 					  <li class="<?php echo ($this->uri->segment(2)=='Project')?'active':''?>"><a href="<?php echo site_url('admin/crm/Crm/sms')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('send_sms');?></span></a></li>
 	            	<li class="<?php echo ($this->uri->segment(2)=='Project')?'active':''?>"><a href="<?php echo site_url('admin/crm/Crm/sms_history')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('sms_history');?></span></a></li>
 					    
-            <?php   }  ?>
+            <?php   } */  ?>
             <?php    if($this->uri->segment(2)=='sales' || $this->uri->segment(3)=='Sales' ){   ?>
             <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('dashboard');?></span></a></li>
             <li><a href="<?php echo site_url('admin/sales/Sales')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('Bookinglist');?></span></a></li>
+          
+            <?php   }  ?>
+			
+			 <?php    if($this->uri->segment(4)=='enquirys' || $this->uri->segment(4)=='enquirys' ){   ?>
+            <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('dashboard');?></span></a></li>
+            <li><a href="<?php echo site_url('admin/crm/Crm/enquirys')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('Enquiry');?></span></a></li>
+          
+            <?php   }  ?>
+			
+			 <?php    if($this->uri->segment(2)=='booking' || $this->uri->segment(3)=='Booking' ){   ?>
+            <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('dashboard');?></span></a></li>
+            <li><a href="<?php echo site_url('admin/booking/')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Bookinglist');?></span></a></li>
           
             <?php   }  ?>
