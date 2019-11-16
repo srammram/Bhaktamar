@@ -29,7 +29,14 @@ class Booking extends Admin_Controller {
             ->where("booking.soft_delete", 0)
             ->add_column("Actions", $actions, "booking.id");
         echo $this->datatables->generate();
-    }
+	}
+	function view($id){
+		$data['booking']			=	$booking   = $this->Booking_model->getbookingByid($id);
+		$data['floorlist']			    =   $this->Booking_model->get_floor($booking->building_no);
+		$data['unitlist']		     	=   $this->Booking_model->get_units($booking->floor);
+		$data['payment_details']    =   $this->Booking_model->get_payment_details($booking->id);	
+		$this->render_admin('booking/view', $data);
+	}
 	function booking($id = false){
 		$data['page_title']         	               = lang('booking');		
 		$data['building']=$this->Booking_model->getbuilding();
