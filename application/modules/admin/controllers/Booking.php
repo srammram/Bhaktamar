@@ -9,7 +9,6 @@ class Booking extends Admin_Controller {
 		$this->load->library('form_validation');
 	}
 	function index(){
-	
         $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('booking');
         $this->render_admin('booking/list', $data);

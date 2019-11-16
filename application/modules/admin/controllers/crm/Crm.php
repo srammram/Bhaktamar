@@ -790,7 +790,193 @@ class Crm extends Admin_Controller {
 		function pre_sale_feedback_tele(){
 		$this->render_admin('_crm/pre_sales_tele');
 	}
-	function enquiryForm1(){
-		$this->render_admin('_crm/EnquiryForm1');
+	function enquirys(){
+        $admin = $this->session->userdata('admin');
+        $data['page_title'] = lang('enquiry');
+        $this->render_admin('_crm/enquiry/list',$data);
+	}
+	public function getenquirys(){
+        $actions = "<div class=\"text-center\">";
+        $actions .= " <a href='" . base_url('admin/crm/Crm/enquirys_view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/crm/Crm/enquiry_form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/crm/Crm/enquirys_delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
+        $actions .= "</div>";
+        $this->load->library('datatables');  
+        $this->datatables
+			->select("crm_enquirys.id,serial_no, date ,building_info.name building,floors.name floors,crm_enquirys. name ,contact_no", false)
+			->from("crm_enquirys")
+			->join("floors","floors.id=crm_enquirys.floor","left")
+			->join("building_info","building_info.bldid=crm_enquirys.preferred_wing","left")
+            ->where("crm_enquirys.soft_deleted", 0)
+            ->add_column("Actions", $actions, "crm_enquirys.id");
+        echo $this->datatables->generate();
+	}
+	function   enquirys_view($id){
+		    $data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
+			$data['employee']		             = $this->Crm_model->get_employee();
+			$data['unit_type']     =$this->Crm_model->get_unit_type();
+			$data['floorlist']     =$this->Crm_model->get_floor($enquiry->preferred_wing);
+			$data['pos_enquirys']  =$pos_enquirys=$this->Crm_model->get_pos_enquiry($id);
+			if(!empty($pos_enquirys)){
+			$data['status']		         = $pos_enquirys->status;
+			$data['looking_for']		 = $pos_enquirys->looking_for;
+			$data['budget']		         = $pos_enquirys->budget;
+			$data['purpose']		     = $pos_enquirys->purpose;
+			$data['breif_remark']		 = $pos_enquirys->breif_remark;
+			$data['next_followup']		 = $pos_enquirys->next_followup;
+			}
+		 $this->render_admin('_crm/enquiry/view',$data);
+	}
+	
+	function  enquirys_delete(){
+		
+		
+	}
+	
+	function enquiry_form($id = false){
+	    $data['page_title']         	     = lang('enquiry');		
+		$data['employee']		             = $this->Crm_model->get_employee();
+		$data['building']		             = $this->Crm_model->getbuilding();
+		$maxid=$this->Crm_model->findmaxId();
+		$data['id']		                     = '';
+		$data['date']		                 = '';
+		$data['serial_no']		             = 'ENQ.NO-'.str_pad($maxid, 6, '0', STR_PAD_LEFT);
+		$data['name']		                 = '';
+		$data['contact_no']		             = '';
+		$data['alernate_no']		         = '';
+		$data['address']		             = '';
+		$data['email']		                 = '';
+		$data['profession']		             = '';
+		$data['organization']		         = '';
+		$data['convenient']		             = '';
+		$data['plan_to_book_flat']	         = '';
+		$data['adult']		                 = '';
+		$data['child']		                 = '';
+		$data['vechile']		             = '';
+		$data['four_wheeler']		         = '';
+		$data['two_wheeler']		         = '';
+		$data['preferred_wing']		         = '';
+		$data['floor']	                     = '';
+		$data['brought_to_here']		     = '';
+		$data['post_visit_remark']		     = '';
+		$data['followup']		             = '';
+		$data['attended_by']		         = '';
+		$data['status']		                 = '';
+	    $data['looking_for']		         = '';
+		$data['budget']		                 = '';
+		$data['purpose']		             = '';
+		$data['breif_remark']		         = '';
+		$data['next_followup']		         = '';
+		if ($id){	
+			$data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
+			$data['unit_type']     =$this->Crm_model->get_unit_type();
+			$data['floorlist']     =$this->Crm_model->get_floor($enquiry->preferred_wing);
+			$data['pos_enquirys']  =$pos_enquirys=$this->Crm_model->get_pos_enquiry($id);
+			if(!empty($pos_enquirys)){
+			$data['status']		         = $pos_enquirys->status;
+			$data['looking_for']		 = $pos_enquirys->looking_for;
+			$data['budget']		         = $pos_enquirys->budget;
+			$data['purpose']		     = $pos_enquirys->purpose;
+			$data['breif_remark']		 = $pos_enquirys->breif_remark;
+			$data['next_followup']		 = $pos_enquirys->next_followup;
+			}
+			if (!$enquiry){
+				$this->session->set_flashdata('error', 'Enquiry Details Not Found');
+				redirect('admin/crm/Crm/enquirys');
+			}		
+		$data['id']		                     = $enquiry->id;
+		$data['date']		                 = $enquiry->date;
+		$data['serial_no']		             = $enquiry->serial_no;
+		$data['name']		                 = $enquiry->name;
+		$data['contact_no']		             = $enquiry->contact_no;
+		$data['alernate_no']		         = $enquiry->alernate_no;
+		$data['address']		             = $enquiry->address;
+		$data['email']		                 = $enquiry->email;
+		$data['profession']		             = $enquiry->profession;
+		$data['organization']		         = $enquiry->organization;
+		$data['convenient']		             = $enquiry->convenient;
+		$data['plan_to_book_flat']		     = $enquiry->plan_to_book_flat;
+		$data['adult']		                 = $enquiry->adult;
+		$data['child']		                 = $enquiry->child;
+		$data['vechile']		             = $enquiry->vechile;
+		$data['four_wheeler']		         = $enquiry->four_wheeler;
+		$data['two_wheeler']		         = $enquiry->two_wheeler;
+		$data['preferred_wing']		         = $enquiry->preferred_wing;
+		$data['floor']		                 = $enquiry->floor;
+		$data['brought_to_here']		     = $enquiry->brought_to_here;
+		$data['post_visit_remark']		     = $enquiry->post_visit_remark;
+		$data['followup']		             = $enquiry->followup;
+		$data['attended_by']		         = $enquiry->attended_by;
+		}
+		$this->form_validation->set_rules('date', 'lang:date', 'trim|required');
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
+		$this->form_validation->set_rules('name', 'lang:contact', 'trim|required');
+		if ($this->form_validation->run() == FALSE){
+			$this->render_admin('_crm/enquiry/EnquiryForm',$data);
+		}
+		else{		
+		
+		if($id){
+			$post_enquiry['status']		         = $this->input->post('status');
+			$post_enquiry['looking_for']		 = $this->input->post('looking_for');
+			$post_enquiry['budget']		         = $this->input->post('budget');
+			$post_enquiry['purpose']		     = $this->input->post('purpose');
+			$post_enquiry['breif_remark']		 = $this->input->post('breif_remark');
+			$post_enquiry['next_followup']		 = $this->input->post('next_followup');
+		}
+		    $post_enquiry=!empty($post_enquiry)?$post_enquiry:array();
+			$save['id']		                     = $id;
+		    $save['date']		                 = $this->input->post('date');
+		    $save['serial_no']		             = $this->input->post('serial_no');
+		    $save['name']		                 = $this->input->post('name');
+		    $save['contact_no']		             = $this->input->post('contact');
+		    $save['alernate_no']		         = $this->input->post('alternate');
+			$save['address']		             = $this->input->post('address');
+			$save['email']		                 = $this->input->post('email');
+			$save['profession']		             = $this->input->post('profession');
+			$save['organization']		         = $this->input->post('organization');
+			$save['convenient']		             = $this->input->post('convenienttime');
+			$save['plan_to_book_flat']		     = $this->input->post('plan_to_book_flat');
+			$save['adult']		                 = $this->input->post('adult');
+			$save['child']		                 = $this->input->post('child');
+			$save['four_wheeler']		         = $this->input->post('4wheeler');
+			$save['two_wheeler']		         = $this->input->post('2wheeler');
+			$save['preferred_wing']		         = $this->input->post('building_id');
+			$save['floor']		                 = $this->input->post('floor_id');  
+			$save['brought_to_here']		     = $this->input->post('brought_to_here');
+			$save['post_visit_remark']		     = $this->input->post('post_visit_remark');
+			$save['followup']		             = $this->input->post('followup');
+			$save['attended_by']		         = $this->input->post('attended_by');
+		    $this->Crm_model->enquiryForm_save($save,$post_enquiry);
+			if($id){
+				$this->session->set_flashdata('message', 'Enquiry Details Updated');
+				 redirect('admin/crm/Crm/enquirys');
+			}else{
+				$this->session->set_flashdata('message', lang('Enquiry Details Saved'));
+				 redirect('admin/crm/Crm/enquirys');
+			}
+		       redirect('admin/crm/Crm/enquirys');
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

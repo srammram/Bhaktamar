@@ -389,4 +389,84 @@ Class Crm_model extends CI_Model
 		}
 		return false;
 	}
+	function getbuilding(){
+		$this->db->select('*');
+		$this->db->where('soft_delete',0);
+		$query= $this->db->get('building_info');
+	   if ($query->num_rows() > 0) {
+           foreach ($query->result() as $row) {
+               $data[] = $row;
+           }
+           return $data;
+       }
+       return false;
+	}
+	
+	function get_enquirys_details($enquiry_id){
+		$this->db->select("*");
+		$this->db->where("id",$enquiry_id);
+		$q=$this->db->get("crm_enquirys");
+		if($q->num_rows()>0){
+			return $q->row();
+		}
+		return false;
+	}
+	function enquiryForm_save($save,$crm_pos_enquiry){
+		if(!empty($save['id'])){
+			$this->db->where("id",$save['id']);
+			$this->db->update("crm_enquirys",$save);
+			if(!empty($crm_pos_enquiry)){
+				$this->db->where('enquiry_id',$save['id']);
+				$this->db->delete('crm_pos_enquiry');
+				$crm_pos_enquiry['enquiry_id']=$save['id'];
+				$this->db->insert("crm_pos_enquiry",$crm_pos_enquiry);
+			}
+			return true;
+		}else{
+			$this->db->insert("crm_enquirys",$save);;
+			return 	$this->db->insert_id();
+		}
+		return false;
+	}
+	 function findmaxId(){
+	  $this->db->select(" IFNULL(MAX(id),0)+1 AS `maxid`");
+	  $q=$this->db->get("crm_enquirys");
+	  if($q->num_rows()>0){
+		  return $q->row('maxid');
+	  }
+	  return false;
+  }
+  function get_unit_type(){
+	  	$this->db->select("*");
+		$this->db->where("Soft_delete",0);
+		$q=$this->db->get("unit_type");
+		if($q->num_rows()>0){
+			  foreach ($q->result() as $row) {
+               $data[] = $row;
+           }
+           return $data;
+		}
+		return false;
+  }
+   function get_pos_enquiry($enquiry_id){
+	  $this->db->select("*");
+	  $this->db->where("enquiry_id",$enquiry_id);
+	  $q=$this->db->get("crm_pos_enquiry");
+	  if($q->num_rows()>0){
+		  return $q->row();
+	  }
+	  return false;
+  }
+   function get_floor($buildingid){
+	   $this->db->select("*");
+	   $this->db->where("building_id",$buildingid);
+	   $q=$this->db->get('floors');
+	   if($q->num_rows()>0){
+		   foreach($q->result() as $row){
+			$data[]=$row;
+		}
+		return $data;
+	   }
+	   return false;
+   }
 }

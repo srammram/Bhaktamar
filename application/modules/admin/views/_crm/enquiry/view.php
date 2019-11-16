@@ -170,7 +170,7 @@
                      <h3 class="box-title">Enquiry Form</h3>
                  </div><!-- /.box-header -->
                  <div class="box-body">
-					 <form method="post" action="<?php echo site_url('admin/crm/Crm/enquiry_form/'.$id); ?>" id="enquiryform">
+					
 				<fieldset class="scheduler-border">
 					<legend class="scheduler-border">Form</legend>
 					<div class="row">
@@ -178,13 +178,13 @@
 							<div class="form-group col-md-12">
 								<label class="col-sm-4">Date</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control datepicker" name="date" value="<?php if(!empty($date)){ echo $date ; }   ?>" onkeydown="return false" >
+									<?php if(!empty($enquiry->date)){ echo $enquiry->date ; }   ?>
 								</div>
 							</div>
 							<div class="form-group col-md-12">
 								<label class="col-sm-4">Serial No</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="serial_no"  value="<?php if(isset($serial_no)){ echo $serial_no ; } ?>" readonly>
+									<?php if(isset($enquiry->serial_no)){ echo $enquiry->serial_no ; } ?>
 								</div>
 							</div>
 							
@@ -193,44 +193,44 @@
                 	<div class="row">
                 		<div class="form-group col-md-5">
                 			<label>Name</label>
-                			<input type="text" class="form-control"  name="name" value="<?php if(!empty($name)){ echo $name ; }   ?>">
+                			<?php if(!empty($enquiry->name)){ echo $enquiry->name ; }   ?>
                 		</div>
                 		
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
                 			<label>Contact No</label>
-                			<input type="text" class="form-control allownumber"  name="contact" value="<?php if(!empty($contact_no)){ echo $contact_no ; }   ?>">
+                			<?php if(!empty($enquiry->contact_no)){ echo $enquiry->contact_no ; }   ?>
                 		</div>
                 		<div class="form-group col-md-5">
                 			<label>Alternate No</label>
-                			<input type="text" class="form-control allownumber"  name="alternate" value="<?php if(!empty($alernate_no)){ echo $alernate_no ; }   ?>">
+                			<?php if(!empty($enquiry->alernate_no)){ echo $enquiry->alernate_no ; }   ?>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
                 			<label>Address</label>
-                			<input type="text" class="form-control" name="address" value="<?php if(!empty($address)){ echo $address ; }   ?>">
+                			<?php if(!empty($enquiry->address)){ echo $enquiry->address ; }   ?>
                 		</div>
                 		<div class="form-group col-md-5">
                 			<label>Email</label>
-                			<input type="email" class="form-control" name="email" value="<?php if(!empty($email)){ echo $email ; }   ?>">
+                			<?php if(!empty($enquiry->email)){ echo $enquiry->email ; }   ?>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
                 			<label>Profession</label>
-                			<input type="text" class="form-control"  name="profession" value="<?php if(!empty($profession)){ echo $profession ; }   ?>">
+                			<?php if(!empty($enquiry->profession)){ echo $enquiry->profession ; }   ?>
                 		</div>
                 		<div class="form-group col-md-5">
                 			<label>Organization Name</label>
-                			<input type="text" class="form-control"  name="organization" value="<?php if(!empty($organization)){ echo $organization ; }   ?>">
+                			<?php if(!empty($enquiry->organization)){ echo $enquiry->organization ; }   ?>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="form-group col-md-5">
                 			<label>Convenient time to call you</label>
-                			<input type="text" class="form-control"  name="convenienttime" value="<?php if(!empty($convenient)){ echo $convenient; }   ?>">
+                			<?php if(!empty($enquiry->convenient)){ echo $enquiry->convenient; }   ?>
                 		</div>
                 	</div>
                 	<div class="row">
@@ -238,19 +238,19 @@
                 			<label>When do you plan to book the flat</label>
                 		</div>
 						<div class="form-group checkbox_group col-md-3">
-							<input type="checkbox" id="withinaweek" class="plan_to_book"  name="plan_to_book_flat" value="1" <?php  if(!empty($plan_to_book_flat)){ if($plan_to_book_flat==1){ echo "checked" ;  }}  ?>>
+							<input type="checkbox" id="withinaweek" class="plan_to_book"  name="plan_to_book_flat" value="1" <?php  if(!empty($enquiry->plan_to_book_flat)){ if($enquiry->plan_to_book_flat==1){ echo "checked" ;  }}  ?> disabled>
 							<label for="withinaweek">Within a Week</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="within15days" class="plan_to_book" name="plan_to_book_flat" value="2" <?php  if(!empty($plan_to_book_flat)){ if($plan_to_book_flat==2){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="within15days" class="plan_to_book" name="plan_to_book_flat" value="2" <?php  if(!empty($enquiry->plan_to_book_flat)){ if($enquiry->plan_to_book_flat==2){ echo "checked" ;  }}  ?> disabled>
 						  <label for="within15days">Within 15 Days</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="withinamonth" class="plan_to_book" name="plan_to_book_flat" value="3" <?php  if(!empty($plan_to_book_flat)){ if($plan_to_book_flat==3){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="withinamonth" class="plan_to_book" name="plan_to_book_flat" value="3" <?php  if(!empty($enquiry->plan_to_book_flat)){ if($enquiry->plan_to_book_flat==3){ echo "checked" ;  }}  ?> disabled>
 						  <label for="withinamonth">Within a Month</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="within45days" class="plan_to_book" name="plan_to_book_flat" value="4" <?php  if(!empty($plan_to_book_flat)){ if($plan_to_book_flat==4){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="within45days" class="plan_to_book" name="plan_to_book_flat" value="4" <?php  if(!empty($enquiry->plan_to_book_flat)){ if($enquiry->plan_to_book_flat==4){ echo "checked" ;  }}  ?> disabled>
 						  <label for="within45days">Within 45 Days</label>
 						</div>
                 	</div><hr>
@@ -260,13 +260,13 @@
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-3" style="padding-left: 0px">Adult:</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control" name="adult" value="<?php if(!empty($adult)){ echo $adult ; }   ?>">
+									<?php if(!empty($enquiry->adult)){ echo $enquiry->adult ; }   ?>
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-3" style="padding-left: 0px">Child:</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control"  name="child" value="<?php if(!empty($child)){ echo $child ; }   ?>">
+									<?php if(!empty($enquiry->child)){ echo $enquiry->child ; }   ?>
 								</div>
 							</div>
 						</div>
@@ -275,13 +275,13 @@
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-3" style="padding-left: 0px">4 Wheeler:</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control" name="4wheeler" value="<?php if(!empty($four_wheeler)){ echo $four_wheeler ; }   ?>">
+									<?php if(!empty($enquiry->four_wheeler)){ echo $enquiry->four_wheeler ; }   ?>
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-3" style="padding-left: 0px">2 Wheeler:</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control"  name="2wheeler" value="<?php if(!empty($two_wheeler)){ echo $two_wheeler ; }   ?>">
+									<?php if(!empty($enquiry->two_wheeler)){ echo $enquiry->two_wheeler ; }   ?>
 								</div>
 							</div>
 						</div>
@@ -290,24 +290,22 @@
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-4" style="padding-left: 0px;padding-right: 0px;">Preferred Wing:</label>
 								<div class="col-sm-7">
-								   <select class="form-control" name="building_id" onchange="get_buildingfloors(this.value)">
-                                                <option value="">Select Wing</option>
+								
                                                     <?php  if(!empty($building)){ foreach($building as  $row) 
                                                         { ?>
-													<option value="<?php   echo $row->bldid ; ?>"  <?php  if(isset($preferred_wing)){ echo $preferred_wing == $row->bldid ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+													<?php  if(isset($enquiry->preferred_wing)){ echo $enquiry->preferred_wing == $row->bldid ?$row->name:'' ;  } ?>
 												<?php   }  }  ?>	
-												</select>
+												
 								</div>
 							</div>
 							<div class="form-group col-md-12" style="padding: 0px;">
 								<label class="col-sm-4" style="padding-left: 0px;">Floor:</label>
 								<div class="col-sm-7">
-									<select class="form-control" name="floor_id" id="floor" >
-									<option value="">Select Floor</option>
+								
                                                  <?php  if(!empty($floorlist)){ foreach($floorlist as  $row) { ?>
-													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($floor)){ echo $floor == $row->id ?'selected':'' ;  } ?>><?php echo $row->name ;  ?></option>
+													<?php  if(isset($enquiry->floor)){ echo $enquiry->floor == $row->id ?$row->name:'' ;  } ?>
 												<?php   }  }  ?>	
-                                            </select>
+                                           
 								</div>
 							</div>
 						</div>
@@ -318,60 +316,60 @@
                 			<label>What brought to here</label>
                 		</div>
 						<div class="form-group checkbox_group col-md-3">
-							<input type="checkbox" id="hoarding" class="brought_to_here" value="1" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==1){ echo "checked" ;  }}  ?>>
+							<input type="checkbox" id="hoarding" class="brought_to_here" value="1" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==1){ echo "checked" ;  }}  ?>>
 							<label for="hoarding">Hoarding</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="pole_kosk" value="2" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==2){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="pole_kosk" value="2" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==2){ echo "checked" ;  }}  ?> disabled>
 						  <label for="pole_kosk">pole Kosk</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="paper_ads" value="3" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==3){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="paper_ads" value="3" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==3){ echo "checked" ;  }}  ?> disabled>
 						  <label for="paper_ads">Paper Ads</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="tv_radio" value="4" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==4){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="tv_radio" value="4" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==4){ echo "checked" ;  }}  ?> disabled>
 						  <label for="tv_radio">TV/Radio</label>
 						</div>
                			<div class="form-group checkbox_group col-md-3">
-							<input type="checkbox" id="portal" value="5" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==5){ echo "checked" ;  }}  ?>>
+							<input type="checkbox" id="portal" value="5" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==5){ echo "checked" ;  }}  ?> disabled>
 							<label for="portal">Portal</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="pamphlet" value="6" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==6){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="pamphlet" value="6" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==6){ echo "checked" ;  }}  ?> disabled>
 						  <label for="pamphlet">Pamphlet</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="areavisit" value="7" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==7){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="areavisit" value="7" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==7){ echo "checked" ;  }}  ?> disabled>
 						  <label for="areavisit">Area Visit</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="associate" value="8" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==8){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="associate" value="8" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==8){ echo "checked" ;  }}  ?> disabled>
 						  <label for="associate">Associate</label>
 						</div>
                			<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="expo" value="9" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==9){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="expo" value="9" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==9){ echo "checked" ;  }}  ?> disabled>
 						  <label for="expo">Expo/BTL</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="sms_email" value="10" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==10){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="sms_email" value="10" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==10){ echo "checked" ;  }}  ?> disabled>
 						  <label for="sms_email">SMS/Email</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="others" value="11" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==11){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="others" value="11" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==11){ echo "checked" ;  }}  ?> disabled>
 						  <label for="others">Others(if any)</label>
 						</div>
 						<div class="clearfix"></div>
                			<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="clientreference" value="12" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==12){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="clientreference" value="12" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==12){ echo "checked" ;  }}  ?> disabled>
 						  <label for="clientreference">Client Reference</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="mgtreference" value="13" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==13){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="mgtreference" value="13" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==13){ echo "checked" ;  }}  ?> disabled>
 						  <label for="mgtreference">Mgt Reference</label>
 						</div>
 						<div class="form-group checkbox_group col-md-3">
-						  <input type="checkbox" id="website" value="14" class="brought_to_here" name="brought_to_here" <?php  if(!empty($brought_to_here)){ if($brought_to_here==14){ echo "checked" ;  }}  ?>>
+						  <input type="checkbox" id="website" value="14" class="brought_to_here" name="brought_to_here" <?php  if(!empty($enquiry->brought_to_here)){ if($enquiry->brought_to_here==14){ echo "checked" ;  }}  ?> disabled>
 						  <label for="website">Website</label>
 						</div>
                 	</div>
@@ -380,58 +378,48 @@
                 		<div class="form-group col-md-8">
                 			<label class="col-sm-3">Post Visit Remarks :</label>
                 			<div class="col-sm-7">
-                				<textarea rows="2"  name="post_visit_remark" style="width: 100%"><?php if(!empty($post_visit_remark)){ echo $post_visit_remark ; }   ?></textarea>
+                				<?php if(!empty($enquiry->post_visit_remark)){ echo $enquiry->post_visit_remark ; }   ?>
                 			</div>
                 		</div>
                 		<div class="form-group col-md-8">
                 			<label class="col-sm-3">Follow Up:</label>
                 			<div class="col-sm-7">
-                				<textarea rows="4"   style="width: 100%"  name="followup"><?php if(!empty($followup)){ echo $followup ; }   ?></textarea>
+                				<?php if(!empty($enquiry->followup)){ echo $enquiry->followup ; }   ?>
                 			</div>
                 		</div>
                 		<div class="form-group col-md-4 col-md-offset-8">
                 			<label class="col-sm-5">Attended by:</label>
                 			<div class="col-sm-7">
-							 <select class="form-control select2" name="attended_by" >
-							     <option value="">Select Attended</option>
+							<?php     ?>
+							
                                                     <?php  if(!empty($employee)){ foreach($employee as  $row) 
                                                         { ?>
-													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($attended_by)){ echo $attended_by == $row->id ?'selected':'' ;  } ?>><?php echo $row->first_name ;  ?></option>
+													  <?php  if(isset($enquiry->attended_by)){ echo $enquiry->attended_by == $row->id ?$row->first_name:'' ;  } ?>
 												<?php   }  }  ?>	
-												</select>
                 				
                 			</div>
                 		</div>
                 	</div>
-					<?php  if(empty($seg)){ ?>
-					   <div class="box-footer">
-                     <input class="btn btn-primary" type="submit" id="enquirybtn" value="Save" />
-                 </div>
+					
 					</fieldset>
 					
 					
 					</form>
-					<?php }else{      ?> 	</fieldset>  <?php   } ?>
-					<?php  if($seg){ ?>
+					
+				
 					<fieldset class="scheduler-border">
 						<legend class="scheduler-border">Post Enquiry</legend>
 						<div class="row">
 							<div class="form-group col-md-5">
 								<label>Status:</label>
-								<select class="form-control" name="status">
-								<option value="">Select </option>
-									<option value="1"  <?php  if(isset($status)){ echo $status == 1 ?'selected':'' ;  } ?>>Hot</option>
-									<option  value="2"  <?php  if(isset($status)){ echo $status == 2 ?'selected':'' ;  } ?>>Warm</option>
-									<option value="3"  <?php  if(isset($status)){ echo $status == 3 ?'selected':'' ;  } ?>>Cold</option>
-								</select>
+									<?php  if(isset($status)){ echo $status == 1 ?'Hot':'' ;  } ?>
+									<?php  if(isset($status)){ echo $status == 2 ?'Warm':'' ;  } ?>
+									<?php  if(isset($status)){ echo $status == 3 ?'Cold':'' ;  } ?>
 							</div>
 							<div class="form-group col-md-5">
-						
 								<label>Looking For:</label>
-								<select class="form-control" name="looking_for">
-									<option value="">Select</option>
 									<?php   if(!empty($unit_type)){ foreach($unit_type as $row){  ?>
-									<option  value="<?php echo $row->id  ?>"  <?php  if(isset($looking_for)){ echo $looking_for == $row->id ?'selected':'' ;  } ?>><?php  echo $row->UnitType;    ?>
+									 <?php  if(isset($looking_for)){ echo $looking_for == $row->id ?$row->UnitType:'' ;  } ?>
 									<?php   }  }   ?>
 								</select>
 							</div>
@@ -439,72 +427,43 @@
 						<div class="row">
 							<div class="form-group col-md-5">
 								<label>Budget:</label>
-								<select class="form-control" name="budget">
-									<option value="">Select</option>
-									<option value="1"  <?php  if(isset($budget)){ echo $budget == 1 ?'selected':'' ;  } ?>>Less 40</option>
-									<option value="2"  <?php  if(isset($budget)){ echo $budget == 2 ?'selected':'' ;  } ?>>40-50 </option>
-									<option value="3"  <?php  if(isset($budget)){ echo $budget == 3 ?'selected':'' ;  } ?>>50-60</option>
-									<option value="4"  <?php  if(isset($budget)){ echo $budget == 4 ?'selected':'' ;  } ?>>60-70</option>
-									<option value="5"  <?php  if(isset($budget)){ echo $budget == 5 ?'selected':'' ;  } ?>>70-80</option>
-									<option value="6"  <?php  if(isset($budget)){ echo $budget == 6 ?'selected':'' ;  } ?>>80-1Cr</option>
-									<option value="7"  <?php  if(isset($budget)){ echo $budget == 7 ?'selected':'' ;  } ?>>1-1.2Cr</option>
-									<option value="8"  <?php  if(isset($budget)){ echo $budget == 8 ?'selected':'' ;  } ?>>1.2-1.5Cr</option>
-									<option value="9"  <?php  if(isset($budget)){ echo $budget == 9 ?'selected':'' ;  } ?>>1.5-1.75Cr</option>
-									<option value="10"  <?php  if(isset($budget)){ echo $budget == 10 ?'selected':'' ;  } ?>>1.75 Cr+</option>
-								</select>
+								
+									 <?php  if(isset($budget)){ echo $budget == 1 ?'>Less 40':'' ;  } ?>
+									 <?php  if(isset($budget)){ echo $budget == 2 ?'40-50':'' ;  } ?>
+									<?php  if(isset($budget)){ echo $budget == 3 ?'>50-60':'' ;  } ?>
+									 <?php  if(isset($budget)){ echo $budget == 4 ?'>60-70':'' ;  } ?>
+									 <?php  if(isset($budget)){ echo $budget == 5 ?'>70-80':'' ;  } ?>
+									 <?php  if(isset($budget)){ echo $budget == 6 ?'>80-1Cr':'' ;  } ?>
+									 <?php  if(isset($budget)){ echo $budget == 7 ?'>1-1.2Cr':'' ;  } ?>
+								<?php  if(isset($budget)){ echo $budget == 8 ?'>1.2-1.5Cr':'' ;  } ?>
+								 <?php  if(isset($budget)){ echo $budget == 9 ?'>1.5-1.75Cr':'' ;  } ?>
+									  <?php  if(isset($budget)){ echo $budget == 10 ?'>1.75 Cr+':'' ;  } ?>
+								
 							</div>
 							<div class="form-group col-md-5">
 								<label>Purpose:</label>
-								<select class="form-control" name="purpose">
-									<option value="">Select</option>
-									<option value="1"  <?php  if(isset($purpose)){ echo $purpose == 1 ?'selected':'' ;  } ?>>Investment</option>
-									<option value="2"  <?php  if(isset($purpose)){ echo $purpose == 2 ?'selected':'' ;  } ?>>Self</option>
-									<option value="3"  <?php  if(isset($purpose)){ echo $purpose == 3 ?'selected':'' ;  } ?>>Looking For Other</option>
-									<option value="4"  <?php  if(isset($purpose)){ echo $purpose == 4 ?'selected':'' ;  } ?>>Channel Partner</option>
-									<option value="5"  <?php  if(isset($purpose)){ echo $purpose == 5 ?'selected':'' ;  } ?>>Random Enquiry</option>
-								</select>
+									<?php  if(isset($purpose)){ echo $purpose == 1 ?'Investment':'' ;  } ?>
+									<?php  if(isset($purpose)){ echo $purpose == 2 ?'Self':'' ;  } ?>
+									<?php  if(isset($purpose)){ echo $purpose == 3 ?'Looking For Other':'' ;  } ?>
+									<?php  if(isset($purpose)){ echo $purpose == 4 ?'Channel Partner':'' ;  } ?>
+									 <?php  if(isset($purpose)){ echo $purpose == 5 ?'Random Enquiry':'' ;  } ?>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-md-5">
 								<label>Breif Remark</label>
-								<textarea rows="4" style="width: 100%;" name="breif_remark"><?php if(!empty($breif_remark)){ echo $breif_remark ; }   ?></textarea>
+								<?php if(!empty($breif_remark)){ echo $breif_remark ; }   ?>
 							</div>
 							<div class="form-group col-md-5">
 								<label>Next Followup </label>
-								<input type="text" name="next_followup" class="form-control datepicker" placeholder="dd/mm/yyyy"  value="<?php if(!empty($next_followup)){ echo $next_followup ; }   ?>">
+								<?php if(!empty($next_followup)){ echo $next_followup ; }   ?>
 							</div>
 						</div>
                 	</fieldset>
-						   <div class="box-footer">
-                     <input class="btn btn-primary" type="submit" id="enquirybtn" value="Save" />
-                 </div>
-					<?php   }   ?>
-                	
-					 </form>
+				
 				</div><!-- /.box-body -->
          </div><!-- /.box -->
 
      </div><!-- /.col -->
      </div><!-- /.row -->
  </section>
- <script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
- <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
- <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
- <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
- <script src="<?php echo base_url('assets/admin/plugins')?>/jquery-validation/jquery.validate.min.js"></script>
- <script>
- $('.plan_to_book').on('change', function() {
-    $('.plan_to_book').not(this).prop('checked', false);  
-});
-$('.brought_to_here').on('change', function() {
-    $('.brought_to_here').not(this).prop('checked', false);  
-});
- </script>
- 
- <script>
-$('form').attr('autocomplete', 'off');
-$(document).ready(function() {
-    $('.select2').select2();
-});
- </script>

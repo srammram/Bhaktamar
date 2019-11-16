@@ -24,7 +24,7 @@ class Unit extends Admin_Controller {
             ->from("add_unit")
 			->join("project","project.id=add_unit.Project_id","left")
 			->join("floors","floors.id=add_unit.floor_no","left")
-			->join("building_info","building_info.bldid=add_unit.building_id","left")
+			->join("building_info","building_info.bldid=add_unit.building_id","left")   
 			->where("add_unit.soft_delete",0)
 		//	->order_by("uid","ASC")
             ->add_column("Actions", $actions, "uid");
