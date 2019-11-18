@@ -681,10 +681,7 @@ legend.scheduler-border {
 <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
-
-
 <script>
-
 $(document).on('focus',".datepicker", function(){
     $(this).datepicker({ todayHighlight: true,
         autoclose: true,
@@ -760,7 +757,6 @@ function calculatetotal(){
 $(".total_received").val(sum);
 }
 </script>
-
 <script>
 $('form').attr('autocomplete', 'off');
 </script>
