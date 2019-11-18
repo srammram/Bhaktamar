@@ -264,4 +264,21 @@ class Site extends CI_Model
 		 }
 		 
 	 }
+	  function  feedback_save($save){
+		  if($save['pos_enquiry_id']){
+			  $this->db->insert("feedback_form",$save);
+		  }
+		  return true;
+	  }
+	  function get_enquiryId($pos_enquiryid){
+		  $this->db->select("enquiry_id");
+		  $this->db->where("id",$pos_enquiryid);
+		  $q=$this->db->get("crm_pos_enquiry");
+		  if($q->num_rows()>0){
+			  return $q->row('enquiry_id');
+			  
+		  }
+		  return false;
+		  
+	  }
 }
