@@ -4,7 +4,7 @@
 $(document).ready(function() {
     oTable = $('#UnitTable').dataTable({
         "aaSorting": [
-            [2, "asc"],
+            [1, "DESC"],
             
         ],
         "aLengthMenu": [

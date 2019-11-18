@@ -6,13 +6,11 @@
 .error {
     color: #FF0000;
 }
-
 .select2-container .select2-selection--single {
     height: 35px;
     border-radius: 0px;
     border: 1px solid #ddd;
 }
-
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 35px;
 }
@@ -686,8 +684,14 @@ legend.scheduler-border {
 
 
 <script>
+
+$(document).on('focus',".datepicker", function(){
+    $(this).datepicker({ todayHighlight: true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',    });
+});
 $(function() {
-    $('.datepicker').datepicker({
+    $('.datepicker1').datepicker({
         todayHighlight: true,
         autoclose: true,
         format: 'yyyy-mm-dd',
@@ -716,8 +720,10 @@ $(document).ready(function() {
         var data = '<tr><td>' + i + '.</td><td><input type="text" class="form-control" name="cheque[]"></td><td><input type="text" class="form-control datepicker" name="paymentdate[]"  onkeydown="return false"></td><td><input type="text" class="form-control" name="bank_details[]"></td><td><input type="text" class="form-control allowdecimalpoint paymentdue" name="amount[]"><a href="javascript:void(0);" class="remCF">x</a></tr>';
         $('#customFields').append(data);
         i++;
-        $(".remCF").on('click', function() {
+		$(document).on('click', '.remCF' ,function(){
+       // $(".remCF").on('click', function() {
             $(this).parent().parent().remove();
+			 calculatetotal();
         });
     });
 
@@ -741,14 +747,18 @@ $(document).ready(function() {
 });
 });
 $(document).ready(function(){
-  $(".paymentdue").blur(function(){
-   var sum = 0;
+	$(document.body).on('blur', '.paymentdue' ,function(){
+  //$(".paymentdue").blur(function(){
+   calculatetotal();
+  });
+});
+function calculatetotal(){
+	var sum = 0;
     $('.paymentdue').each(function() {
         sum += Number($(this).val());
     });
 $(".total_received").val(sum);
-  });
-});
+}
 </script>
 
 <script>
