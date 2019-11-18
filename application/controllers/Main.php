@@ -67,4 +67,20 @@ class Main extends CI_Controller {
 			$response_array = json_decode($response);
 		print_r($response_array);
 	}
+	function enquiry_form_sms($leadNumber,$agentname){
+		$message='We Warmly Welcome To Bhaktamar Residency. Our Representative ('.$agentname.') Shall Attend To You Shortly.';
+		$response = file_get_contents("http://173.45.76.227/send.aspx?username=praful19&pass=praful@123&route=trans1&senderid=890&numbers=".$leadNumber."&message=".$message."");
+		$response_array = json_decode($response);
+		print_r($response_array);
+		
+	}
+	
+	function post_enquiry_sms($leadNumber){
+		$url=base_url().'/Feeaback';
+		$message='Thankyou For Visiting Bhaktamar Residency ! Please Share Your Review For Our Representative & The Project On The Link Below. ('.$url.')  We Look Forward To Seeing You Again ! Regards Bhaktamar Realities LLP.';
+		$response = file_get_contents("http://173.45.76.227/send.aspx?username=praful19&pass=praful@123&route=trans1&senderid=890&numbers=".$leadNumber."&message=".$message."");
+			$response_array = json_decode($response);
+		print_r($response_array);
+		
+	}
 }

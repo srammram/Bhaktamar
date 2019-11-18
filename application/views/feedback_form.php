@@ -149,7 +149,16 @@
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-</style>
+</style><?php  switch($response){
+   case 1:   
+   echo 'Already feed back submitted.Thank You !!!';
+   break;
+   case 4:
+   echo 'Faild To save the Feedback Data.';
+   break;
+   case 3:
+	?>
+		 <form method="post" action="<?php echo site_url('Feedback/index/'); ?>" id="enquiryform">
 <fieldset class="scheduler-border ">
 						<legend class="scheduler-border">Feedback Link </legend>
 						<div class="form-group col-md-10">
@@ -393,3 +402,13 @@
 							</div>
 						</div>
 					</fieldset>
+					   <div class="box-footer">
+                     <input class="btn btn-primary" type="submit" id="enquirybtn" value="Save" />
+                 </div>
+					</form>
+<?php  break;case  4: echo 'Feeback Saved.Thank You for your Feedback.' ; break; } ?>
+					<script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
+ <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
+ <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
+ <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
+ <script src="<?php echo base_url('assets/admin/plugins')?>/jquery-validation/jquery.validate.min.js"></script>

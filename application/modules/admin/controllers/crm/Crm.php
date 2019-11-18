@@ -869,6 +869,9 @@ class Crm extends Admin_Controller {
 		$data['purpose']		             = '';
 		$data['breif_remark']		         = '';
 		$data['next_followup']		         = '';
+		$data['no_of_people']		         = '';
+	    $data['pre_sales_excutive']		     = '';
+		$data['lead_forward_to']		     = '';
 		if ($id){	
 			$data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
 			$data['unit_type']     =$this->Crm_model->get_unit_type();
@@ -909,6 +912,9 @@ class Crm extends Admin_Controller {
 		$data['post_visit_remark']		     = $enquiry->post_visit_remark;
 		$data['followup']		             = $enquiry->followup;
 		$data['attended_by']		         = $enquiry->attended_by;
+		$data['no_of_people']		         = $enquiry->no_of_people;
+	    $data['pre_sales_excutive']		     = $enquiry->pre_sales_excutive;
+		$data['lead_forward_to']		     = $enquiry->lead_forward_to;
 		}
 		$this->form_validation->set_rules('date', 'lang:date', 'trim|required');
 		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
@@ -949,15 +955,19 @@ class Crm extends Admin_Controller {
 			$save['post_visit_remark']		     = $this->input->post('post_visit_remark');
 			$save['followup']		             = $this->input->post('followup');
 			$save['attended_by']		         = $this->input->post('attended_by');
+			$save['no_of_people']		         = $this->input->post('no_of_people');
+			$save['pre_sales_excutive']		     = $this->input->post('pre_sales_excutive');
+			$save['lead_forward_to']		     = $this->input->post('lead_forward_to');
 		    $this->Crm_model->enquiryForm_save($save,$post_enquiry);
 			if($id){
-				$this->session->set_flashdata('message', 'Enquiry Details Updated');
+				//$this->main->()
+				 $this->session->set_flashdata('message', 'Enquiry Details Updated');
 				 redirect('admin/crm/Crm/enquirys');
 			}else{
 				$this->session->set_flashdata('message', lang('Enquiry Details Saved'));
 				 redirect('admin/crm/Crm/enquirys');
 			}
-		       redirect('admin/crm/Crm/enquirys');
+		         redirect('admin/crm/Crm/enquirys');
 		}
 		
 		

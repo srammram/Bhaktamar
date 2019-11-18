@@ -251,4 +251,17 @@ class Site extends CI_Model
 		 }
 		 return false;
 	 }
+	 
+	 function  checkFeedback($pos_enquiryid){
+		 $this->db->select("*");
+		 $this->db->where("id",$pos_enquiryid);
+         $this->db->where("feedback",0);		 
+	     $q=$this->db->get("crm_pos_enquiry");
+		 if($q->num_rows()>0){
+			 return 1;
+		 }else{
+			 return 0;
+		 }
+		 
+	 }
 }

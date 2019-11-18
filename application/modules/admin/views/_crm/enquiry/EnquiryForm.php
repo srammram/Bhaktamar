@@ -178,7 +178,7 @@
 							<div class="form-group col-md-12">
 								<label class="col-sm-4">Date</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control datepicker" name="date" value="<?php if(!empty($date)){ echo $date ; }   ?>" onkeydown="return false" >
+									<input type="text" class="form-control datepicker" name="date" value="<?php if(!empty($date)){ echo $date ; }else{ date_default_timezone_set('Asia/Kolkata'); echo  date('Y-m-d'); }										?>" onkeydown="return false" >
 								</div>
 							</div>
 							<div class="form-group col-md-12">
@@ -311,6 +311,14 @@
 								</div>
 							</div>
 						</div>
+							<div class="form-group col-md-4">
+						<div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">No Of People:</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" name="no_of_people" value="<?php if(!empty($no_of_people)){ echo $no_of_people ; }   ?>">
+								</div>
+							</div>
+					</div>
 					</div>
 					<hr>
 					<div class="row">
@@ -378,6 +386,24 @@
                 	<hr>
                 	<div class="row">
                 		<div class="form-group col-md-8">
+                			<label class="col-sm-3">Pre Sales Executive  :</label>
+                			<div class="col-sm-7">
+                					<input type="text" class="form-control" name="pre_sales_excutive" value="<?php if(!empty($pre_sales_excutive)){ echo $pre_sales_excutive ; }   ?>">
+                			</div>
+                		</div>
+						<div class="form-group col-md-8">
+                			<label class="col-sm-3">Lead Forwaded To :</label>
+                			<div class="col-sm-7">
+                			<select class="form-control select2" name="lead_forward_to" >
+							<option value="">Select Attended</option>
+                            <?php  if(!empty($employee)){ foreach($employee as  $row) 
+                             { ?>
+						     <option value="<?php   echo $row->id ; ?>"  <?php  if(isset($lead_forward_to)){ echo $lead_forward_to == $row->id ?'selected':'' ;  } ?>><?php echo $row->first_name ;  ?></option>
+							   <?php   }  }  ?>	
+							</select>
+                			</div>
+                		</div>
+						<div class="form-group col-md-8">
                 			<label class="col-sm-3">Post Visit Remarks :</label>
                 			<div class="col-sm-7">
                 				<textarea rows="2"  name="post_visit_remark" style="width: 100%"><?php if(!empty($post_visit_remark)){ echo $post_visit_remark ; }   ?></textarea>

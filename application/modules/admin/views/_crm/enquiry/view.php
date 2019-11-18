@@ -155,13 +155,13 @@
  <?php   $seg= $this->uri->segment(5); ?>
  <section class="content-header">
      <h1>
-         <?php echo lang('enquirs_form'); ?>
+         Enquiry View
      </h1>
      <ol class="breadcrumb">
          <li><a href="<?php echo site_url('admin/dashboard') ?>"><i class="fa fa-dashboard"></i>
                  <?php echo lang('dashboard')?></a></li>
          <li><a href="<?php echo site_url('admin/crm/Crm/Enquiry') ?>"> <?php echo lang('Enquiry')?> </a></li>
-         <li class="active"><?php echo (empty($seg))?lang('add'):lang('edit');?></li>
+        
      </ol>
  </section>
  <section class="content">
@@ -326,8 +326,16 @@
                                            
 								</div>
 							</div>
+							</div>
+							<div class="form-group col-md-4">
+						       <div class="form-group col-md-12" style="padding: 0px;">
+								<label class="col-sm-3" style="padding-left: 0px">No Of People:</label>
+								<div class="col-sm-7">
+									<?php if(!empty($enquiry->no_of_people)){ echo $enquiry->no_of_people ; }   ?>
+								</div>
+							</div>
 						</div>
-					</div>
+					
 					<hr>
 					<div class="row">
                 		<div class="form-group col-md-12" style="margin-bottom: 0px;">
@@ -397,6 +405,22 @@
                 			<label class="col-sm-3">Post Visit Remarks </label>
                 			<div class="col-sm-7">
                 				<?php if(!empty($enquiry->post_visit_remark)){ echo $enquiry->post_visit_remark ; }   ?>
+                			</div>
+                		</div>
+						<div class="form-group col-md-8">
+                			<label class="col-sm-3">Pre Sales Executive  :</label>
+                			<div class="col-sm-7">
+                					<?php if(!empty($enquiry->pre_sales_excutive)){ echo $enquiry->pre_sales_excutive ; }   ?>
+                			</div>
+                		</div>
+						<div class="form-group col-md-8">
+                			<label class="col-sm-3">Lead Forwaded To :</label>
+                			<div class="col-sm-7">
+                            <?php  if(!empty($employee)){ foreach($employee as  $row) 
+                             { ?>
+						      <?php  if(isset($enquiry->lead_forward_to)){ echo $enquiry->lead_forward_to == $row->id ?$row->first_name:'' ;  } ?>
+							   <?php   }  }  ?>	
+							
                 			</div>
                 		</div>
                 		<div class="form-group col-md-8">
