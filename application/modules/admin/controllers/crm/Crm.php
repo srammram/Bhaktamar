@@ -3,7 +3,7 @@ class Crm extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-		$this->load->model(array('crm/Crm_model'));
+		$this->load->model(array('crm/Crm_model','payroll/global_model'));
 		$this->load->library("pagination");
 		$this->load->helper("url");
 		$this->load->helper('form');
@@ -11,8 +11,7 @@ class Crm extends Admin_Controller {
 			$this->load->library('datatables');
 	}
 	
-	 function  Dashboard()
-	 {
+	 function  Dashboard(){
 		 $admin = $this->session->userdata('admin');
 		 $data['page_title']	= lang('Dashboard');
 		 $config 			   = array();
@@ -832,7 +831,6 @@ class Crm extends Admin_Controller {
 			$this->session->set_flashdata('error', 'Enquiry Details Not Found');
 		    redirect('admin/crm/Crm/enquirys');
 		}
-		
 	}
 	
 	function enquiry_form($id = false){
@@ -970,27 +968,72 @@ class Crm extends Admin_Controller {
 		         redirect('admin/crm/Crm/enquirys');
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
+	///initial enquiry  
+	
+	 public function initial_enquiry(){
+        $data['page_title'] = lang('Initial_Enquiry');
+		$data['employee']   = $this->Crm_model->get_employee();
+        $this->render_admin('_crm/initial_enquiry/index', $data);
+    }
+    public function get_initial_enquiry(){
+        $actions = "<div class=\"text-center\">";
+        $actions .= '<div class="btn-group"><a style="padding:6px;" class="btn btn-xs btn-default" href="javascript:void(0)" onclick="edit_title(' . "'" . '$1' . "'" . ')"><i class="fa fa-pencil"></i></a>
+        		<a class="btn btn-xs btn-danger" style="margin-left:6px;padding:6px;" href="javascript:void(0)"  onclick="deleteItem(' . "'" . '$1' . "'" . ')"><i class="glyphicon glyphicon-trash"></i></a></div>';
+        $actions .= "</div>";
+        $this->datatables
+            ->select("crm_enquirys.id  ,name , crm_enquirys.email, contact_no,first_name ", false)
+            ->from("crm_enquirys")
+			->join("employee","employee.id=crm_enquirys.attended_by","left")
+            ->add_column("Actions", $actions, "crm_enquirys.id");
+        echo $this->datatables->generate();
+    }
+    public function edit_initial_enquiry($id){
+        $this->global_model->table = 'crm_enquirys';
+        $data = $this->global_model->get_by_id($id);
+        echo json_encode($data);
+    }
+    public function add_initial_enquiry(){
+        $this->global_model->table = 'crm_enquirys';
+        $this->_initial_enquiry_validate();
+        $data = array(
+            'name' => $this->input->post('name'),
+            'contact_no' => $this->input->post('contact_no'),
+			'email' => $this->input->post('email'),
+            'attended_by'=>$this->input->post('attended_by')
+        );
+        $insert = $this->global_model->save($data);
+        echo json_encode(array("status" => true));
+    }
+
+    public function update_initial_enquiry(){
+        $this->global_model->table = 'crm_enquirys';
+        $this->_initial_enquiry_validate();
+        $data = array(
+           'name' => $this->input->post('name'),
+            'contact_no' => $this->input->post('contact'),
+			'email' => $this->input->post('email'),
+            'attended_by'=>$this->input->post('attended_by')
+        );
+        $this->global_model->update(array('id' => $this->input->post('id')), $data);
+        echo json_encode(array("status" => true));
+    }
+
+    public function delete_initial_enquiry($id){
+        $this->global_model->table = 'crm_enquirys';
+        $result = $this->db->get_where('crm_enquirys', array('department' => $id))->result();
+        if (empty($result)) {
+            $this->global_model->delete_by_id($id);
+            echo 1;
+        } else {
+            echo 0;
+        }
+    }
+    private function _initial_enquiry_validate(){
+        $rules = array(
+            array('field' => 'name', 'label' => lang('name'), 'rules' => 'trim|required'),
+            array('field' => 'contact', 'label' => lang('contact'), 'rules' => 'trim|required'),
+        );
+        $this->global_model->validation($rules);
+    }
 }

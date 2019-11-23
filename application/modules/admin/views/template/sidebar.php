@@ -219,11 +219,14 @@
           
             <?php   }  ?>
 			
-			 <?php    if($this->uri->segment(4)=='enquirys' || $this->uri->segment(4)=='enquirys'  ||$this->uri->segment(4)=='enquirys_view' || $this->uri->segment(4)=='enquiry_form'  ){   ?>
-            <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
+			 <?php    if($this->uri->segment(4)=='enquirys' || $this->uri->segment(4)=='enquirys'  ||$this->uri->segment(4)=='enquirys_view' || $this->uri->segment(4)=='enquiry_form' || $this->uri->segment(4)=='initial_enquiry' ){   ?>
+                    <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('dashboard');?></span></a></li>
-            <li><a href="<?php echo site_url('admin/crm/Crm/enquirys')?>"><i class="fa fa-circle-o"></i>
+					 <li><a href="<?php echo site_url('admin/crm/Crm/initial_enquiry')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('Initial_Enquiry');?></span></a></li>
+                   <li><a href="<?php echo site_url('admin/crm/Crm/enquirys')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Enquiry');?></span></a></li>
+					
           
             <?php   }  ?>
 			

@@ -274,7 +274,19 @@ $lang['HRMS'] 	  									   = "HRMS";
 
 // CRM
 $lang['CRM'] 	            = "CRM";
+$lang['Initial_Enquiry'] 	= "Initial Enquiry";
+$lang['Initial_enquiry_list'] = "Initial Enquiry List";
+$lang['Initial_Enquiry_form'] = "Initial Enquiry Form";
+$lang['lead_attend_by']       = "Lead Attend By";
+$lang['contact']              = "Contact";
+
+
+
+
+
+
 $lang['Enquiry'] 	        = "Enquiry";
+
 $lang['enquirs_form'] 	    = "Enquiry Form";
 $lang['add_Enquiry']        = "Add Enquiry";
 $lang['Enquiry_form']       = "Customer Enquiry Form";

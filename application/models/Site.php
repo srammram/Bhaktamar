@@ -5,7 +5,6 @@ class Site extends CI_Model
 
     public function __construct() {
         parent::__construct();
-	
     }
 
  public function get_setting() {
@@ -31,6 +30,7 @@ class Site extends CI_Model
         $user = $this->getUser($user_id);
         return $user->group_id;
     }
+   
    
     public function getUser($id = NULL) {
         if (!$id) {
@@ -99,8 +99,8 @@ class Site extends CI_Model
         return FALSE;
     }
 	 function generateUniqueTableID($db_insertid,$store_id=false){
-	$storeid = ($store_id)?$store_id:$this->store_id;
-	return $storeid.$db_insertid;
+	   $storeid = ($store_id)?$store_id:$this->store_id;
+	   return $storeid.$db_insertid;
     }
 	
 	  public function syncProductQty($product_id, $warehouse_id) {
@@ -267,8 +267,9 @@ class Site extends CI_Model
 	  function  feedback_save($save){
 		  if($save['pos_enquiry_id']){
 			  $this->db->insert("feedback_form",$save);
+			  return true;
 		  }
-		  return true;
+		  return false;
 	  }
 	  function get_enquiryId($pos_enquiryid){
 		  $this->db->select("enquiry_id");
@@ -276,9 +277,7 @@ class Site extends CI_Model
 		  $q=$this->db->get("crm_pos_enquiry");
 		  if($q->num_rows()>0){
 			  return $q->row('enquiry_id');
-			  
 		  }
 		  return false;
-		  
 	  }
 }
