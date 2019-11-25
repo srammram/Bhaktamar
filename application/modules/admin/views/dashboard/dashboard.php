@@ -31,8 +31,8 @@
 	.main-footer{margin-left: 0px;}
 </style>
 <section class="content">
+<div class="container-fluid">
 	<div class="row">
-	<div class="col-sm-12 col-xs-12">
 		<div class="col-sm-2 col-xs-12">
 			<a href="<?php echo site_url('admin/Project') ?>">
 				<figure class="text-center">
@@ -53,7 +53,7 @@
 				</figure>
 			</a>
 		</div>
-			<div class="col-sm-2 col-half-offset col-xs-12">
+		<div class="col-sm-2 col-half-offset col-xs-12">
 			<a href="<?php echo site_url('admin/Lease') ?>">
 				<figure class="text-center">
 					<img src="<?php echo base_url('assets/admin')?>/dist/img/dashboard/Lease-01.png" width="150px" height="150px" alt="available">
@@ -73,7 +73,7 @@
 				</figure>
 			</a>
 		</div>
-			<div class="col-sm-2 col-xs-12 col-half-offset">
+		<div class="col-sm-2 col-xs-12 col-half-offset">
 			<a href="<?php echo site_url('/admin/procurment/products') ?>">
 				<figure class="text-center">
 					<img src="<?php echo base_url('assets/admin/')?>/dist/img//dashboard/Inventory-Management.1.png"  width="150px" height="150px" alt="available">
@@ -83,8 +83,8 @@
 				</figure>
 			</a>
 		</div>	
-			
-		<div class="row">
+	</div>	
+	<div class="row">
 		<div class="col-sm-2 col-xs-12 ">
 			<a href="<?php echo site_url('admin/accounts/bill') ?>">
 				<figure class="text-center">
@@ -145,6 +145,8 @@
 				</figure>
 			</a>
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-sm-2 col-xs-12">
 		    <a href="<?php echo site_url('admin/ParkingManager') ?>">
 				<figure class="text-center">
@@ -195,7 +197,6 @@
 				</figure>
 			</a>
 		</div>
-		</div>
 	</div>
-	</div>
+</div>
 </section>
