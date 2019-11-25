@@ -168,7 +168,7 @@ legend.scheduler-border {
     cursor: pointer;
     width: 100%;
 }
-	.payment_tk{width: 75%;float: left;margin-right: 1px;text-align: center;padding: 0px;}
+	.payment_tk{width: 70%;float: left;margin-right: 1px;text-align: center;padding: 0px;}
 	.percentage_s{margin-top: 5px;position: relative;float: left;}
 </style>
 <?php   $seg= $this->uri->segment(5);?>
@@ -477,8 +477,8 @@ legend.scheduler-border {
                                 
                                 <table class="table table-bordered">
                                     <colgroup>
-                                        <col width="85%">
-                                        <col width="15%">
+                                        <col width="80%">
+                                        <col width="20%">
                                     </colgroup>
                                     <tbody>
                                         <tr>
