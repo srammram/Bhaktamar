@@ -155,26 +155,18 @@ Class Crm_model extends CI_Model
        return false;
     }
 	function getFollowupByEnquiry($enquiryid){
-		
 		return $this->db->get_where('crm_followup',array('enquiryid'=>$enquiryid,'soft_delete'=>0))->result();
-		
-		
 	}
 	function follow_save($save,$id){
-		   if ($id)
-        {
+		   if ($id){
             $this->db->where('followupid', $id);
             $this->db->update('crm_followup', $save);
             return $save['id'];
-        }
-        else
-        {
+        }else{
            $this->db->insert('crm_followup',$save);
-		$insert_id = $this->db->insert_id();
-		return $insert_id;
+		   $insert_id = $this->db->insert_id();
+		  return $insert_id;
         }
-		
-		
 	}
 	 function followupDelete($id){
 		    $save=array('soft_delete'=>1);
@@ -403,8 +395,12 @@ Class Crm_model extends CI_Model
 	}
 	
 	function get_enquirys_details($enquiry_id){
-		$this->db->select("*");
-		$this->db->where("id",$enquiry_id);
+		$this->db->select("crm_enquirys.*,building_info.name building,floors.name floors,u.first_name,s.first_name attendedby");
+		$this->db->where("crm_enquirys.id",$enquiry_id);
+		$this->db->join("building_info","building_info.bldid=crm_enquirys.preferred_wing","left");   
+		$this->db->join("floors","floors.id=crm_enquirys.floor","left");
+		$this->db->join("users u","u.id=crm_enquirys.lead_forward_to","left");
+		$this->db->join("users s","s.id=crm_enquirys.attended_by","left");
 		$q=$this->db->get("crm_enquirys");
 		if($q->num_rows()>0){
 			return $q->row();
@@ -466,6 +462,18 @@ Class Crm_model extends CI_Model
 			$data[]=$row;
 		}
 		return $data;
+	   }
+	   return false;
+   }
+   function  get_sale_person(){
+	   $this->db->select("*");
+	   $this->db->where("Is_sales_persons",1);
+	   $q=$this->db->get("users");
+	   if($q->num_rows()>0){
+		   foreach($q->result() as $row){
+			   $data[]=$row;
+		   }
+		   return $data;
 	   }
 	   return false;
    }

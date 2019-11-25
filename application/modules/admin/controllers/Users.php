@@ -48,7 +48,6 @@ class Users extends Admin_Controller{
 		if ($id){	
 			$data['page_title']		    =   lang('edit_Users');
 			$data['Users']			    =	$Users		= $this->Users_model->getUsersByid($id);
-		
 			if (!$Users){
 				$this->session->set_flashdata('error', lang('Users_details_not_found'));
 				redirect('admin/Users');
@@ -62,6 +61,7 @@ class Users extends Admin_Controller{
 			$data['status']			        = $Users->active;
 		    $data['group_id']			    = $Users->group_id;
 			$data['Is_sales_persons']	    = $Users->Is_sales_persons;
+			$data['is_employee']	        = $Users->is_employee;
 		}
 		$this->form_validation->set_rules('first_name', 'lang:first_name', 'trim|required');
 		if ($this->form_validation->run() == FALSE){
@@ -79,7 +79,8 @@ class Users extends Admin_Controller{
 			
 			 $save['active']	        = $this->input->post('status');
 			 $save['group_id']	        = $this->input->post('group');
-			 $save['Is_sales_persons']	= $this->input->post('issalesperson');
+			 $save['Is_sales_persons']	= $this->input->post('issalesperson'); 
+			 $save['is_employee']	    = $this->input->post('isemployee'); 			 
 		     $this->Users_model->save($save,$id);
 			 if($id){
 				$this->session->set_flashdata('message', lang('Users_updated'));

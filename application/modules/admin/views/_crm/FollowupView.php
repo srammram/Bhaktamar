@@ -1,4 +1,3 @@
-
 <link href="<?php echo base_url('assets/admin/plugins/datatables/dataTables.bootstrap.css')?>" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/dist/css/bootstrap-datetimepicker.min.css')?>" />
 <script src="<?php echo base_url('assets/admin/dist/js/moment.min.js')?>"></script>
@@ -32,15 +31,15 @@
 	  <div class="form-group">
 					  <div class="row">
 						<div class="col-md-2">
-                      		<label><?php echo lang('Enquiry_id') ?> :</label>                       	</div>
+                      		<label>Serial No :</label>                       	</div>
 						<div class="col-md-3">
-						<?php  if(isset($enquiry->enquiry_id)){ echo $enquiry->enquiry_id ;}  ?>
+						<?php  if(!empty($enquiry->serial_no)){ echo $enquiry->serial_no ;}  ?>
 						</div>	
 						<div class="col-md-2">
                       		<label><?php echo lang('Contact_number') ?> :</label>
                       	</div>
 						<div class="col-md-2">
-							<?php  if(isset($enquiry->contact_number)){ echo $enquiry->contact_number ;}  ?>
+							<?php  if(!empty($enquiry->contact_no)){ echo $enquiry->contact_no ;}  ?>
 						</div>	
 						<div class="col-md-2">
 						
@@ -56,7 +55,7 @@
 						<div class="col-md-2">
                       		<label><?php echo lang('date') ?>  :</label>                       	</div>
 						<div class="col-md-3">
-						<?php  if(isset($enquiry->enquiry_date)){ echo $enquiry->enquiry_date ;}  ?>
+						<?php  if(!empty($enquiry->date)){ echo $enquiry->date ;}  ?>
 						</div>	
 						<div class="col-md-2">
                       		<label><?php echo lang('email') ?> :</label>
@@ -66,9 +65,9 @@
 						</div>	
 						
 						<div class="col-md-2">
-                      		<label><?php echo lang('Customer_name') ?> :</label>                  
+                      		<label>Address :</label>                  
 						
-						<?php  if(isset($enquiry->Customer_name)){ echo $enquiry->Customer_name ;}  ?>
+						<?php  if(isset($enquiry->address)){ echo $enquiry->address ;}  ?>
 						     	</div>
 						<div class="col-md-2">
 							
@@ -76,27 +75,55 @@
 						</div>	
 					  </div>		
                     </div>
-					<div class="form-group">
+						<div class="form-group">
 					  <div class="row">
 						<div class="col-md-2">
-                      		<label><?php echo lang('requirement') ?> :</label>
-					<br>
-                                 <?php  if(isset($type)){ foreach($type as $row){ echo  in_array( $row->id, json_decode($enquiry->type_for) ) ?  $row->unit_group_type : '';   ?>
-                                 <?php }  } ?>
-                             </select>
+                      				<label>Alternate No</label>                   	</div>
+						<div class="col-md-3">
+					  <?php if(!empty($enquiry->alernate_no)){ echo $enquiry->alernate_no; }  ?>
+						</div>	
+						<div class="col-md-2">
+                      	   		<label><?php echo lang('requirement') ?> :</label>
                       	</div>
+						<div class="col-md-2">
+							  <?php if(!empty($enquiry->building)){ echo 'Building:-' .$enquiry->building; }  ?>
+							   <?php if(!empty($enquiry->floors)){ echo 'Floor:-'. $enquiry->floors; }  ?>
+						</div>	
+						
+						<div class="col-md-2">
+                      			<label>Attended by :</label>
+						
+						    <?php if(!empty($enquiry->attendedby)){ echo $enquiry->attendedby; }  ?>
+						     	</div>
+						<div class="col-md-2">
+							
+							
+						</div>	
 					  </div>		
                     </div>
+						<div class="form-group">
+					  <div class="row">
+						<div class="col-md-2">
+                      			<label>Lead Forward To :</label>
+								</div>
+						<div class="col-md-3">
+					    <?php if(!empty($enquiry->first_name)){ echo $enquiry->first_name; }  ?>
+						</div>	
+						
+					  </div>		
+                    </div>
+					
+					
 	  </div>
     </div>
   </div>
   <div class="success"></div>
   <div class="col-md-offset-9">
-  <?php  if(isset($enquiry->enquiry_id)){ 
-  $customer=$this->db->get_where('crm_customer',array('enquiry_id'=>$enquiry->enquiry_id))->row();
+  <?php  if(isset($enquiry->id)){ 
+  $customer=$this->db->get_where('crm_customer',array('enquiry_id'=>$enquiry->id))->row();
   if(empty($customer)){ 
-  ?> <button type="button" class="btn btn-danger" onclick="showfollowupmodal()" data-dismiss="modal"><?php echo lang('AddFollowup'); ?></button> <button  onclick="openfinaltag(<?php echo $enquiryid;   ?>)"  data-target="#AddFinalmyModal"  data-dismiss="modal"  type="button" class="btn btn-secondary"><?php echo lang('GenerateLead'); ?></button>
-  <?php   }else{  ?>  <a href="<?php  echo site_url('admin/crm/Crm/depositReceipt/'.$enquiry->enquiry_id) ?>"><button type="button" class="btn btn-danger" ><?php echo lang('Deposite_receipt'); ?></button>   </a>  <?php }}  ?>
+  ?> <button type="button" class="btn btn-danger" onclick="showfollowupmodal()" data-dismiss="modal"><?php echo lang('AddFollowup'); ?></button> <button  onclick="openfinaltag(<?php echo $enquiry->id;   ?>)"  data-target="#AddFinalmyModal"  data-dismiss="modal"  type="button" class="btn btn-secondary"><?php echo lang('GenerateLead'); ?></button>
+  <?php   }else{  ?>  <a href="<?php  echo site_url('admin/crm/Crm/depositReceipt/'.$enquiry->id) ?>"><button type="button" class="btn btn-danger" ><?php echo lang('Deposite_receipt'); ?></button>   </a>  <?php }}  ?>
   
   </div>
    <div class="panel-group">
@@ -129,7 +156,7 @@
 			<td>
 				<div class="btn-group" style="float:right">
 					<a class="btn btn-primary" onclick="edit_followup(<?php echo $new->followupid;   ?>)"><i class="fa fa-edit"></i> <?php echo lang('edit')?></a>
-					<a class="btn btn-danger" href="<?php echo site_url('admin/Crm/Crm/followupDelete/'.$new->followupid.'/'.$enquiryid); ?>" onclick="return areyousure(this);"><i class="fa fa-trash"></i> <?php echo lang('delete')?></a>
+					<a class="btn btn-danger" href="<?php echo site_url('admin/Crm/Crm/followupDelete/'.$new->followupid.'/'.$enquiry->id); ?>" onclick="return areyousure(this);"><i class="fa fa-trash"></i> <?php echo lang('delete')?></a>
 				</div>
 			</td>
 		</tr>
@@ -279,12 +306,12 @@
 				
            </div>-->
 	       <input type="hidden" name="id" >
-	       <input type="hidden" name="Enquiry_id" id="Enquiry_id" value="<?php echo $enquiryid  ?>">
+	       <input type="hidden" name="Enquiry_id" id="Enquiry_id" value="<?php echo $enquiry->id;  ?>">
       	</div>
 
 	  </form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn btn-success followupsave" onclick="addfinaltag(<?php echo $enquiryid;   ?>)"    data-dismiss="modal"><?php echo lang('save')?></button>
+        <button type="button" class="btn btn-default btn btn-success followupsave" onclick="addfinaltag(<?php echo $enquiry->id;   ?>)"    data-dismiss="modal"><?php echo lang('save')?></button>
 		<button type="button" class="btn btn-default btn btn-danger" data-dismiss="modal"> <?php echo lang('close')?></button>
       </div>
     </div>

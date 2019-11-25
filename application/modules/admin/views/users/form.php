@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
-
 <?php  $seg= $this->uri->segment(4);?>
 <section class="content-header">
    <h1>
@@ -107,13 +106,24 @@
                             
                            </div>
                            <div class="clearfix"></div>
-                               <div class="form-group">  
+                             <div class="form-group">  
 							  <div class="row">
 							  <div class="col-md-1">
-									<input type="checkbox" name="issalesperson" value="1" ></label>
+									<input type="checkbox" name="issalesperson" value="1" <?php if( !empty($Is_sales_persons)){if($Is_sales_persons == 1){  echo 'checked' ;  }  } ?>></label>
 								</div>
 								<div class="col-md-4">
 									<label>Is Sales Person</label>
+								</div>	
+								
+							  </div>		
+							</div>
+							<div class="form-group">  
+							  <div class="row">
+							  <div class="col-md-1">
+									<input type="checkbox" name="isemployee" value="1" <?php if( !empty($is_employee)){if($is_employee ==1){  echo 'checked' ;  }  } ?> ></label>
+								</div>
+								<div class="col-md-4">
+									<label>Is Employee</label>
 								</div>	
 								
 							  </div>		

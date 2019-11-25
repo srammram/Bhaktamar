@@ -12,7 +12,7 @@
             'fnServerData': function (sSource, aoData, fnCallback) {
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"bSortable": false},null,null,null,null,null, {"bSortable": false}]
+            "aoColumns": [{"bSortable": false},null,null,null,null,null,null, {"bSortable": false}]
         });
     }); 
 </script>
@@ -66,11 +66,11 @@
                         <thead>
                            
 			<th><?php echo lang('Enquiry_id'); ?></th>
-			   
-			<th><?php echo lang('Customer_name'); ?></th>
+			<th>Serial No</th>
+			<th><?php echo lang('name'); ?></th>
 			<th><?php echo lang('Enquiry_date'); ?></th>
-			<th><?php echo lang('Project'); ?></th>
-		     <th><?php echo lang('Source_of_enquiry'); ?></th>
+			<th><?php echo lang('building'); ?></th>
+		     <th><?php echo lang('floor'); ?></th>
 			<th><?php echo lang('Contact_number'); ?></th>
 			<th><?php echo lang('action'); ?></th>
                         </thead>

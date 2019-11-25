@@ -219,14 +219,24 @@
           
             <?php   }  ?>
 			
-			 <?php    if($this->uri->segment(4)=='enquirys' || $this->uri->segment(4)=='enquirys'  ||$this->uri->segment(4)=='enquirys_view' || $this->uri->segment(4)=='enquiry_form' || $this->uri->segment(4)=='initial_enquiry' ){   ?>
+			 <?php    if($this->uri->segment(4)=='enquirys' || $this->uri->segment(4)=='enquirys'  ||$this->uri->segment(4)=='enquirys_view' || $this->uri->segment(4)=='enquiry_form' || $this->uri->segment(4)=='initial_enquiry' ||$this->uri->segment(2)=='crm' || $this->uri->segment(3)=='Crm' ){   ?>
                     <li><a href="<?php echo site_url('admin/dashboard')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('dashboard');?></span></a></li>
 					 <li><a href="<?php echo site_url('admin/crm/Crm/initial_enquiry')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Initial_Enquiry');?></span></a></li>
                    <li><a href="<?php echo site_url('admin/crm/Crm/enquirys')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Enquiry');?></span></a></li>
-					
+					    <li class="<?php echo ($this->uri->segment(4)=='followup')?'active':''?>"><a
+                    href="<?php echo site_url('admin/crm/Crm/followup/')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('FollowUp');?></span></a></li>
+					  <li class="<?php echo ($this->uri->segment(4)=='ClientList')?'active':''?>"><a
+                    href="<?php echo site_url('admin/crm/Crm/ClientList/')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('Customer');?></span></a></li>
+            <li class="<?php echo ($this->uri->segment(4)=='campaign')?'active':''?>"><a
+                    href="<?php echo site_url('admin/crm/Crm/campaign/')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('campaign');?></span></a></li>
+					  <li class="<?php echo ($this->uri->segment(2)=='Project')?'active':''?>"><a href="<?php echo site_url('admin/crm/Crm/sms')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('send_sms');?></span></a></li>
+	            	<li class="<?php echo ($this->uri->segment(2)=='Project')?'active':''?>"><a href="<?php echo site_url('admin/crm/Crm/sms_history')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('sms_history');?></span></a></li>
           
             <?php   }  ?>
 			

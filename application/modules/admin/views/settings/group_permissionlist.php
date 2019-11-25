@@ -104,7 +104,7 @@ $(document).ready(function() {
                         <div class="form-group">
                             <label class="control-label col-md-3"><?= lang('name') ?></label>
                             <div class="col-md-9">
-                                <input name="name"  class="form-control" type="text">
+                                <input name="name"  class="form-control" type="text" autocomplete="off">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ $(document).ready(function() {
                         <div class="form-group">
                             <label class="control-label col-md-3"><?= lang('description') ?></label>
                             <div class="col-md-9">
-                                <textarea name="description"  class="form-control"></textarea>
+                                <textarea name="description"  class="form-control" autocomplete="off"></textarea>
                                 <span class="help-block"></span>
                             </div>
                         </div>

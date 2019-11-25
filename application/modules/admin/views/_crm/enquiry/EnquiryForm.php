@@ -396,7 +396,7 @@
                 			<div class="col-sm-7">
                 			<select class="form-control select2" name="lead_forward_to" >
 							<option value="">Select Attended</option>
-                            <?php  if(!empty($employee)){ foreach($employee as  $row) 
+                            <?php  if(!empty($excutive)){ foreach($excutive as  $row) 
                              { ?>
 						     <option value="<?php   echo $row->id ; ?>"  <?php  if(isset($lead_forward_to)){ echo $lead_forward_to == $row->id ?'selected':'' ;  } ?>><?php echo $row->first_name ;  ?></option>
 							   <?php   }  }  ?>	
@@ -420,7 +420,7 @@
                 			<div class="col-sm-7">
 							 <select class="form-control select2" name="attended_by" >
 							     <option value="">Select Attended</option>
-                                                    <?php  if(!empty($employee)){ foreach($employee as  $row) 
+                                                    <?php  if(!empty($excutive)){ foreach($excutive as  $row) 
                                                         { ?>
 													<option value="<?php   echo $row->id ; ?>"  <?php  if(isset($attended_by)){ echo $attended_by == $row->id ?'selected':'' ;  } ?>><?php echo $row->first_name ;  ?></option>
 												<?php   }  }  ?>	

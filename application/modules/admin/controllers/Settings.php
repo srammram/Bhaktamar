@@ -1959,8 +1959,9 @@ class Settings extends Admin_Controller {
 
     public function permission_delete($id){
         $this->global_model->table = 'groups';
-        $result = $this->db->get_where('employee', array('title' => $id))->result();
-        if (empty($result)) {
+        $users = $this->db->get_where('users', array('group_id' => $id))->result();
+		$groups = $this->db->get_where('groups', array('flag' =>0))->result();
+        if (empty($users)&& empty($groups)) {
             $this->global_model->delete_by_id($id);
             echo 1;
         } else {

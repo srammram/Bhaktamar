@@ -56,7 +56,9 @@ $(document).ready(function() {
                 <ul class="list-inline two-part">
                     <li><i class="fa fa-shopping-bag text-white"></i></li>
                     <li class="text-right"><span id="totalProjects" class="counter text-white">
-					<?php  $crm_enquirys=$this->db->get_where('crm_enquirys',array('soft_deleted'=>0))->result();
+					<?php $user = $this->session->userdata('admin');
+					if($user['user_role']  ==2){ $array=array('soft_deleted'=>0,'attended_by'=>$user['id']) ; }else{ $array=array('soft_deleted'=>0);  }    
+					$crm_enquirys=$this->db->get_where('crm_enquirys',$array)->result();
                             if(!empty($crm_enquirys)){  echo count($crm_enquirys) ;}else{ echo 0; }
                     ?></span></li>
                 </ul>
@@ -69,7 +71,9 @@ $(document).ready(function() {
                 <ul class="list-inline two-part">
                     <li><i class="fa fa-shopping-bag text-white"></i></li>
                     <li class="text-right"><span id="completedProjects" class="counter text-white">
-					<?php $crm_enquirys=$this->db->get_where('crm_enquirys',array('soft_deleted'=>0))->result();
+					<?php $user = $this->session->userdata('admin');
+					if($user['user_role']  ==2){ $array=array('soft_deleted'=>0,'attended_by'=>$user['id']) ; }else{ $array=array('soft_deleted'=>0);  }    
+					$crm_enquirys=$this->db->get_where('crm_enquirys',$array)->result();
                         if(!empty($crm_enquirys)){  echo count($crm_enquirys) ;}else{ echo 0; }
                     ?>
 					</span></li>
@@ -83,7 +87,9 @@ $(document).ready(function() {
                 <ul class="list-inline two-part">
                     <li><i class="fa fa-shopping-bag text-white"></i></li>
                     <li class="text-right"><span id="inProcessProjects" class="counter text-white">
-                    <?php  $crm_enquirys=$this->db->get_where('crm_enquirys',array('soft_deleted'=>1))->result();
+                    <?php $user = $this->session->userdata('admin');
+					if($user['user_role']  ==2){ $array=array('soft_deleted'=>1,'attended_by'=>$user['id']) ; }else{ $array=array('soft_deleted'=>1);  }    
+					$crm_enquirys=$this->db->get_where('crm_enquirys',$array)->result();
                         if(!empty($crm_enquirys)){  echo count($crm_enquirys) ;}else{ echo 0; }
                         ?>
 					</span></li>

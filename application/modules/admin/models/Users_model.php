@@ -36,14 +36,16 @@ class Users_model extends CI_Model{
 		return false;
 	}
 	 function save($save){
-		
         if (!empty($save['id'])){
             $this->db->where('id',$save['id']);
             $this->db->update('users', $save);
             return $id;
         }else{
-            $this->db->insert('users', $save);
-            return $this->db->insert_id();
+			$this->db->insert('users', $save);
+			if($save['is_employee']){
+				$this->db->insert('employee',array('first_name'=>$save['first_name'],'email'=>$save['email'],'termination'=>1));
+			}
+			 return $this->db->insert_id();
         }
     }
 }

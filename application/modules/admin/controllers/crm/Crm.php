@@ -321,9 +321,8 @@ class Crm extends Admin_Controller {
 	
 	
 	function followup(){
-		
 		 $data['page_title']	= lang('FollowUp');
-		 $config 			   = array();
+		 $config 			    = array();
          $config["base_url"]   = base_url() . "admin/crm/Crm/followup";
          $config["total_rows"] = $this->Crm_model->followUpcount();
          $config["per_page"]   = 10;
@@ -332,51 +331,51 @@ class Crm extends Admin_Controller {
          $page                 = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
          $data['enquiry']      = $this->Crm_model->get_all_Followup($config["per_page"], $page);
          $data["links"]        = $this->pagination->create_links();
-		 
 		$this->render_admin('_crm/Followuplist', $data);
 	}
 	 function get_followups(){
+		   $user = $this->session->userdata('admin');
 		  $actions = "<div class=\"text-center\">";
           $actions .= "<a href='" . base_url('admin/crm/Crm/FollowupView/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a>";
           $actions .= "</div>";
-          $this->datatables
-		  ->select("enquiry_id ,Customer_name,enquiry_date,project.Name,soe.Name as soe,crm_enquiry.contact_number
-		   ", FALSE)
-		  ->from("crm_enquiry")
-	      ->join('project','project.id=crm_enquiry.projectid','left')
-	      ->join('add_unit','add_unit.uid=crm_enquiry.unitid and add_unit.Project_id=crm_enquiry.projectid','left')
-	      ->join('countries','countries.id=crm_enquiry.country','left')
-		  ->join('projecttypes','projecttypes.id=crm_enquiry.type_for','left')
-		  ->join('soe','soe.id=crm_enquiry.source_of_enquiry','left')
-		  ->where('crm_enquiry.soft_delete',0)
-		   ->where('crm_enquiry.enquiry_status',1)
-          ->add_column("Actions", $actions, "enquiry_id");
-	      echo $this->datatables->generate();
+          //$this->datatables;
+		$this->datatables   ->select("crm_enquirys.id ,serial_no,crm_enquirys.name ,date,building_info.name building,floors.name as floors,crm_enquirys.contact_no
+		   ", FALSE);
+		 $this->datatables->from("crm_enquirys");
+	    $this->datatables->join('building_info','building_info.bldid=crm_enquirys.preferred_wing','left');
+		$this->datatables->join('floors','floors.id=crm_enquirys.floor','left');
+		$this->datatables->where('crm_enquirys.soft_deleted',0);
+		$this->datatables->where('crm_enquirys.enquiry_status',1);
+		     if($user['user_role']  ==2){
+			  $this->datatables ->where("crm_enquirys.lead_forward_to", $user['id']);
+		  }
+           $this->datatables->add_column("Actions", $actions, "crm_enquirys.id");
+	       echo $this->datatables->generate();
+		  
+		  //echo $this->db->last_query();
 	}
 		function FollowupView($id,$tab=false){
-		 $data['page_title']	= lang('FollowUp') ;
-		 $data['enquiryid']=$id;
-	   	 $data['enquiry']	= $enquiry = $this->Crm_model->getEnquiryView($id);
-		 $data['type']			         = $this->Crm_model->get_type();
-		 $data['salesperson']=$this->Crm_model->getSalesPersonName($enquiry->SalesPersontype,$enquiry->agentid);
-		 $data['amenities']=$this->Crm_model->get_amenities($enquiry->suggest_modification);
-		 $data['follow_list']   = $this->Crm_model->getFollowupByEnquiry($enquiry->enquiry_id);
+		 $data['page_title']	 = lang('FollowUp') ;
+		 $data['enquiryid']      = $id;
+	   	 $data['enquiry']	     = $enquiry = $this->Crm_model->get_enquirys_details($id);
+		// $data['type']			 = $this->Crm_model->get_type();
+		// $data['salesperson']    = $this->Crm_model->getSalesPersonName($enquiry->SalesPersontype,$enquiry->agentid);
+		// $data['amenities']      = $this->Crm_model->get_amenities($enquiry->suggest_modification);
+		 $data['follow_list']    = $this->Crm_model->getFollowupByEnquiry($enquiry->id);
 		 $this->render_admin('_crm/FollowupView.php', $data);
 	 }
 	 function addFollowup(){
 		 if(isset($_POST)){
-			 
- 			 $followdate = new DateTime(date('Y-m-d ',strtotime($this->input->post('followdate'))));
-	 	     $followdate =$followdate->format('Y-m-d G:i');
-			 $nextdate = new DateTime(date('Y-m-d ',strtotime($this->input->post('nextdate'))));
-	 	     $nextdate =$nextdate->format('Y-m-d G:i');
-		     $save['followup_date_time']			=$followdate;
+ 			 $followdate 					= new DateTime(date('Y-m-d ',strtotime($this->input->post('followdate'))));
+	 	     $followdate 					= $followdate->format('Y-m-d G:i');
+			 $nextdate 						= new DateTime(date('Y-m-d ',strtotime($this->input->post('nextdate'))));
+	 	     $nextdate 						= $nextdate->format('Y-m-d G:i');
+		     $save['followup_date_time']	= $followdate;
 			 $save['calltype']			    = $this->input->post('calltype');
-			 $save['discussion']			    = $this->input->post('discuss');
-			 $save['next_followup_date']			    = $nextdate;
+			 $save['discussion']			= $this->input->post('discuss');
+			 $save['next_followup_date']    = $nextdate;
 			 $save['enquiryid']			    = $this->input->post('Enquiry_id');
-			 $id			    = $this->input->post('id');
-			 
+			 $id			                = $this->input->post('id');
 		     $this->Crm_model->follow_save($save,$id);
 	 }else{
 		 return false;
@@ -774,7 +773,6 @@ class Crm extends Admin_Controller {
 	}
 	
 	function post_sale_followup(){
-		
 		$this->render_admin('_crm/post_sales');
 	}
 	function pre_sale_followup(){
@@ -790,27 +788,30 @@ class Crm extends Admin_Controller {
 		$this->render_admin('_crm/pre_sales_tele');
 	}
 	function enquirys(){
-        $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('enquiry');
         $this->render_admin('_crm/enquiry/list',$data);
 	}
 	public function getenquirys(){
+		$user = $this->session->userdata('admin');
         $actions = "<div class=\"text-center\">";
         $actions .= " <a href='" . base_url('admin/crm/Crm/enquirys_view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/crm/Crm/enquiry_form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/crm/Crm/enquirys_delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
         $actions .= "</div>";
         $this->load->library('datatables');  
-        $this->datatables
-			->select("crm_enquirys.id,serial_no, date ,building_info.name building,floors.name floors,crm_enquirys. name ,contact_no", false)
-			->from("crm_enquirys")
-			->join("floors","floors.id=crm_enquirys.floor","left")
-			->join("building_info","building_info.bldid=crm_enquirys.preferred_wing","left")
-            ->where("crm_enquirys.soft_deleted", 0)
-            ->add_column("Actions", $actions, "crm_enquirys.id");
-        echo $this->datatables->generate();
+        //$this->datatables();
+			$this->datatables->select("crm_enquirys.id,serial_no, date ,building_info.name building,floors.name floors,crm_enquirys. name ,contact_no", false);
+			$this->datatables->from("crm_enquirys");
+			$this->datatables->join("floors","floors.id=crm_enquirys.floor","left");
+			$this->datatables->join("building_info","building_info.bldid=crm_enquirys.preferred_wing","left");
+            $this->datatables ->where("crm_enquirys.soft_deleted", 0);
+		  if($user['user_role']  ==2){
+			  $this->datatables ->where("crm_enquirys.attended_by", $user['id']);
+		  }
+           $this->datatables->add_column("Actions", $actions, "crm_enquirys.id");
+           echo $this->datatables->generate();
 	}
 	function   enquirys_view($id){
 		    $data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
-			$data['employee']		             = $this->Crm_model->get_employee();
+			$data['employee']	   = $this->Crm_model->get_employee();
 			$data['unit_type']     =$this->Crm_model->get_unit_type();
 			$data['floorlist']     =$this->Crm_model->get_floor($enquiry->preferred_wing);
 			$data['pos_enquirys']  =$pos_enquirys=$this->Crm_model->get_pos_enquiry($id);
@@ -835,7 +836,8 @@ class Crm extends Admin_Controller {
 	
 	function enquiry_form($id = false){
 	    $data['page_title']         	     = lang('enquiry');		
-		$data['employee']		             = $this->Crm_model->get_employee();
+		//$data['employee']		             = $this->Crm_model->get_employee();
+		$data['excutive']		         = $this->Crm_model->get_sale_person();
 		$data['building']		             = $this->Crm_model->getbuilding();
 		$maxid=$this->Crm_model->findmaxId();
 		$data['id']		                     = '';
@@ -1021,7 +1023,7 @@ class Crm extends Admin_Controller {
 
     public function delete_initial_enquiry($id){
         $this->global_model->table = 'crm_enquirys';
-        $result = $this->db->get_where('crm_enquirys', array('department' => $id))->result();
+        $result = $this->db->get_where('crm_customer', array('enquiry_id' => $id))->result();
         if (empty($result)) {
             $this->global_model->delete_by_id($id);
             echo 1;
