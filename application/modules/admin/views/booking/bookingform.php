@@ -504,7 +504,7 @@ legend.scheduler-border {
                                     penality.</p>
                             </div>
                         </div>
-                        <div class="row">
+                      <!--  <div class="row">
                             <div class="col-md-12">
                                 <h3>Payment Received Details(Till Date)</h3>
                                 <table class="table table-bordered" id="customFields">
@@ -553,7 +553,7 @@ legend.scheduler-border {
                                     </tfoot>
                                 </table>
                             </div>
-                        </div>
+                        </div>--->
                         <div class="row">
                             <div class="col-md-8">
                                 <h4>Terms & Conditions:</h4>

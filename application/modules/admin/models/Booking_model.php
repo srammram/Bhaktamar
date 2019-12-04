@@ -61,20 +61,20 @@ Class Booking_model extends CI_Model{
 	}
 	return fasle;
   }
-function booking_save($save,$paymentdetails,$payment_plan){   
+function booking_save($save,$payment_plan){   
 if(!empty($save['id'])){
 	$booking=$this->getbookingByid($save['id']);
 	$this->db->where('id',$save['id']);
 	$this->db->update("booking",$save);
-	$this->db->where('booking_id',$save['id']);
-	$this->db->delete('booking_payment_details');
+	/* $this->db->where('booking_id',$save['id']);
+	$this->db->delete('booking_payment_details'); */
 	$this->db->where('booking_id',$save['id']);
 	$this->db->where_not_in('paid_status',0);
 	$this->db->delete('booking_payment_plan');
-	foreach($paymentdetails as $row){
+	/* foreach($paymentdetails as $row){
 		$row['booking_id']=$save['id'];
 	    $this->db->insert('booking_payment_details',$row);
-	}
+	} */
 	foreach($payment_plan as $row){
 		$row['booking_id']=$save['id'];
 	    $this->db->insert('booking_payment_plan',$row);
@@ -86,10 +86,10 @@ if(!empty($save['id'])){
 }else{
 	 $this->db->insert('booking',$save);
 	 $booking_id = $this->db->insert_id();
-	 foreach($paymentdetails as $row){
+	/*  foreach($paymentdetails as $row){
 		$row['booking_id']=$booking_id;
 	    $this->db->insert('booking_payment_details',$row);
-	}
+	} */
 	foreach($payment_plan as $row){
 		$row['booking_id']=$booking_id;
 	    $this->db->insert('booking_payment_plan',$row);
@@ -169,4 +169,28 @@ function payment_status_update($save,$booking_id){
 	 }
 	}
 }
+ function add_payment($data,$bookingid,$paymentid){
+	$this->db->where(array("booking_id"=>$bookingid,"payment_planid"=>$paymentid));
+	if($this->db->update("booking_payment_plan",array("paid_status"=>0))){
+		$this->db->insert("booking_payment_details",$data);
+		$this->db->set('balance', 'balance-'.$data['amount'], FALSE);
+		$this->db->where('id',$bookingid );
+		$this->db->update('booking');
+		return true;
+	}
+	return false;
+ }
+	function due_paymentlist($bookingid){
+	$this->db->select("booking_payment_plan.*,booking_payment_master.name");
+	$this->db->join("booking_payment_master","booking_payment_master.id=booking_payment_plan.payment_planid","left");
+	$this->db->where("booking_id",$bookingid);
+	$this->db->where("paid_status !=",0);
+	$q=$this->db->get("booking_payment_plan");
+	if($q->num_rows()>0){
+		foreach($q->result() as $row){
+		$data[]=$row;
+		}
+		return $data;
+	}
+	}
 }

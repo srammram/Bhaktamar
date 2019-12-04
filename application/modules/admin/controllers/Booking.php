@@ -192,17 +192,17 @@ class Booking extends Admin_Controller {
 			 if(!empty($signatory)){
 		 		 $save['authorized_signatory']		        =$signatory;  
 			 }
-			 for($i=0; $i<count($this->input->post('paymentdate')); $i++){
+			/*  for($i=0; $i<count($this->input->post('paymentdate')); $i++){
 				if(!empty($_POST['cheque'][$i]) ||!empty($_POST['paymentdate'][$i]) ){
 					$paymentdetails[] = array(
 						'cheque_no' =>	$_POST['cheque'][$i],
 			         	'date' =>$_POST['paymentdate'][$i],
-				        'bank_branch' =>$_POST['bank_details'][$i],
+				        'details' =>$_POST['bank_details'][$i],
 				         'amount' =>!empty($_POST['amount'][$i])?$_POST['amount'][$i]:0
 					); 
 
 				}
-			}
+			} */
 			$total_amt=!empty($this->input->post('total_cost'))?$this->input->post('total_cost'):0;
 			for($i=0; $i<count($this->input->post('payment_planid')); $i++){
 				if(!empty($_POST['payment_planid'][$i]) ){
@@ -256,14 +256,15 @@ class Booking extends Admin_Controller {
 			 $save['legal_charges']                         =$this->input->post('legal_charges');
 			 $save['gst']                                   =$this->input->post('gst');
 			 $save['grand_total_cost']                      =$total_amt;
+			 $save['balance']                               =$total_amt;
 			 $save['owner_contribution']                    =$this->input->post('own_contribution');
 			 $save['bank_loan']                             =$this->input->post('bank_loan');
 			 $save['payment_schedule_plan']                 =$this->input->post('scheduletype');
 			 $save['valid_days']                            =$this->input->post('valid_days');
 			 $save['attended_by']                           =$this->input->post('attendedby');
-			 $save['total_received_amt']                     =$this->input->post('total_received_payment');
-			 $save['rupee_in_word']                        =$this->input->post('rupee_in_word');
-			$this->Booking_model->booking_save($save,$paymentdetails,$payment_plan);
+			 $save['total_received_amt']                    =$this->input->post('total_received_payment');
+			 $save['rupee_in_word']                         =$this->input->post('rupee_in_word');
+			$this->Booking_model->booking_save($save,$payment_plan);
 			if($id){
 				$this->session->set_flashdata('message', lang('AgentformUpdated'));
 			}else{
@@ -291,15 +292,47 @@ class Booking extends Admin_Controller {
 		}
 	}
 	function payment($bookingid){
-		/* print_r($_POST);
-		[paiddate] => 2019-12-05 [emi_amount] => 15000.00 [status] => Unpaid [paid_by] => Cash [fields1] => [fields2] => [fields3] => Visa [fields4] => [fields5] => [paymentid] => 1 [add_payment] => Add Payment
-		if(){
+		$data=array("booking_id"=>$bookingid,"date"=>$this->input->post('paiddate'),
+		"amount"=>$this->input->post('emi_amount'),
+		"paid_by"=>$this->input->post('paid_by'),
+		"cheque_no"=>$this->input->post('cheque_no'),
+		"bank"=>$this->input->post('bank'),
+		"branch"=>$this->input->post('branch'),
+		"credit_card"=>$this->input->post('card_details'),
+		"holder_name"=>$this->input->post('holder_name'),
+		"cardtype"=>$this->input->post('cardtype'),
+		"month"=>$this->input->post('month'),
+		"year"=>$this->input->post('years'),
+		"note"=>$this->input->post('note'));
+		$paymentid=$this->input->post('paymentid');
+		$result=$this->Booking_model->add_payment($data,$bookingid,$paymentid);
+		if($result){
 			$this->session->set_flashdata('error', lang("Payment_status"));
 			  redirect($_SERVER["HTTP_REFERER"]);
 		}else{
 			   $this->session->set_flashdata('message', lang("payment_added"));
                redirect($_SERVER["HTTP_REFERER"]);
-		} */
+		} 
+	}
+	function get_due_payment(){
+		$bookingid=$this->input->post('bookingid');
+		$due_payment=$this->Booking_model->due_paymentlist($bookingid);
+		$html=' <table class="table table-bordered paymenttable" >
+                 <thead><tr><th>Payment Plan</th><th>Percentage</th>
+				 	<th>Staus</th>
+				<th>Amount</th>
+				</tr></thead><tbody>';
+				if(!empty($due_payment)){ 
+				foreach($due_payment as $row){
+					$html .='<tr><td><input type="checkbox"  class="paymentids" value="'.$row->id.'">'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'<input type="hidden" class="paymentlistid" name="paymentid[]" value='.$row->amount.'></td></tr>';
+					
+					
+				}
+				}else{
+					$html .='<tr><td>No due Payment</td></tr>';
+				}
+		$html .=' </tbody></table>';
+		echo $html;
 	}
 	
 }

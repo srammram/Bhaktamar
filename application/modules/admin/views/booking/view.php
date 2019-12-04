@@ -190,6 +190,7 @@ legend.scheduler-border {
 	#customFields tfoot tr:last-child td{text-align: left;}
 	.form-group label::after{content: ':';position: absolute;right: 0px;top: 0px;}
 	#myModal .form-group label::after{display:none!important;}
+	#partial_payment_modal .form-group label::after{display:none!important;}
 	.well-sm .form-group label::after{display: none;}
 	.form-group .css-radio::after{display: none;}
 	.bottom_s .form-group label::after{display: none;}
@@ -538,6 +539,7 @@ legend.scheduler-border {
                         <div class="row">
                             <div class="col-md-10">
                                 <h4>Payment Schedule<sup></sup>:</h4>
+								
                                    <div class="form-group">
                                             <label class="css-input css-radio css-radio-success push-10-r">
                                                 <input name="scheduletype" disabled value="1" 
@@ -548,6 +550,7 @@ legend.scheduler-border {
                                                     type="radio" disabled class="scheduletype" ><span></span> Regular Plan
                                             </label>
                                         </div>
+										<button  type="button" style="float:right;" data-id="<?php echo  $booking->id ; ?>" class="btn btn-dark partial_payment">Partial payment</button>
                                <table class="table table-bordered paymenttable" >
                                     <thead>
 										<tr>
@@ -568,13 +571,13 @@ legend.scheduler-border {
 											<td>
 											<?php switch($row->paid_status){
 														case 0:
-														echo '<p style="color:#3d9970!important;">Paid</p>';
+														echo 'Paid';
 														break;
 														case 1:
-														echo '<p  style="color:#3c8dbc;">UnPaid</p>';
+														echo 'UnPaid';
 														break;
 														case 2:
-														echo '<p  style="color: #ff3333;">Due</p>';
+														echo 'Due';
 														break;
 
 											}												?></td>
@@ -587,7 +590,7 @@ legend.scheduler-border {
 														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a>';
 														break;
 														case 2:
-														echo '<a href="#myModal" data-id='.$row->id.' data-amount='.$row->amount.' style="color: #ff3333;">Due</a>';
+													echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#ff3333;">Due</a>';
 														break;
 
 											}												?></td>
@@ -610,8 +613,9 @@ legend.scheduler-border {
                                             <th>Sr</th>
                                             <th>Cheque No.</th>
                                             <th>Dated</th>
-                                            <th>Bank & Branch</th>
+                                            <th>Bank & Other Details</th>
                                             <th>Amount</th>
+											 <th>Note</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -620,19 +624,31 @@ legend.scheduler-border {
                                         <td><?php  echo $i;  ?>.</td>
                                             <td><?php echo $row->cheque_no  ;  ?></td>
                                             <td><?php echo $row->date  ;  ?></td>
-                                            <td><?php echo $row->bank_branch  ;  ?></td>
+                                            <td><?php 
+											if($row->paid_by =='Cash'){
+												echo $row->bank.'<br>';
+												echo $row->branch;
+											}else{
+												echo $row->credit_card.'<br>';
+												echo $row->holder_name.'<br>';
+												echo $row->cardtype.'<br>';
+												echo $row->month.'/'.$row->year;
+											}
+											
+											  ?></td>
                                             <td><?php echo $this->sma->formatMoney($row->amount)  ;  ?></td>
+											 <td><?php echo $row->note  ;  ?></td>
                                             </tr>
                                     <?php  $i++; }  }  ?>
                                       
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4" style="text-align: right;">Total Received Payment</td>
-                                            <td><?php  if(!empty($booking->total_received_amt)){ echo $this->sma->formatMoney($booking->total_received_amt) ;  } ?></td>
+                                            <td colspan="5" style="text-align: right;">Total Received Payment</td>
+                                            <td><?php  if(!empty($booking->grand_total_cost)){ echo $this->sma->formatMoney($booking->grand_total_cost -$booking->balance) ;  } ?></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5">
+                                            <td colspan="6">
                                                 <?php  if(!empty($booking->rupee_in_word)){ echo $booking->rupee_in_word ;  } ?>
                                             </td>
                                         </tr>
@@ -731,6 +747,7 @@ legend.scheduler-border {
                                 <input type="text" name="paiddate" id="paiddate" required class="form-control datepicker" autocomplete="off"><i class="form-control-feedback"></i>
                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
                         </div>
+						
                     </div>
                     <div class="clearfix"></div>
 	                         <div id="payments">
@@ -747,6 +764,7 @@ legend.scheduler-border {
                                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="amount-paid" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
                                         </div>
                                     </div>
+									<input type="text" class="form-control allowdecimalpoint"  name="legal_charges" value="<?php  if(!empty($legal_charges)){ echo  $legal_charges ;  } ?>">
                                     <div class="col-sm-6">
                                         <div class="form-group has-feedback">
                                             <label for="paid_by_1">Paid by *</label>
@@ -762,19 +780,19 @@ legend.scheduler-border {
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="fields1" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Cheque No">
+                                                <input name="cheque_no" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Cheque No">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="fields2" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Bank">
+                                                <input name="bank" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Bank">
                                             </div>
                                         </div>
                                         
                                         
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="fields3" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Branch">
+                                                <input name="branch" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Branch">
                                             </div>
                                         </div>
                                        
@@ -785,17 +803,17 @@ legend.scheduler-border {
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="fields1" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Credit Card No">
+                                                <input name="card_details" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Credit Card No">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="fields2" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Holder Name">
+                                                <input name="holder_name" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Holder Name">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                  <select name="fields3" class="form-control " placeholder="Card Type" id="emi_cardtype">
+                                                  <select name="cardtype" class="form-control " placeholder="Card Type" id="emi_cardtype">
                                                     <option value="Visa">Visa</option>
                                                     <option value="Mastercard">Mastercard</option>
                                                     <option value="Amex">Amex</option>
@@ -805,12 +823,12 @@ legend.scheduler-border {
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <input name="fields4" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Month">
+                                                <input name="month" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Month">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <input name="fields5" type="text" id="emi_pcc_year_1" class="form-control" placeholder="Year">
+                                                <input name="years" type="text" id="emi_pcc_year_1" class="form-control" placeholder="Year">
                                             </div>
                                         </div>
                                      
@@ -824,10 +842,76 @@ legend.scheduler-border {
                           <div class="col-sm-12">
                             <div class="form-group has-feedback">
                                 <label for="date">Note *</label><br>
-								<textarea class="form-control" id="paymentnote">  </textarea>
+								<textarea class="form-control" name="note" id="paymentnote">  </textarea>
                                 </div>
                         </div>
                     </div>
+					 <div class="row">
+						<input type="hidden"  id="paymentid" name="paymentid">
+						 <div class="form-group pull-right">
+							<input type="submit" name="add_payment" value="Add Payment"  id="paymentbutton"class="btn btn-primary">
+							<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo lang('close'); ?></button>
+						</div>
+					</div>
+      </div>
+					 </div>
+      </div>
+		</form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  
+  
+  
+  
+  
+  
+  
+	 <div class="modal fade" id="partial_payment_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+       <h4 class="modal-title" id="myModalLabel"><b><?php echo lang('Add_payment')?></b></h4>
+         
+      </div>
+        
+		<form method="post" action="<?php echo site_url('admin/booking/payment/'.$booking->id); ?>" >
+		<div class="modal-body">
+                <div class="modal-body">
+                    <p>Please fill in the information below. The field labels marked with * are required input fields.</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label for="date"><?php echo lang('date')?> </label>
+                                <input type="text" name="date"  id="paymentdate" class="form-control datepicker"  required="required" ><i class="form-control-feedback"></i>
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;"><?php echo lang('Ple_enter')?></small></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reference_no">Partial Amount</label>
+                                <input type="text" name="reference_no" value="" class="form-control allowdecimalpoint" id="reference_no">
+                            </div>
+                        </div>
+						 <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reference_no">Partial Balance Amount</label>
+                                <input type="text" readonly value="" class="form-control allowdecimalpoint" id="reference_no">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                      
+                            <div class="col-md-12">
+							 <div id="payments_list">
+							 
+							 
+                                </div>
+								</div>
+								
 					 <div class="row">
 						<input type="hidden"  id="paymentid" name="paymentid">
 						 <div class="form-group pull-right">
@@ -863,6 +947,20 @@ $('.pay_now').click(function(){
 	$("#emi_amount").val(amt);
     $('#myModal').modal('show');
 })
+$('.partial_payment').click(function(){
+	var id=$(this).data('id');
+	var postUrl  = "<?php echo base_url();  ?>admin/booking/get_due_payment" ;
+			$.ajax({
+				type: "POST",
+				url:  postUrl,
+				data: { bookingid : id },
+				cache: false,
+				success: function(result){
+					$("#payments_list").html(result);
+				}
+			});
+    $('#partial_payment_modal').modal('show');
+})
 $('.payingtype').on('change', function() {
   if(this.value == '<?php echo lang('Credit_Card'); ?>'){
 	    $('.pcc_').css('display','none');
@@ -872,4 +970,11 @@ $('.payingtype').on('change', function() {
 	 $('.pcc_').css('display','block');
   }
 });
+$('.paymentids').on('change', function() {
+    alert(1);
+});
+</script>
+
+<script>
+$('form').attr('autocomplete', 'off');
 </script>
