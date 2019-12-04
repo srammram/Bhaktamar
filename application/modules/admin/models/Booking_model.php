@@ -205,8 +205,8 @@ function payment_status_update($save,$booking_id){
 				foreach($q->result() as $row){
 			$data=array("booking_id"=>$bookingid,"date"=>$paiddate,
 		           "amount"=>$row->amount,
-		           "note"=>"Partial Amountpaid on".$paiddate);
-			$this->db->insert("booking_payment_details",$data);
+		           "note"=>"Partial Amountpaid on".$paiddate,"paymentid"=>$row->id);
+			       $this->db->insert("booking_payment_details",$data);
 				}
 				$this->db->set('balance', 'balance-'.$partial_amount, FALSE);
 		        $this->db->where('id',$bookingid );
