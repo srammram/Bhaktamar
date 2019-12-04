@@ -9,7 +9,6 @@ class Task extends Admin_Controller {
 		$this->load->helper('download');
 	}
 	function index(){
-		 $this->sma->checkPermissions();
 		 $admin = $this->session->userdata('admin');
 		 $data['page_title']	= lang('Project');
 		 $this->render_admin('task/list', $data);		
@@ -29,23 +28,25 @@ class Task extends Admin_Controller {
 	         echo $this->datatables->generate();
 	}
 	function view($id,$tab=false){
-		$this->sma->checkPermissions();
+		
 		$admin = $this->session->userdata('admin');
 		$data['task']		     	=	$task		= $this->Task_model->get($id);
 		$data['page_title']	        = lang('view')." ".lang('Task') ;
 	    $this->render_admin('task/view', $data);
 	}
 	function form($id = false){
-		$this->sma->checkPermissions();
 		$admin = $this->session->userdata('admin');
 		$data['page_title']		        = lang('add_task');
 		$data['project']	            = $this->Task_model->get_project();
 		$data['stages']		        	= $this->Task_model->get_project_stages();
 		$data['tasks']		            = $this->Task_model->get_task();
 		$data['employee']		        = $this->Task_model->get_employee();
+		$data['payment_plan']		    = $this->Task_model->payment_plan();
 		$data['id']					    = "";
 		$data['taskName']			    = "";
 		$data['projectid']	            = "";
+		$data['building_id']			= "";
+		$data['payment_planid']			= "";
 		$data['parentasktid']		    = "";
 		$data['Projectstageid']			= "";
 		$data['start_date']             = "";
@@ -55,8 +56,8 @@ class Task extends Admin_Controller {
 	    $data['comments']			    = "";
 		if ($id){	  
 		     $data['page_title']		= lang('edit_task');
-		     $this->sma->checkPermissions('edit');
-			 $data['task']			=	$task		= $this->Task_model->get($id);
+			 $data['task']			    = $task	= $this->Task_model->get($id);
+			 $data['building']			= $this->Task_model->get_building($id);
 			if (!$task){
 				$this->session->set_flashdata('error', lang('task_details_not_found'));
 				redirect('admin/Task');
@@ -64,6 +65,8 @@ class Task extends Admin_Controller {
 		$data['id']					     = $task->id;
 		$data['taskName']			     = $task->taskName;
 		$data['projectid']	             = $task->project_id;
+		$data['building_id']			 = $task->building_id;
+		$data['payment_planid']			 = $task->payment_planid;
 		$data['parentasktid']		     = $task->parentasktid;
 		$data['Projectstageid']			 = $task->stage_id;
 		$data['start_date']              = $task->start_date;
@@ -80,6 +83,8 @@ class Task extends Admin_Controller {
 			 $save['id']					    =  $this->input->post('id');
 			 $save['taskName']			        =  $this->input->post('TaskName');
 			 $save['project_id']			    =  $this->input->post('projectid');
+			 $save['building_id']			    =  $this->input->post('building');
+			 $save['payment_planid']			=  $this->input->post('payment_plan');
 			 $save['parentasktid']	            =  $this->input->post('Parenttaskid');
 			 $save['stage_id']		            =  $this->input->post('Projectstageid');
 			 $save['start_date']			    =  $this->input->post('start_date');
@@ -97,7 +102,6 @@ class Task extends Admin_Controller {
 		}
 	}
 	   function delete($id =false){
-			$this->sma->checkPermissions();
 			if ($id){	
 			$project	= $this->Task_model->projectIfexists($id);
 			if (!$project){

@@ -1,7 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/select2.min.css" type="text/css">
-<script type="text/javascript" src="<?php echo base_url('assets/admin')?>/dist/js/select2.min.js"></script>
-<link href='<?php echo base_url()?>assets/assets/plugin/datepicker/datepicker3.css' rel='stylesheet' media='screen'>
+<link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
 <style>
 .error {
     color: #FF0000;
@@ -191,10 +189,13 @@ legend.scheduler-border {
 	#customFields tfoot tr td:last-child{text-align: right;}
 	#customFields tfoot tr:last-child td{text-align: left;}
 	.form-group label::after{content: ':';position: absolute;right: 0px;top: 0px;}
+	#myModal .form-group label::after{display:none!important;}
 	.well-sm .form-group label::after{display: none;}
 	.form-group .css-radio::after{display: none;}
 	.bottom_s .form-group label::after{display: none;}
 	.bottom_s .form-group .form-control{border: none!important;}
+	.well_1 .form-group{margin-bottom:5px;}
+	#myModal .modal-body{padding-top:0px;}
 </style>
 <?php   $seg= $this->uri->segment(5);?>
 <section class="content-header">
@@ -535,79 +536,65 @@ legend.scheduler-border {
                             </div>
                         </fieldset>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <h4>Payment Schedule<sup></sup>:</h4>
-                                
                                    <div class="form-group">
                                             <label class="css-input css-radio css-radio-success push-10-r">
-                                                <input name="scheduletype" value="1" 
+                                                <input name="scheduletype" disabled value="1" 
                                                     type="radio" class="scheduletype" <?php  if(!empty($booking->payment_schedule_plan)){ if($booking->payment_schedule_plan==1){ echo "checked" ;  }}  ?>><span></span> Custom Plan
                                             </label> &nbsp;  &nbsp;  &nbsp;  &nbsp;  
                                             <label class="css-input css-radio css-radio-success push-10-r">
                                                 <input name="scheduletype" value="2" <?php  if(!empty($booking->payment_schedule_plan)){ if($booking->payment_schedule_plan==2){ echo "checked" ;  }}else{ echo "checked" ; }  ?>
-                                                    type="radio" class="scheduletype" ><span></span> Regular Plan
+                                                    type="radio" disabled class="scheduletype" ><span></span> Regular Plan
                                             </label>
                                         </div>
-                                
-                                <table class="table table-bordered">
-                                    <colgroup>
-                                        <col width="85%">
-                                        <col width="10%">
-                                    </colgroup>
+                               <table class="table table-bordered paymenttable" >
+                                    <thead>
+										<tr>
+											<th>Payment Plan</th>
+											<th>Percentage</th>
+											<th>Amount</th>
+											<th>Staus</th>
+											<th>Action</th>
+										</tr>
+									</thead>
                                     <tbody>
+									<?php  
+									 if(!empty($booking_payment_plan)){foreach($booking_payment_plan as $row){ ?>
                                         <tr>
-                                            <td>Token/Booking Amount</td>
-                                            <td><?php  if(!empty($booking->token_booking_amt)){ echo round($booking->token_booking_amt);  } ?><span class="percentage_s">%</span></td>
+                                            <td><?php  echo $row->name;  ?></td>
+                                            <td><?php  echo $row->percetage  ?> %</td>
+											<td><?php  echo $this->sma->formatMoney($row->amount)  ?> </td>
+											<td>
+											<?php switch($row->paid_status){
+														case 0:
+														echo '<p style="color:#3d9970!important;">Paid</p>';
+														break;
+														case 1:
+														echo '<p  style="color:#3c8dbc;">UnPaid</p>';
+														break;
+														case 2:
+														echo '<p  style="color: #ff3333;">Due</p>';
+														break;
+
+											}												?></td>
+												<td>
+											<?php switch($row->paid_status){
+														case 0:
+														echo '<a  data-id='.$row->id.' data-amount='.$row->amount.' style="color:#3d9970!important;">Receipt</a>';
+														break;
+														case 1:
+														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a>';
+														break;
+														case 2:
+														echo '<a href="#myModal" data-id='.$row->id.' data-amount='.$row->amount.' style="color: #ff3333;">Due</a>';
+														break;
+
+											}												?></td>
+											
                                         </tr>
-                                        <tr>
-                                            <td>On Execution of Agreement</td>
-                                            <td><?php  if(!empty($booking->execution_of_agreement_amt)){ echo round($booking->execution_of_agreement_amt);  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Plinth</td>
-                                            <td><?php  if(!empty($booking->completion_of_plinth_amt)){ echo round($booking->completion_of_plinth_amt) ;  } ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Parking & 1st Slab</td>
-                                            <td><?php  if(!empty($booking->parking_1st_slab_amt)){ echo round($booking->parking_1st_slab_amt);  }else{ echo 5 ;  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 2nd Slab</td>
-                                            <td><?php  if(!empty($booking->completionof_2nd_slab_amt))
-											{ echo round($booking->completionof_2nd_slab_amt) ;  } ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 5th Slab</td>
-                                            <td><?php  if(!empty($booking->completion_of_5th_slab_amt)){ echo  round($booking->completion_of_5th_slab_amt) ;  } ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 8th Slab</td>
-                                            <td><?php  if(!empty($booking->completion_of_8th_slab_amt)){ echo round($booking->completion_of_8th_slab_amt);  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 11th Slab</td>
-                                            <td><?php  if(!empty($booking->completion_of_11_slab_amt)){ echo round($booking->completion_of_11_slab_amt);  }else{ echo 5;  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Topmost Slab</td>
-                                            <td><?php  if(!empty($booking->completion_of_topmost_slab_amt)){ echo round($booking->completion_of_topmost_slab_amt);  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Brick Work,Plaster & Flooring</td>
-                                            <td><?php  if(!empty($booking->paint_stage_amt)){ echo round($booking->paint_stage_amt) ;  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Sanitary Fitting & Paint</td>
-                                            <td><?php  if(!empty($booking->finishg_work_amt)){ echo round($booking->finishg_work_amt);  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of MEP & Finishing Work</td>
-                                            <td><?php  if(!empty($booking->possesion_amt)){ echo round($booking->possesion_amt);  }  ?><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Handover/Possesion</td>
-                                            <td><?php  if(!empty($booking->possesion_amt)){ echo round($booking->possesion_amt);  } ?><span class="percentage_s">%</span></td>
-                                        </tr>
+									
+									<?php } }  ?>
                                     </tbody>
                                 </table>
                                 <p><sup>*</sup>No reveiving of payment as per payment schedule will cause interest and
@@ -723,9 +710,166 @@ legend.scheduler-border {
 
         </div><!-- /.col -->
     </div><!-- /.row -->
+	
+	 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+       <h4 class="modal-title" id="myModalLabel"><b><?php echo lang('Add_payment')?></b></h4>
+         
+      </div>
+        
+		<form method="post" action="<?php echo site_url('admin/booking/payment/'.$booking->id); ?>" >
+		<div class="modal-body">
+                <div class="modal-body">
+                    <p>Please fill in the information below. The field labels marked with * are required input fields.</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label for="date">Date </label>
+                                <input type="text" name="paiddate" id="paiddate" required class="form-control datepicker" autocomplete="off"><i class="form-control-feedback"></i>
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+	                         <div id="payments">
+                        <div class="well well-sm well_1">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="payment">
+                                            <div class="form-group has-feedback">
+                                                <label for="amount_1">Amount</label>
+												<input type="text" value="" name="emi_amount" id="emi_amount" class="form-control" readonly="">
+				                         		<input type="hidden" name="status" id="status" class="form-control" readonly="" value="Unpaid">
+                                               <!-- <input name="amount-paid" type="text" id="amount_1"  class="pa form-control kb-pad amount" required="required" data-bv-field="amount-paid"><i class="form-control-feedback" data-bv-icon-for="amount-paid" style="display: none;">-->
+                                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="amount-paid" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group has-feedback">
+                                            <label for="paid_by_1">Paid by *</label>
+                                            <select class="form-control payingtype" name="paid_by" id="emi_paid_by">
+                                                <option value="Cash">Cash</option>
+                                                <option value="Credit Card">Card</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="emi_pcc_1 pcc_" >
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="fields1" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Cheque No">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="fields2" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Bank">
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="fields3" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Branch">
+                                            </div>
+                                        </div>
+                                       
+                                     
+                                    </div>
+                                </div>
+								 <div class="emi_pcc_1 pcc_1" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="fields1" type="text" id="emi_pcc_no_1" class="form-control" placeholder="Credit Card No">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="fields2" type="text" id="emi_pcc_holder_1" class="form-control" placeholder="Holder Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                  <select name="fields3" class="form-control " placeholder="Card Type" id="emi_cardtype">
+                                                    <option value="Visa">Visa</option>
+                                                    <option value="Mastercard">Mastercard</option>
+                                                    <option value="Amex">Amex</option>
+                                                    <option value="Discover">Discover</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input name="fields4" type="text" id="emi_pcc_month_1" class="form-control" placeholder="Month">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input name="fields5" type="text" id="emi_pcc_year_1" class="form-control" placeholder="Year">
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+				   <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group has-feedback">
+                                <label for="date">Note *</label><br>
+								<textarea class="form-control" id="paymentnote">  </textarea>
+                                </div>
+                        </div>
+                    </div>
+					 <div class="row">
+						<input type="hidden"  id="paymentid" name="paymentid">
+						 <div class="form-group pull-right">
+							<input type="submit" name="add_payment" value="Add Payment"  id="paymentbutton"class="btn btn-primary">
+							<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo lang('close'); ?></button>
+						</div>
+					</div>
+      </div>
+					 </div>
+      </div>
+		</form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </section>
 <script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url('assets/admin/plugins')?>/jquery-validation/jquery.validate.min.js"></script>
+<script>
+  $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    });
+$('.pay_now').click(function(){
+    var id=$(this).data('id');
+	var amt=$(this).data('amount');
+	var due_date=$(this).data('duedate');
+	$("#paymentid").val(id);
+	$("#emi_amount").val(amt);
+    $('#myModal').modal('show');
+})
+$('.payingtype').on('change', function() {
+  if(this.value == '<?php echo lang('Credit_Card'); ?>'){
+	    $('.pcc_').css('display','none');
+	  $('.pcc_1').css('display','block');
+  }else{
+	$('.pcc_1').css('display','none');
+	 $('.pcc_').css('display','block');
+  }
+});
+</script>

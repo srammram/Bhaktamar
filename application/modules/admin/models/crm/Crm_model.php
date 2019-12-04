@@ -27,7 +27,6 @@ Class Crm_model extends CI_Model
 	}
 	function getSalesPerson($salepersontype){
 		  if(lang('Executive') == $salepersontype){
-		
 		$this->db->select('id,first_name as Name');
 		$this->db->where(array('soft_delete'=>0,'termination'=>1));
 		$agents=$this->db->get('employee');
@@ -181,7 +180,6 @@ Class Crm_model extends CI_Model
 			$row->initial_amount=$Intial_Amount;
 			$row->initialamount_date=$paiddate;
 	    	$customer = $this->db->get_where('crm_customer',array('enquiry_id'=>$id))->row();	
-	
 		if(empty($customer)){
          $this->db->insert('crm_customer',$row);
 		}else{
@@ -191,8 +189,7 @@ Class Crm_model extends CI_Model
         }
 	return true;
 	}
-    function customer_update($data)
-    {    	
+    function customer_update($data){    	
         if ($data['customer_id']){
             $this->db->where('customer_id', $data['customer_id']);
             $this->db->update('crm_customer', $data);            
@@ -209,7 +206,6 @@ Class Crm_model extends CI_Model
             $this->db->update('crm_customer', $save);
             return $id;
     }
-
 	function getClientView($id){		
 		$this->db->select('crm_customer.*,countries.name as countryname');
 		$this->db->join('countries','countries.id=crm_customer.country','left');
@@ -217,8 +213,6 @@ Class Crm_model extends CI_Model
 		$query=$this->db->get('crm_customer');
 		return $query->row();		
 	}
-
-
 	function getCustomerlist(){
 		return $this->db->get_where('crm_customer',array('soft_delete'=>0))->result();
 	}
@@ -257,12 +251,12 @@ Class Crm_model extends CI_Model
 	}
 	
 	function getSalesPersonName($salepersontype,$id){
-		  if(lang('Executive') == $salepersontype){
+	 if(lang('Executive') == $salepersontype){
 		$this->db->select('id,first_name as Name');
 		$this->db->where(array('soft_delete'=>0,'termination'=>1,'id'=>$id));
 		$agents=$this->db->get('employee');
         return $agents->row();
-	 }else{ 
+	  }else{ 
 		$this->db->select('agentid as id,Name as Name');
 		$this->db->where(array('soft_delete'=>0,'agentid'=>$id));
 		$agents=$this->db->get('sales_agent');
@@ -477,4 +471,5 @@ Class Crm_model extends CI_Model
 	   }
 	   return false;
    }
+   
 }

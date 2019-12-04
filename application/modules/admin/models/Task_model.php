@@ -52,6 +52,20 @@ function get_task(){
 	  }
 	return false;
 }
+function get_building($id){
+	$this->db->select("bldid,name");
+	$this->db->where("soft_delete",0);
+	$this->db->where("project_id",$id);
+	$q=$this->db->get("building_info");
+	  if($q->num_rows()>0){
+		  foreach($q->result() as $row){
+			  $data[]=$row;
+		  }
+		  return $data;
+	  }
+	return false;
+}
+
 
 function get($id = false){
 	  $this->db->select("task.*,project.Name project,soc.Name as stage,first_name ,  last_name");
@@ -99,13 +113,39 @@ function save($save){
 	if($save['id']){
 		$this->db->where("id",$save['id']);
 		$this->db->update("task",$save);
+		if($save['status'] =='Complete'){
+		$this->update_payment_status($save);
+		}
 		return true;
-		
 	}else{
 		$this->db->insert("task",$save);
+		if($save['status'] =='Complete'){
+		$this->update_payment_status($save);
+		}
 		return true;
 	}
-	
+}
+function payment_plan(){
+	$this->db->select("*");
+	$this->db->where("soft_delete",0);
+	$q=$this->db->get("booking_payment_master");
+	if($q->num_rows()>0){
+		foreach($q->result() as $row){
+				$data[]=$row;
+		}
+		return $data;
+	}
+	return false;
+}
+function update_payment_status($save){
+	$this->db->where('payment_planid',$save['payment_planid']);
+	if(!empty($save['building_id'])){
+	$this->db->where('building_id',$save['building_id']);
+	}
+	$this->db->where('project_id',$save['project_id']);
+	$this->db->where_not_in('paid_status',0);
+	$this->db->update('booking_payment_plan',array('paid_status'=>2));
+	return true;
 	
 }
 }

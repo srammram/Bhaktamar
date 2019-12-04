@@ -1,9 +1,7 @@
 <?php
 
-class Project extends Admin_Controller
-{
-    public function __construct()
-    {
+class Project extends Admin_Controller{
+    public function __construct(){
         parent::__construct();
         $this->load->model(array('Project_model'));
         $this->load->helper("url");
@@ -11,15 +9,12 @@ class Project extends Admin_Controller
         $this->load->library('form_validation');
         $this->load->helper('download');
     }
-    public function index()
-    {
-        $this->sma->checkPermissions();
+    public function index(){
         $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('Project');
         $this->render_admin('Project/list', $data);
     }
-    public function getProject()
-    {
+    public function getProject(){
         $actions = "<div class=\"text-center\">";
        // $actions .= "<a href='" . base_url('admin/Project/project_chart/$1') . "'  class='tip' ><i class=\"fa fa-bar-chart\"></i></a> <a href='" . base_url('admin/Project/view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/Project/form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/Project/delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
 		  $actions .= "<a href='" . base_url('admin/Project/view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/Project/form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/Project/delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
@@ -33,8 +28,7 @@ class Project extends Admin_Controller
         echo $this->datatables->generate();
     }
 
-    public function view($id, $tab = false)
-    {
+    public function view($id, $tab = false){
         $this->sma->checkPermissions();
         $admin = $this->session->userdata('admin');
         $data['project_id'] = $id;
@@ -49,8 +43,7 @@ class Project extends Admin_Controller
         //    $this->render_admin('Project/view', $data);
         $this->render_admin('Project/board', $data);
     }
-    public function form($id = false)
-    {
+    public function form($id = false){
         $this->sma->checkPermissions();
         $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('Project_Form');
@@ -187,8 +180,7 @@ class Project extends Admin_Controller
             redirect('admin/Project');
         }
     }
-    public function delete($id = false)
-    {
+    public function delete($id = false){
         if ($id) {
             $project = $this->Project_model->projectIfexists($id);
             if (!$project) {
@@ -220,15 +212,12 @@ class Project extends Admin_Controller
 	         echo $this->datatables->generate();
 	}
 
-    public function stage_approval()
-    {
-        $this->sma->checkPermissions();
+    public function stage_approval(){   
         $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('Project');
         $this->render_admin('Project/stage_approval//list', $data);
     }
-    public function getStageApproval()
-    {
+    public function getStageApproval(){
         $actions = "<div class=\"text-center\">";
         $actions .= " <a href='" . base_url('admin/Project/approvedform/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> ";
         $actions .= "</div>";
@@ -240,9 +229,7 @@ class Project extends Admin_Controller
             ->add_column("Actions", $actions, "id");
         echo $this->datatables->generate();
     }
-    public function approvedform($id = false)
-    {
-        $this->sma->checkPermissions();
+    public function approvedform($id = false){
         $admin = $this->session->userdata('admin');
         $data['page_title'] = lang('stage_approval');
         $data['soc']        = $this->Project_model->get_all_soc();
@@ -250,7 +237,6 @@ class Project extends Admin_Controller
         $data['Name']       = '';
         $data['developer']  = '';
         if ($id) {
-            $this->sma->checkPermissions('edit');
             $data['project'] = $project = $this->Project_model->get($id);
             $data['activestage'] = $this->Project_model->getapproval_stages($id);
             if (!$project) {
@@ -300,37 +286,35 @@ class Project extends Admin_Controller
             redirect('admin/Project/stage_approval');
         }
     }
-       function Estimation(){
-$admin = $this->session->userdata('admin');
-$data['page_title']    = lang('Project_estimation');
-$data['Estimation']    = $this->Project_model->getAllEstimationplan();
-$this->render_admin('Project/Estimation_list', $data);
-}
+   function Estimation(){
+		$admin = $this->session->userdata('admin');
+		$data['page_title']    = lang('Project_estimation');
+		$data['Estimation']    = $this->Project_model->getAllEstimationplan();
+		$this->render_admin('Project/Estimation_list', $data);
+	}
 
-function Estimation_view($id,$tab=false){
-$admin = $this->session->userdata('admin');
-$data['projects']= $this->Project_model->get_all();
-$data['Materials']= $this->Project_model->getMaterial();
-$data['Uoms']= $this->Project_model->getUom();
-$data['Laboutypes']= $this->Project_model->getLabour();
-$data['Estimation']            =    $project        = $this->Project_model->get($id);
-$data['page_title']    = lang('view')." ".lang('Project_estimation') ;
-$data['Estimationplan']            =    $Estimationplan        = $this->Project_model->getEstimationPlan($id);
-$data['id']                            =$Estimationplan->id;
-$data['TaskName']                    =$Estimationplan->TaskName;
-$data['project_id']                    =$Estimationplan->project_id;
-$data['Project_Stages']                =$this->Project_model->getStage($Estimationplan->Stage_id);
-$data['TotalEstimateCost']            =$Estimationplan->TotalEstimateCost;
-$data['TotalEstimateLabour']        =$Estimationplan->TotalEstimateLabour;
-$data['TotalEstimateTime']            =$Estimationplan->TotalEstimateTime;
-$data['TaskLists']                    =$this->Project_model->getTasklistByid($Estimationplan->id);
-$data['TaskwiseLabourlists']        =$this->Project_model->getTasklistWiseLabour($Estimationplan->project_id,$Estimationplan->Stage_id);
-$data['TaskwiseMateriallists']        =$this->Project_model->getTasklistWiseMaterial($Estimationplan->project_id,$Estimationplan->Stage_id);
-
-$this->render_admin('Project/Estimation_view', $data);
-}
-function Estimationform($id = false)
-{
+  function Estimation_view($id,$tab=false){
+		$admin                                 = $this->session->userdata('admin');
+		$data['projects']                      = $this->Project_model->get_all();
+		$data['Materials']                     = $this->Project_model->getMaterial();
+		$data['Uoms']                          = $this->Project_model->getUom();
+		$data['Laboutypes']                    = $this->Project_model->getLabour();
+		$data['Estimation']                    = $project        = $this->Project_model->get($id);
+		$data['page_title']                    = lang('view')." ".lang('Project_estimation') ;
+		$data['Estimationplan']                = $Estimationplan        = $this->Project_model->getEstimationPlan($id);
+		$data['id']                            = $Estimationplan->id;
+		$data['TaskName']                      = $Estimationplan->TaskName;
+		$data['project_id']                    = $Estimationplan->project_id;
+		$data['Project_Stages']                = $this->Project_model->getStage($Estimationplan->Stage_id);
+		$data['TotalEstimateCost']             = $Estimationplan->TotalEstimateCost;
+		$data['TotalEstimateLabour']           = $Estimationplan->TotalEstimateLabour;
+		$data['TotalEstimateTime']             = $Estimationplan->TotalEstimateTime;
+		$data['TaskLists']                     = $this->Project_model->getTasklistByid($Estimationplan->id);
+		$data['TaskwiseLabourlists']           = $this->Project_model->getTasklistWiseLabour($Estimationplan->project_id,$Estimationplan->Stage_id);
+		$data['TaskwiseMateriallists']         = $this->Project_model->getTasklistWiseMaterial($Estimationplan->project_id,$Estimationplan->Stage_id);
+		$this->render_admin('Project/Estimation_view', $data);
+		}
+function Estimationform($id = false){
 $data['projects']= $this->Project_model->get_all();
 $data['Materials']= $this->Project_model->getMaterial();
 $data['Uoms']= $this->Project_model->getUom();

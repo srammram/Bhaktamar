@@ -30,17 +30,19 @@ class Booking extends Admin_Controller {
         echo $this->datatables->generate();
 	}
 	function view($id){
-		$data['booking']			=	$booking   = $this->Booking_model->getbookingByid($id);
-		$data['building']=$this->Booking_model->getbuilding();
+		$data['booking']		     	=	$booking   = $this->Booking_model->getbookingByid($id);
+		$data['building']               =   $this->Booking_model->getbuilding();
 		$data['floorlist']			    =   $this->Booking_model->get_floor($booking->building_no);
 		$data['unitlist']		     	=   $this->Booking_model->get_units($booking->floor);
-		$data['payment_details']    =   $this->Booking_model->get_payment_details($booking->id);	
+		$data['payment_details']        =   $this->Booking_model->get_payment_details($booking->id);	
+		$data['booking_payment_plan']=   $this->Booking_model->bookingwise_payment_plan($booking->id);		
 		$this->render_admin('booking/view', $data);
 	}
 	function booking($id = false){
 		$data['page_title']         	               = lang('booking');		
-		$data['building']=$this->Booking_model->getbuilding();
-		$maxid=$this->Booking_model->findmaxId();
+		$data['building']                              = $this->Booking_model->getbuilding();
+		$data['payment_plan']                          = $this->Booking_model->payment_plan();
+		$maxid                                         = $this->Booking_model->findmaxId();
 		$data['id']                                    = "";
 		$data['serial_no']                             = 'BN'.str_pad($maxid, 6, '0', STR_PAD_LEFT);
 		$data['date']                                  ="";
@@ -85,18 +87,6 @@ class Booking extends Admin_Controller {
 		$data['owner_contribution']                    ="";
 		$data['bank_loan']                             ="";
 		$data['payment_schedule_plan']                 ="";
-		$data['token_booking_amt']                     ="";
-		$data['execution_of_agreement_amt']            ="";
-		$data['completion_of_plinth_amt']              ="";
-		$data['parking_1st_slab_amt']                  ="";
-		$data['completionof_2nd_slab_amt']             ="";
-		$data['completion_of_5th_slab_amt']            ="";
-		$data['completion_of_8th_slab_amt']            ="";
-		$data['completion_of_11_slab_amt']             ="";
-		$data['completion_of_topmost_slab_amt']        ="";
-		$data['paint_stage_amt']                       ="";
-		$data['finishg_work_amt']                      ="";
-		$data['possesion_amt']                         ="";
 		$data['valid_days']                            ="";
 		$data['purchaser_signature_path']              ="";
 		$data['authorized_signatory']                  ="";
@@ -104,9 +94,10 @@ class Booking extends Admin_Controller {
 		$data['witness']                               ="";
 		if ($id){	
 			$data['booking']			=	$booking   = $this->Booking_model->getbookingByid($id);
-			$data['floorlist']			    =   $this->Booking_model->get_floor($booking->building_no);
-			$data['unitlist']		     	=   $this->Booking_model->get_units($booking->floor);
-			$data['payment_details']    =   $this->Booking_model->get_payment_details($booking->id);		
+			$data['floorlist']			=   $this->Booking_model->get_floor($booking->building_no);
+			$data['unitlist']		    =   $this->Booking_model->get_units($booking->floor);
+			$data['payment_details']    =   $this->Booking_model->get_payment_details($booking->id);	
+			$data['booking_payment_plan']=   $this->Booking_model->bookingwise_payment_plan($booking->id);				
 			if (!$booking){
 				$this->session->set_flashdata('error', 'Booking Details Not Found');
 				redirect('admin/booking');
@@ -128,7 +119,7 @@ class Booking extends Admin_Controller {
 		$data['pan_no']                                =$booking->pan_no;
 		$data['aadhar_no']                             =$booking->aadhar_no;
 		$data['co_applicant_name']                     =$booking->co_applicant_name;
-		$data['relationship']                           =$booking->relationship;
+		$data['relationship']                          =$booking->relationship;
 		$data['co_app_contact_no']                     =$booking->co_app_contact_no;
 		$data['co_app_email']                          =$booking->co_app_email;
 		$data['co_app_occupation']                     =$booking->co_app_occupation;
@@ -155,18 +146,6 @@ class Booking extends Admin_Controller {
 		$data['owner_contribution']                    =$booking->owner_contribution;
 		$data['bank_loan']                             =$booking->bank_loan;
 		$data['payment_schedule_plan']                 =$booking->payment_schedule_plan;
-		$data['token_booking_amt']                     =$booking->token_booking_amt;
-		$data['execution_of_agreement_amt']            =$booking->execution_of_agreement_amt;
-		$data['completion_of_plinth_amt']              =$booking->completion_of_plinth_amt;
-		$data['parking_1st_slab_amt']                  =$booking->parking_1st_slab_amt;
-		$data['completionof_2nd_slab_amt']             =$booking->completionof_2nd_slab_amt;
-		$data['completion_of_5th_slab_amt']            =$booking->completion_of_5th_slab_amt;
-		$data['completion_of_8th_slab_amt']            =$booking->completion_of_8th_slab_amt;
-		$data['completion_of_11_slab_amt']             =$booking->completion_of_11_slab_amt;
-		$data['completion_of_topmost_slab_amt']        =$booking->completion_of_topmost_slab_amt;
-		$data['paint_stage_amt']                       =$booking->paint_stage_amt;
-		$data['finishg_work_amt']                      =$booking->finishg_work_amt;
-		$data['possesion_amt']                         =$booking->possesion_amt;
 		$data['valid_days']                            =$booking->valid_days;
 		$data['purchaser_signature_path']              =$booking->purchaser_signature_path;
 		$data['authorized_signatory']                  =$booking->authorized_signatory;
@@ -180,7 +159,7 @@ class Booking extends Admin_Controller {
 		if ($this->form_validation->run() == FALSE){
 		$this->render_admin('booking/bookingform',$data);		
 		}else{
-			$this->load->library('upload',$config);
+			$this->load->library('upload');
 			$Doc = '';
 			 if(!empty($_FILES['purchaser_signature']['name'])){
                 $config['upload_path'] = 'uploads/booking/purchaser_signatory/';
@@ -224,8 +203,19 @@ class Booking extends Admin_Controller {
 
 				}
 			}
-
-			 $save['id']   =$id;
+			$total_amt=!empty($this->input->post('total_cost'))?$this->input->post('total_cost'):0;
+			for($i=0; $i<count($this->input->post('payment_planid')); $i++){
+				if(!empty($_POST['payment_planid'][$i]) ){
+					$percentage=!empty($_POST['payment_per'][$i])?$_POST['payment_per'][$i]:0;
+				    $amount=($total_amt !=0 && $percentage !=0)? ($total_amt/100)*$percentage:0;
+					$payment_plan[] = array(
+						'payment_planid' =>	$_POST['payment_planid'][$i],
+			         	'percetage' =>$percentage,
+						'amount'=>$amount
+					); 
+				}
+			}
+			 $save['id']   									=$id;
 			 $save['serial_no']                             =$this->input->post('serialno');
 			 $save['date']                                  =$this->input->post('date');
 			 $save['applicant_name']                        =$this->input->post('applicantname');
@@ -242,7 +232,7 @@ class Booking extends Admin_Controller {
 			 $save['pan_no']                                =$this->input->post('pan');
 			 $save['aadhar_no']                             =$this->input->post('adhar');
 			 $save['co_applicant_name']                     =$this->input->post('co_applicant');
-			 $save['relationship']                            =$this->input->post('relationship');
+			 $save['relationship']                          =$this->input->post('relationship');
 			 $save['co_app_contact_no']                     =$this->input->post('contact2');
 			 $save['co_app_email']                          =$this->input->post('email2');
 			 $save['co_app_occupation']                     =$this->input->post('occupation2');
@@ -254,7 +244,7 @@ class Booking extends Admin_Controller {
 			 $save['co_app_aadhar_no']                      =$this->input->post('adhar2');
 			 $save['building_no']                           =$this->input->post('building_id');
 			 $save['floor']                                 =$this->input->post('floor_id');
-			 $save['unit_id']                                  =$this->input->post('unit_id');
+			 $save['unit_id']                               =$this->input->post('unit_id');
 			 $save['carpet_area']                           =$this->input->post('carpetarea');
 			 $save['enclosed_balcony_area']                 =$this->input->post('enclosed_balconycarpet_area');
 			 $save['open_balcony_carpet']                   =$this->input->post('open_balcony_carpet_area');
@@ -265,28 +255,15 @@ class Booking extends Admin_Controller {
 			 $save['registration_fee']                      =$this->input->post('registration_fees');
 			 $save['legal_charges']                         =$this->input->post('legal_charges');
 			 $save['gst']                                   =$this->input->post('gst');
-			 $save['grand_total_cost']                      =$this->input->post('total_cost');
+			 $save['grand_total_cost']                      =$total_amt;
 			 $save['owner_contribution']                    =$this->input->post('own_contribution');
 			 $save['bank_loan']                             =$this->input->post('bank_loan');
 			 $save['payment_schedule_plan']                 =$this->input->post('scheduletype');
-			 $save['token_booking_amt']                     =$this->input->post('token_booking_amt');
-			 $save['execution_of_agreement_amt']            =$this->input->post('execution_of_agreement_amt');
-			 $save['completion_of_plinth_amt']              =$this->input->post('completion_of_plinth_amt');
-			 $save['parking_1st_slab_amt']                  =$this->input->post('parking_1st_slab_amt');
-			 $save['completionof_2nd_slab_amt']             =$this->input->post('completionof_2nd_slab_amt');
-			 $save['completion_of_5th_slab_amt']            =$this->input->post('completion_of_5th_slab_amt');
-			 $save['completion_of_8th_slab_amt']            =$this->input->post('completion_of_8th_slab_amt');
-			 $save['completion_of_11_slab_amt']             =$this->input->post('completion_of_11_slab_amt');
-			 $save['completion_of_topmost_slab_amt']        =$this->input->post('completion_of_topmost_slab_amt');
-			 $save['paint_stage_amt']                       =$this->input->post('paint_stage_amt');
-			 $save['finishg_work_amt']                      =$this->input->post('finishg_work_amt');
-			 $save['possesion_amt']                         =$this->input->post('possesion_amt');
 			 $save['valid_days']                            =$this->input->post('valid_days');
 			 $save['attended_by']                           =$this->input->post('attendedby');
 			 $save['total_received_amt']                     =$this->input->post('total_received_payment');
 			 $save['rupee_in_word']                        =$this->input->post('rupee_in_word');
-			$this->Booking_model->booking_save($save,$paymentdetails);
-		
+			$this->Booking_model->booking_save($save,$paymentdetails,$payment_plan);
 			if($id){
 				$this->session->set_flashdata('message', lang('AgentformUpdated'));
 			}else{
@@ -312,8 +289,17 @@ class Booking extends Admin_Controller {
 			    $this->session->set_flashdata('error','Booking Data not Found');
 				redirect('admin/booking');
 		}
-		
-		
+	}
+	function payment($bookingid){
+		/* print_r($_POST);
+		[paiddate] => 2019-12-05 [emi_amount] => 15000.00 [status] => Unpaid [paid_by] => Cash [fields1] => [fields2] => [fields3] => Visa [fields4] => [fields5] => [paymentid] => 1 [add_payment] => Add Payment
+		if(){
+			$this->session->set_flashdata('error', lang("Payment_status"));
+			  redirect($_SERVER["HTTP_REFERER"]);
+		}else{
+			   $this->session->set_flashdata('message', lang("payment_added"));
+               redirect($_SERVER["HTTP_REFERER"]);
+		} */
 	}
 	
 }

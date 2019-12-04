@@ -612,7 +612,6 @@ class Crm extends Admin_Controller {
 			$save['dislayname2']			     = $this->input->post('is_display2');
 			$save['SalesPersontype']			 = $this->input->post('salespersontype');
 			$save['agentid']			         = $this->input->post('salesperson');
-			
 		    $this->Crm_model->customer_update($save);
 			if($id){
 				$this->session->set_flashdata('message', lang('ClientUpdated'));
@@ -737,8 +736,6 @@ class Crm extends Admin_Controller {
 		curl_close($ch);
 		$this->session->set_flashdata('message', lang('sms_sending'));
 		redirect('admin/crm/Crm/sms');
-		
-		
 	}
 	function sms_history(){
 		$data['page_title']	= lang('campaign');
@@ -792,22 +789,21 @@ class Crm extends Admin_Controller {
         $this->render_admin('_crm/enquiry/list',$data);
 	}
 	public function getenquirys(){
-		$user = $this->session->userdata('admin');
-        $actions = "<div class=\"text-center\">";
-        $actions .= " <a href='" . base_url('admin/crm/Crm/enquirys_view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/crm/Crm/enquiry_form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/crm/Crm/enquirys_delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
-        $actions .= "</div>";
-        $this->load->library('datatables');  
-        //$this->datatables();
+		     $user = $this->session->userdata('admin');
+             $actions = "<div class=\"text-center\">";
+             $actions .= " <a href='" . base_url('admin/crm/Crm/enquirys_view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a> <a href='" . base_url('admin/crm/Crm/enquiry_form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> <a href='" . base_url('admin/crm/Crm/enquirys_delete/$1') . "' class='tip po'  onclick='return areyousure(this)'><i class=\"fa fa-trash-o\"></i></a>";
+            $actions .= "</div>";
+            $this->load->library('datatables');  
 			$this->datatables->select("crm_enquirys.id,serial_no, date ,building_info.name building,floors.name floors,crm_enquirys. name ,contact_no", false);
 			$this->datatables->from("crm_enquirys");
 			$this->datatables->join("floors","floors.id=crm_enquirys.floor","left");
 			$this->datatables->join("building_info","building_info.bldid=crm_enquirys.preferred_wing","left");
             $this->datatables ->where("crm_enquirys.soft_deleted", 0);
-		  if($user['user_role']  ==2){
+		    if($user['user_role']  ==2){
 			  $this->datatables ->where("crm_enquirys.attended_by", $user['id']);
-		  }
-           $this->datatables->add_column("Actions", $actions, "crm_enquirys.id");
-           echo $this->datatables->generate();
+		    }
+            $this->datatables->add_column("Actions", $actions, "crm_enquirys.id");
+            echo $this->datatables->generate();
 	}
 	function   enquirys_view($id){
 		    $data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
@@ -837,7 +833,7 @@ class Crm extends Admin_Controller {
 	function enquiry_form($id = false){
 	    $data['page_title']         	     = lang('enquiry');		
 		//$data['employee']		             = $this->Crm_model->get_employee();
-		$data['excutive']		         = $this->Crm_model->get_sale_person();
+		$data['excutive']		             = $this->Crm_model->get_sale_person();
 		$data['building']		             = $this->Crm_model->getbuilding();
 		$maxid=$this->Crm_model->findmaxId();
 		$data['id']		                     = '';
@@ -873,10 +869,10 @@ class Crm extends Admin_Controller {
 	    $data['pre_sales_excutive']		     = '';
 		$data['lead_forward_to']		     = '';
 		if ($id){	
-			$data['enquiry']       =$enquiry= $this->Crm_model->get_enquirys_details($id);
-			$data['unit_type']     =$this->Crm_model->get_unit_type();
-			$data['floorlist']     =$this->Crm_model->get_floor($enquiry->preferred_wing);
-			$data['pos_enquirys']  =$pos_enquirys=$this->Crm_model->get_pos_enquiry($id);
+			$data['enquiry']                 = $enquiry= $this->Crm_model->get_enquirys_details($id);
+			$data['unit_type']               = $this->Crm_model->get_unit_type();
+			$data['floorlist']               = $this->Crm_model->get_floor($enquiry->preferred_wing);
+			$data['pos_enquirys']            = $pos_enquirys=$this->Crm_model->get_pos_enquiry($id);
 			if(!empty($pos_enquirys)){
 			$data['status']		         = $pos_enquirys->status;
 			$data['looking_for']		 = $pos_enquirys->looking_for;
@@ -923,7 +919,6 @@ class Crm extends Admin_Controller {
 			$this->render_admin('_crm/enquiry/EnquiryForm',$data);
 		}
 		else{		
-		
 		if($id){
 			$post_enquiry['status']		         = $this->input->post('status');
 			$post_enquiry['looking_for']		 = $this->input->post('looking_for');
@@ -931,8 +926,8 @@ class Crm extends Admin_Controller {
 			$post_enquiry['purpose']		     = $this->input->post('purpose');
 			$post_enquiry['breif_remark']		 = $this->input->post('breif_remark');
 			$post_enquiry['next_followup']		 = $this->input->post('next_followup');
-		}
-		    $post_enquiry=!empty($post_enquiry)?$post_enquiry:array();
+		   }
+		    $post_enquiry                        =!empty($post_enquiry)?$post_enquiry:array();
 			$save['id']		                     = $id;
 		    $save['date']		                 = $this->input->post('date');
 		    $save['serial_no']		             = $this->input->post('serial_no');
@@ -960,7 +955,6 @@ class Crm extends Admin_Controller {
 			$save['lead_forward_to']		     = $this->input->post('lead_forward_to');
 		    $this->Crm_model->enquiryForm_save($save,$post_enquiry);
 			if($id){
-				//$this->main->()
 				 $this->session->set_flashdata('message', 'Enquiry Details Updated');
 				 redirect('admin/crm/Crm/enquirys');
 			}else{
@@ -1038,4 +1032,41 @@ class Crm extends Admin_Controller {
         );
         $this->global_model->validation($rules);
     }
+	/* function  post_enquiry(){
+		$data['page_title'] = lang('Initial_Enquiry');
+		$data['employee']   = $this->Crm_model->get_employee();
+        $this->render_admin('_crm/initial_enquiry/index', $data);
+	}
+	function get_post_enquiry(){
+		 $actions = "<div class=\"text-center\">";
+         $actions .= '<div class="btn-group"><a style="padding:6px;" class="btn btn-xs btn-default" href="javascript:void(0)"      onclick="edit_title(' . "'" . '$1' . "'" . ')"><i class="fa fa-pencil"></i></a>
+        		<a class="btn btn-xs btn-danger" style="margin-left:6px;padding:6px;" href="javascript:void(0)"  onclick="deleteItem(' . "'" . '$1' . "'" . ')"><i class="glyphicon glyphicon-trash"></i></a></div>';
+         $actions .= "</div>";
+         $this->datatables
+            ->select("crm_enquirys.id  ,name , crm_enquirys.email, contact_no,first_name ", false)
+            ->from("crm_enquirys")
+			->join("employee","employee.id=crm_enquirys.attended_by","left")
+            ->add_column("Actions", $actions, "crm_enquirys.id");
+        echo $this->datatables->generate();
+	}
+	function post_enquiry_form($id = false){
+		
+	}
+	function post_enquiry_view($id = false){
+		$data['page_title']=lang('post_enquiry_view');
+		$data['post_enquiry']=$this->crm_model->get_pos_enquiryById($id);
+		$this->render_admin('_crm/initial_enquiry/index', $data);
+	}
+	function post_enquiry_delete($id =false){
+		if(!empty($this->crm_model->get_pos_enquiryById($id))){
+			if($this->crm_model->delete_post_enquiry($id)){
+				$this->session->set_flashdata('message', lang('Post Enquiry Details Deleted'));
+		    redirect('admin/crm/Crm/post_enquiry');
+			}
+		}else{
+			$this->session->set_flashdata('message', lang('Unable to Delete The Post Enquiry'));
+		    redirect('admin/crm/Crm/post_enquiry');
+		}
+		
+	} */
 }

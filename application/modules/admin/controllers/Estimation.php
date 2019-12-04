@@ -7,10 +7,9 @@ class Estimation extends Admin_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->helper('download');
-		 $this->load->library('datatables');
+		$this->load->library('datatables');
 	}
 	function index(){
-		 $this->sma->checkPermissions();
 		 $admin = $this->session->userdata('admin');
 		 $data['page_title']	= lang('Project');
 		 $this->render_admin('Estimation/estimation_list', $data);		
@@ -31,19 +30,17 @@ class Estimation extends Admin_Controller {
 	         echo $this->datatables->generate();
 	}
 	function estimation_view($id,$tab=false){
-		$this->sma->checkPermissions();
 		$admin = $this->session->userdata('admin');
-		$data['estimation_details']		     	=$estimation=	$this->Estimation_model->get($id);
-		$data['estimation_worksheet']		    =$worksheet=	$this->Estimation_model->get_worksheet($estimation->id);
-		$data['task']                           =$this->Estimation_model->get_stagesWiseTask($estimation->project_id,$estimation->stage_id);
-	    $data['stage']                          =$this->Estimation_model->get_stages($estimation->project_id);
+		$data['estimation_details']		     	= $estimation =	$this->Estimation_model->get($id);
+		$data['estimation_worksheet']		    = $worksheet  =	$this->Estimation_model->get_worksheet($estimation->id);
+		$data['task']                           = $this->Estimation_model->get_stagesWiseTask($estimation->project_id,$estimation->stage_id);
+	    $data['stage']                          = $this->Estimation_model->get_stages($estimation->project_id);
 		$data['material']		                = $this->Estimation_model->get_material(); 
 		$data['uom']		                    = $this->Estimation_model->get_uom();
 		$data['page_title']	                    = lang('view')." ".lang('Estimation') ;
 	    $this->render_admin('Estimation/estimation_view', $data);
 	}
 	function form($id = false){
-		$this->sma->checkPermissions();
 		$admin = $this->session->userdata('admin');
 		$data['page_title']		         = lang('new_estimation');
 		$data['esMaster']		         = $this->Estimation_model->get_estimation_master();
@@ -66,7 +63,7 @@ class Estimation extends Admin_Controller {
 		if ($id){	  
 		     $data['page_title']		= lang('update_estimation');
 		     $this->sma->checkPermissions('edit');
-			 $data['estimation']			=	$estimation		=  $this->Estimation_model->get($id);
+			 $data['estimation']			=$estimation		=  $this->Estimation_model->get($id);
 			 $data['workSheet']             =$this->Estimation_model->get_worksheet($id);
 			 $data['task']                  =$this->Estimation_model->get_stagesWiseTask($estimation->project_id,$estimation->stage_id);
 			 $data['stage']                 =$this->Estimation_model->get_stages($estimation->project_id);
@@ -115,7 +112,6 @@ class Estimation extends Admin_Controller {
 			 $save['date']                      =  $this->input->post('date');
 			 $save['status']			        =  $this->input->post('estatus');
 			 $save['total_estimate_cost'] 	    =  $this->input->post('totalamount');
-			
 		     $this->Estimation_model->save($save,$worksheet);
 			 if($id){
 				$this->session->set_flashdata('message', lang('estimation_details_updated'));

@@ -481,60 +481,23 @@ legend.scheduler-border {
                                         <col width="20%">
                                     </colgroup>
                                     <tbody>
+									<?php  if($payment_plan  && empty($booking_payment_plan)){foreach($payment_plan as $row){ ?>
                                         <tr>
-                                            <td>Token/Booking Amount</td>
-                                            <td><input type="text"  name="token_booking_amt"class="payment_tk form-control allowdecimalpoint" value="<?php  if(!empty($token_booking_amt)){ echo round($token_booking_amt);  }else{ echo 10 ;  }  ?>"><span class="percentage_s">%</span></td>
+                                            <td><?php  echo $row->name;  ?></td>
+                                            <td>
+											<input type="hidden" value="<?php  echo $row->id  ?>" name="payment_planid[]"class="payment_tk form-control">
+											<input type="text" value="<?php  echo $row->percentage  ?>" name="payment_per[]"class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
+									<?php }  }else{  
+									 if(! empty($booking_payment_plan)){foreach($booking_payment_plan as $row){ ?>
                                         <tr>
-                                            <td>On Execution of Agreement</td>
-                                            <td><input type="text"  name="execution_of_agreement_amt" class="payment_tk form-control allowdecimalpoint" value="<?php  if(!empty($execution_of_agreement_amt)){ echo round($execution_of_agreement_amt);  }else{ echo 20 ;  }  ?>"><span class="percentage_s">%</span></td>
+                                            <td><?php  echo $row->name;  ?></td>
+                                            <td>
+											<input type="hidden" value="<?php  echo $row->payment_planid  ?>" name="payment_planid[]"class="payment_tk form-control">
+											<input type="text" value="<?php  echo $row->percetage  ?>" name="payment_per[]"class="payment_tk form-control"><span class="percentage_s">%</span></td>
                                         </tr>
-                                        <tr>
-                                            <td>On Completion of Plinth</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_plinth_amt" value="<?php  if(!empty($completion_of_plinth_amt)){ echo round($completion_of_plinth_amt) ;  }else{ echo 15;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Parking & 1st Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="parking_1st_slab_amt" value="<?php  if(!empty($parking_1st_slab_amt)){ echo round($parking_1st_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 2nd Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint"  name="completionof_2nd_slab_amt"
-											value="<?php  if(!empty($completionof_2nd_slab_amt))
-											{ echo round($completionof_2nd_slab_amt) ;  }else{ echo 5;  } ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 5th Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_5th_slab_amt" value="<?php  if(!empty($completion_of_5th_slab_amt)){ echo  round($completion_of_5th_slab_amt) ;  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 8th Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_8th_slab_amt" value="<?php  if(!empty($completion_of_8th_slab_amt)){ echo round($completion_of_8th_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of 11th Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="completion_of_11_slab_amt" value="<?php  if(!empty($completion_of_11_slab_amt)){ echo round($completion_of_11_slab_amt);  }else{ echo 5;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Topmost Slab</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint"  name="completion_of_topmost_slab_amt" value="<?php  if(!empty($completion_of_topmost_slab_amt)){ echo round($completion_of_topmost_slab_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Brick Work,Plaster & Flooring</td>
-                                            <td><input type="text" class="payment_tk form-control allowdecimalpoint" name="brick_work_amt" value="<?php  if(!empty($paint_stage_amt)){ echo round($paint_stage_amt) ;  }else{ echo 5;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of Sanitary Fitting & Paint</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="paint_stage_amt" value="<?php  if(!empty($finishg_work_amt)){ echo round($finishg_work_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Completion of MEP & Finishing Work</td>
-                                            <td><input type="text"  class="payment_tk form-control allowdecimalpoint" name="finishg_work_amt" value="<?php  if(!empty($possesion_amt)){ echo round($possesion_amt);  }else{ echo 10 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>On Handover/Possesion</td>
-                                            <td><input type="text" class="payment_tk form-control allowdecimalpoint" name="possesion_amt" value="<?php  if(!empty($possesion_amt)){ echo round($possesion_amt);  }else{ echo 5 ;  }  ?>"><span class="percentage_s">%</span></td>
-                                        </tr>
+									
+									<?php } } } ?>
                                     </tbody>
                                 </table>
                                 <p><sup>*</sup>No reveiving of payment as per payment schedule will cause interest and

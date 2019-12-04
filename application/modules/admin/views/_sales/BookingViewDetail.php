@@ -209,19 +209,15 @@
 										<th>Action</th>
 									<tr>
 								</thead>
-								
 								<tbody>
-									
-								
 									<?php 
 								 	
 									$i = 1;
 									foreach($result_emi2 as $row_emi) { ?>
 									<tr>
 										<td><?php echo $i; ?></td>
-									
 										<td><?php echo $row_emi->emi_duedate; ?></td>
-									<td><?php  echo $this->sma->formatMoney($row_emi->Beginning_Balance)                         ; ?></td>
+									    <td><?php  echo $this->sma->formatMoney($row_emi->Beginning_Balance)                         ; ?></td>
 										<td><?php  echo $this->sma->formatMoney($row_emi->emi_amount)                         ; ?></td>
 										<td><?php  echo $this->sma->formatMoney($row_emi->Principal)                         ; ?></td>
 										<td><?php  echo $this->sma->formatMoney($row_emi->Interest)                         ; ?></td>

@@ -1,10 +1,7 @@
 	<?php
 class Sales extends Admin_Controller {
 	
-	
-	public $name='vijay';
-	function __construct()
-	{		
+	function __construct(){		
 		parent::__construct();
 		$this->load->model(array('sales/Sales_model'));
 		$this->load->library("pagination");
@@ -26,12 +23,10 @@ class Sales extends Admin_Controller {
          $data['cancelled_booking'] = $this->Sales_model->get_all_cancelled_booking($config["per_page"], $page);
          $data["links"]        = $this->pagination->create_links();
 		 $data['page_title']	= lang('Bookinglist');		 
-		$this->render_admin('_sales/Bookinglist', $data);
-		
+		 $this->render_admin('_sales/Bookinglist', $data);
 	}
 	
-	function bookingList()
-	 {	 
+	function bookingList(){	
 		 $admin = $this->session->userdata('admin');
 		 $config 			   = array();
          $config["base_url"]   = base_url() . "admin/sales/Sales";
@@ -44,7 +39,6 @@ class Sales extends Admin_Controller {
          $data['hold_booking']      = $this->Sales_model->get_all_hold_booking($config["per_page"], $page);
          $data['cancelled_booking'] = $this->Sales_model->get_all_cancelled_booking($config["per_page"], $page);
          $data["links"]        = $this->pagination->create_links();
-		 
 		 $data['page_title']	= lang('Bookinglist');		 
 		$this->render_admin('_sales/Bookinglist', $data);
 	 }
@@ -63,7 +57,6 @@ class Sales extends Admin_Controller {
 			 $data['payment_type'] =$result->payment_type;
 			 $data['salepersonName']=$this->Sales_model->getSalesPersonName($result->SalesPersontype,$result->agentid);
 			 $data['contractform']=$contract=$this->Sales_model->get_contractform($booking_id);
-			
 			 //paymenttype 1 means emi 
 			 if($result->payment_type ==1){
 		     $data['result_emi'] = $this->Sales_model->get_emi($booking_id,2);
@@ -76,7 +69,6 @@ class Sales extends Admin_Controller {
 						$principle=$result->total_cost -$advanceamt;
 					}
 			 $data['emi']=$emi=$this->calinterest($principle,$result->emi_period,$result->emi_percentage);
-			 
 			 }else{
 				 $sql = "select * from sale_payment where sale_id = ".$booking_id;
 		         $query = $this->db->query($sql);
@@ -223,7 +215,6 @@ class Sales extends Admin_Controller {
 	 }
 	 
 	 function editBooking($id){
-
 		$data['page_title']         	= lang('Sales Booking');
 		$data['propertytypes']			= $this->Sales_model->Get_projecttype();
 		$data['projects']		    	= $this->Sales_model->getProject();
@@ -239,13 +230,12 @@ class Sales extends Admin_Controller {
 		$data['units']				    = $unit=$this->Sales_model->getAllUnits_project($booking->project_id,$booking->building_id,$booking->floor_id,$booking->unit_id);
 		$data['booking_invoice']		= $this->Sales_model->Get_salebookinginvoice($id);
 		$data['booking_emi']			= $emi=$this->Sales_model->Get_salebookingemi($id);	
-		
 		$this->form_validation->set_rules('client_id', 'lang:client_id', 'trim|required');
 		if ($this->form_validation->run() == FALSE){
 			$this->render_admin('_sales/Editbooking', $data);		
 		}
 		else{	
-			 $sale_person_details = $this->Sales_model->getSalesPersondetails($this->input->post('client_id'));			 
+			$sale_person_details = $this->Sales_model->getSalesPersondetails($this->input->post('client_id'));			 
 			$project['booking_date']                =$this->input->post('booking_date');
 			$project['ref_no']			            = $this->input->post('ref_no');
 			$project['client_id']		         	= $this->input->post('client_id');
@@ -253,14 +243,13 @@ class Sales extends Admin_Controller {
 			$project['building_id']			        = $this->input->post('building_id');
 			$project['floor_id']			        = $this->input->post('floor_id');
 			$project['unit_id']			            = $this->input->post('unit_id');
-			$project['UnitType']			            = $this->input->post('unit_type');
+			$project['UnitType']			        = $this->input->post('unit_type');
 			$project['rate_per_sqft']			    = $this->input->post('rate_per_sqft');
 			$project['area_sqft']			        = $this->input->post('area_sqft');
 			$project['basic_sale_price']			= $this->input->post('basic_sale_price');
 			$project['discount']		            = $this->input->post('discount');
 			$project['discount_amt']		        = $this->input->post('discount_amt');
 			$project['total_cost']			        = $this->input->post('total_cost');
-
 		//	$project['sales_type']			        = $this->input->post('sales_type');
 			$project['booking_type']			    = $this->input->post('booking_type') ? $this->input->post('booking_type') : 1;
 			$project['payment_type']				= $this->input->post('payment_type');
@@ -307,8 +296,7 @@ class Sales extends Admin_Controller {
 		     $project['total_loan_Amount']   =$total_emi;
 		     $project['loan_balance']  =$total_emi;
 			 $project['total_loan_interest']  =$total_interest;
-			
-		    $sales=$this->Sales_model->sale_booking_update($id,$project,$sale_invoce,$sale_emi);
+		     $sales=$this->Sales_model->sale_booking_update($id,$project,$sale_invoce,$sale_emi);
 			if($sales){
 				$this->Sales_model->generate_owner($sales);
 			}
@@ -323,13 +311,12 @@ class Sales extends Admin_Controller {
 		}
 	 }
 
-	function EnquiryView($id,$tab=false)
-	 {
-		$data['page_title']	= lang('Enquiry')." ".lang('view') ;
-		$data['enquiry']	            = $enquiry = $this->Crm_model->getEnquiryView($id);
+	function EnquiryView($id,$tab=false){
+		$data['page_title']	                 = lang('Enquiry')." ".lang('view') ;
+		$data['enquiry']	                 = $enquiry = $this->Crm_model->getEnquiryView($id);
 		$data['unitslists']					 = $this->Crm_model->getUnits($enquiry->projectid);
 		$data['salespersons']				 = $this->Crm_model->getSalesPerson($enquiry->SalesPersontype);
-		$data['Amenities']		    	= $this->Crm_model->getAmenities();
+		$data['Amenities']		    	     = $this->Crm_model->getAmenities();
 		$this->render_admin('_crm/EnquiryView', $data);
 	 }
 	 function Enquiryform($id = false){
@@ -362,11 +349,9 @@ class Sales extends Admin_Controller {
 		$data['status']					= '';
 		$data['doc']					= '';
 		$data['SalesPersontype']					= 'SalesPersontype';
-		if ($id)
-		{	
+		if ($id){	
 			$data['enquiry']			=	$enquiry		= $this->Crm_model->getEnquiry($id);
-			if (!$enquiry)
-			{
+			if (!$enquiry){
 				$this->session->set_flashdata('error', lang('EnquiryNotFound'));
 				redirect('admin/Crm/Crm/Enquiry');
 			}
@@ -404,7 +389,6 @@ class Sales extends Admin_Controller {
 		$this->form_validation->set_rules('contactnumber', 'lang:Contact_number', 'trim|required');
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required');
 		$this->form_validation->set_rules('country', 'lang:select_country', 'trim|required');
-		
 		if ($this->form_validation->run() == FALSE){
 			$this->render_admin('_crm/EnquiryForm', $data);		
 		}
@@ -424,16 +408,15 @@ class Sales extends Admin_Controller {
                     $Doc = '';
                 }
 			 }
-			 if(!empty($Doc))
-			 {
+			 if(!empty($Doc)){
 		 		 $save['document_path']		        =$Doc;
 			 }
-			$save['enquiry_id']                     =$this->input->post('enquiry_id');
+			$save['enquiry_id']                     = $this->input->post('enquiry_id');
 			$save['enquiry_date']			        = $this->input->post('Enquiry_date');
 			$save['Customer_name']		         	= $this->input->post('Customername');
 		    $save['Budget']			                = $this->input->post('Budget');
 			$save['type_for']			            = $this->input->post('pertypes');
-			$save['suggest_modification']			=json_encode( $this->input->post('suggestsmodification'));
+			$save['suggest_modification']			= json_encode( $this->input->post('suggestsmodification'));
 			$save['occupation']			            = $this->input->post('occupation');
 			$save['source_of_enquiry']			    = $this->input->post('sourceofenquiry');
 			$save['location_preference']			= $this->input->post('locationpreference');
@@ -460,10 +443,7 @@ class Sales extends Admin_Controller {
 		}
 	 }
 	
-
-
-	function Enquirydelete($id = false)
-	{
+	function Enquirydelete($id = false){
 		if ($id){	
 			$enquiry=$this->Crm_model->getEnquiry($id);
 			if (!$enquiry){
@@ -480,11 +460,7 @@ class Sales extends Admin_Controller {
 				redirect('admin/crm/Crm/Enquiry');
 		}
 	}
-	
-	
-	
 	function followup(){
-		
 		 $data['page_title']	= lang('FollowUp');
 		 $config 			   = array();
          $config["base_url"]   = base_url() . "admin/Crm/Crm/followup";
@@ -495,21 +471,16 @@ class Sales extends Admin_Controller {
          $page                 = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
          $data['enquiry']      = $this->Crm_model->get_all_Followup($config["per_page"], $page);
          $data["links"]        = $this->pagination->create_links();
-		 
-		$this->render_admin('_crm/Followuplist', $data);
-	}
-		function FollowupView($id,$tab=false)
-	 {
+		 $this->render_admin('_crm/Followuplist', $data);
+	  }
+  function FollowupView($id,$tab=false){
 		 $data['page_title']	= lang('FollowUp') ;
 		 $data['enquiryid']=$id;
 	   	 $data['enquiry']	= $enquiry = $this->Crm_model->getEnquiryView($id);
 		 $data['follow_list']   = $this->Crm_model->getFollowupByEnquiry($enquiry->enquiry_id);
 		$this->render_admin('_crm/FollowupView.php', $data);
 	 }
-	
-	
-function Agentlist()
-	 {	 
+	function Agentlist(){	 
 		 $admin = $this->session->userdata('admin');
 		 $config 			   = array();
          $config["base_url"]   = base_url() . "admin/sales/Sales";
@@ -537,12 +508,9 @@ function Agentlist()
 		$data['active_status']		    = '';		
 		$data['pro_pic']		        = '';	
 		$data['sales_commission']		= '';	
-			
-		if ($id)
-		{	
+		if ($id){	
 			$data['agent']			=	$agent	= $this->Sales_model->getAgent($id);			
-			if (!$agent)
-			{
+			if (!$agent){
 				$this->session->set_flashdata('error', lang('AgentNotFound'));
 				redirect('admin/sales/Sales/Agentform');
 			}
@@ -589,14 +557,13 @@ function Agentlist()
 			 }*/
 
 			$save['agentid']                    = $this->input->post('agentid');
-			$save['agenttype']                 = $this->input->post('agenttype');
+			$save['agenttype']                  = $this->input->post('agenttype');
 			$save['name']			            = $this->input->post('name');
 			$save['position']		         	= $this->input->post('position');
 		    $save['mobile']			            = $this->input->post('mobile');
 			$save['email']			            = $this->input->post('email');			
 			$save['address']		            = $this->input->post('address');
-			$save['sales_commission']		= $this->input->post('sales_commission');
-			
+			$save['sales_commission']		    = $this->input->post('sales_commission');
 		    $this->Sales_model->agent_save($save);
 			if($id){
 				$this->session->set_flashdata('message', lang('AgentformUpdated'));
@@ -606,8 +573,7 @@ function Agentlist()
 		       redirect('admin/sales/Sales/Agentlist');
 		}
 	 }	 
-	function Agentdelete($id = false)
-	{
+	function Agentdelete($id = false)	{
 		if ($id){	
 			$agent=$this->Sales_model->getAgent($id);
 			if (!$agent){
@@ -921,8 +887,7 @@ function Agentlist()
 		}
 		
 	}
- function getIndianCurrency(float $number)
-{
+ function getIndianCurrency(float $number){
     $decimal = round($number - ($no = floor($number)), 2) * 100;
     $hundred = null;
     $digits_length = strlen($no);
@@ -961,8 +926,7 @@ function Agentlist()
 		 $this->render_admin('_sales/SalecommsionList', $data);
  }
 
-    public function add_Commission_payment()
-    {
+    public function add_Commission_payment(){
         $this->form_validation->set_rules('amount-paid', lang("Amount"), 'required');
         $this->form_validation->set_rules('date', lang("date"), 'required');
         if ($this->form_validation->run() == true) {
@@ -1001,14 +965,11 @@ function Agentlist()
 		$HTML.="<tr>No Data Found.</tr>";
 	}
         echo $HTML;
-	 
     }
-	function receipt()
-	 {
+	function receipt(){
 		$this->render_admin('_sales/receipt');
 	 }
-	 function paymentSchedule($salesid,$typeid)
-	 {
+	 function paymentSchedule($salesid,$typeid){
 		$data['sales']   = $result=$this->Sales_model->getPaymentSchedule($salesid);
 		$data['emi']   = $this->Sales_model->getEmi($salesid);
 		$data['currency']    =  $this->Sales_model->getCurrency();
@@ -1021,8 +982,7 @@ function Agentlist()
 						$principle=$result->total_cost;
 				}
 				//for moratorium payment schedule
-				if($typeid ==1){
-			
+			if($typeid ==1){
 			   $principle=$result->total_cost-$principle;
 			   $result_emi=$this->db->get_where('sales_emi',array('sale_id'=>$salesid,'type'=>1))->result();
 		       $data['result_emi'] = $result_emi;
@@ -1037,7 +997,6 @@ function Agentlist()
 			   $data['loanpercentage']=$moratorium_percentage;
 			   $data['amounts1']=$emi=$this->calinterest($result->total_cost-$moratorium_amount,$result->emi_period,$result->emi_percentage);
 	         }else{
-		
 			   $result_emi=$this->db->get_where('sales_emi',array('sale_id'=>$salesid,'type'=>2))->result();
 			   $data['amounts']=$emi=$this->calinterest($principle,$result->emi_period,$result->emi_percentage);
 		       $data['result_emi1'] = $result_emi;
@@ -1049,8 +1008,6 @@ function Agentlist()
 			   $data['totalinterest1']=$emi['interest'];
 			   $data['payment1']=$principle + $emi['interest'];
 			   $data['loanpercentage1']=100-$moratorium_percentage;
-			  
-		      
 	 }
 		       $this->render_admin('_sales/paymentschedule',$data);
 	 }
@@ -1067,17 +1024,13 @@ function Agentlist()
 	}
 	
 	function saleCommissionPaymentedit($id){
-		
 		$this->form_validation->set_rules('amount', 'lang:amount', 'trim|required');
-		if ($this->form_validation->run() == FALSE)
-		{
+		if ($this->form_validation->run() == FALSE){
 			$data['id']=$id;
 			$data['page_title']		= lang('Sales_commissionEdit');
 		    $data['salesCommission']			=	$salesCommission		= $this->Sales_model->getSalesCommission($id);
 			$this->render_admin('_sales/salesCommisionEdit', $data);		
-		}
-		else
-		{
+		}else{
 			$Commisionid		     = $this->input->post('id');
 			$save['commission_paid'] =$this->input->post('amount');
 		    $save['paid_date']	    =$this->input->post('date');
@@ -1110,14 +1063,13 @@ function Agentlist()
 		 $interestpercentage=9;
          $intr =$interestpercentage/ 1200;
          $emi= round(($principalamount * $intr / (1 - (pow(1/(1 + $intr), $terms)))),2); 
-        $totalinterest= round(((($principalamount * $intr / (1 - (pow(1/(1 + $intr), $terms))))*$terms) -$principalamount),2);
-	    print_r( array('emi'=>$emi,'interest'=>$totalinterest));
+         $totalinterest= round(((($principalamount * $intr / (1 - (pow(1/(1 + $intr), $terms))))*$terms) -$principalamount),2);
+	     print_r( array('emi'=>$emi,'interest'=>$totalinterest));
 	}
 	  
 
 
 function  paymentSchedulesummary($principle,$time,$Interestrate,$payment_date,$moratorium,$moratorium_percentage){
-		
 	if($moratorium_percentage !=0 && $moratorium !=0){
 	     $moratorium_amount=(($principle/100)*$moratorium_percentage);
 		  $moratorium_month_amt=($moratorium_amount/$moratorium);
@@ -1127,7 +1079,6 @@ function  paymentSchedulesummary($principle,$time,$Interestrate,$payment_date,$m
 		  $moratorium_month_amt=$moratorium_amount;
 		  $this->session->set_userdata('moratorium_month_amt',$moratorium_month_amt);
 	}
-	
 	if(!isset($moratorium_amount)){
 		 $moratorium_amount=0;
 	}
@@ -1264,8 +1215,7 @@ function getEmi($t,$data,$payment_date){
 		return  $this->getEmi($e,$data,$payment_date);
 	}else{
 		return  $data;
-	}
-	   
+	}  
    }
 }
 	function get_contractno(){
@@ -1273,20 +1223,19 @@ function getEmi($t,$data,$payment_date){
 		$query=$this->db->get_where('crm_customer',array('customer_id'=>$clientid))->row();
 		echo $Contractnumber= !empty($query->contractNumber)? $query->contractNumber:0;
 	}
-	function get_amenities($ids)
-	{
+	function get_amenities($ids){
 		$amenties = $this->db->select(" group_concat(`Name` separator ',') as `name`")->where_in('id', json_decode($ids))->get('amenties')->row();
 		return $amenties;
 	}
 	function get_moratorium_emi_per_wise_amt(){
-		 $moratorium_emi_percentage = $this->input->post('moratorium_emi_per');
+		  $moratorium_emi_percentage = $this->input->post('moratorium_emi_per');
 		  $moratorium_amount_total = $this->input->post('moratorium_amt');
-		 $moratorium_tenure = $this->input->post('moratorium_emi_per');
-		 $date = $this->input->post('date');
-	 	 $total_percentage=array_sum($moratorium_emi_percentage);
-		 $without_percentage_amount=round((($moratorium_amount_total/100)*(100-$total_percentage)),2);
-		 $without_percentage_tenure=(count($moratorium_emi_percentage)-count(array_filter($moratorium_emi_percentage)));
-		 $this->session->set_userdata('moratoriumAmount',$moratorium_amount_total);
+		  $moratorium_tenure = $this->input->post('moratorium_emi_per');
+		  $date = $this->input->post('date');
+	 	  $total_percentage=array_sum($moratorium_emi_percentage);
+		  $without_percentage_amount=round((($moratorium_amount_total/100)*(100-$total_percentage)),2);
+		  $without_percentage_tenure=(count($moratorium_emi_percentage)-count(array_filter($moratorium_emi_percentage)));
+		  $this->session->set_userdata('moratoriumAmount',$moratorium_amount_total);
 	      $i=0;
 	  foreach($moratorium_emi_percentage as $emislab){
 		if(!empty($emislab)){
@@ -1322,15 +1271,15 @@ function getEmi($t,$data,$payment_date){
 		 }
 	function docsave(){
 	  $data =$this->input->post('data');
-      $fname = "test.pdf"; // name the file
-      $file = fopen("/" .$fname, 'w'); // open the file path
-      fwrite($file, $data); //save data
+      $fname = "test.pdf"; 
+      $file = fopen("/" .$fname, 'w'); 
+      fwrite($file, $data); 
       fclose($file);
 	  die;
 	}
 	function contract_save(){
-		$sales_id=$this->input->post('sales_id');
-			 if(!empty($_FILES['doc']['name'])){
+		 $sales_id=$this->input->post('sales_id');
+		 if(!empty($_FILES['doc']['name'])){
                 $config['upload_path'] = 'uploads/contract/';
                 $config['allowed_types'] = '*';
                 $config['file_name'] = $_FILES['doc']['name'];
@@ -1345,7 +1294,7 @@ function getEmi($t,$data,$payment_date){
 					$this->Sales_model->save_contract($save);
                 }
 			 }
-			  redirect('admin/sales/Sales/bookingViewDetail/'.$sales_id);
+	    redirect('admin/sales/Sales/bookingViewDetail/'.$sales_id);
 	}
 	function booking(){
 		$this->render_admin('_sales/bookingform');		

@@ -48,14 +48,10 @@
                                                             <div class="form-group">
                                                                 <select class="form-control "
                                                                     name="Parenttaskid">
-                                                                    <option value="">--
-                                                                    </option>
+                                                                    <option value="">--</option>
                                                                         <?php if ($tasks) {foreach ($tasks as $row) {?>
-                                                                    <option value="<?php echo $row->id; ?>"<?php echo ($parentasktid==$row->id)?'selected':'';?>>
-                                                                        <?php echo $row->taskName; ?>
-                                                                    </option>
-
-                                                                    <?php	}}?>
+                                                                    <option value="<?php echo $row->id; ?>"<?php echo ($parentasktid==$row->id)?'selected':'';?>><?php echo $row->taskName; ?></option>
+                                                                    <?php	} } ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -63,13 +59,27 @@
                                                             <label class="control-label">Project</label>
                                                             <div class="form-group">
                                                                 <select class="form-control projectid"
-                                                                    name="projectid">
+                                                                    name="projectid" onchange="get_building(this.value)">
                                                                     <option value="">--</option>
                                                                         <?php if ($project) {foreach ($project as $row) {?>
                                                                     <option value="<?php echo $row->id; ?>" <?php echo ($projectid==$row->id)?'selected':'';?>>
                                                                         <?php echo $row->Name; ?>
                                                                     </option>
                                                                     <?php	}}?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+															<div class="col-md-6">
+                                                            <label class="control-label">Building</label>
+                                                            <div class="form-group">
+                                                                <select class="form-control building"
+                                                                    name="building" id="building">
+                                                                    <option value="">--</option>
+																    <?php if ($building) {foreach ($building as $row) {?>
+                                                                    <option value="<?php echo $row->bldid; ?>" <?php echo ($building_id==$row->bldid)?'selected':'';?>>
+                                                                        <?php echo $row->name; ?>
+                                                                    </option>
+																	<?php   }  }   ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -128,6 +138,17 @@
                                                                 <select name="status" id="status" class="form-control">
                                                                     <option value="incomplete" <?php echo (@$status=='Incomplete')?'selected="selected"':'';?>>Incomplete</option>
                                                                     <option value="complete" <?php echo (@$status=='Complete')?'selected="selected"':'';?>>Complete</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+														<div class="col-md-6 Taskstatus" >
+                                                            <label class="control-label">Payment Plan</label>
+                                                            <div class="form-group">
+                                                                <select name="payment_plan" id="payment_plan" class="form-control">
+																<option value="">--  </option>
+																<?php  if($payment_plan){ foreach($payment_plan as $row){    ?>
+																<option value="<?php echo $row->id;    ?>" <?php echo (@$payment_planid==$row->id)?'selected="selected"':'';?>><?php echo $row->name;   ?></option>
+																<?php  }  }   ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -280,3 +301,6 @@ $(function() {
       });
 });
 </script>
+<script>
+	$('form').attr('autocomplete', 'off');
+	</script>
