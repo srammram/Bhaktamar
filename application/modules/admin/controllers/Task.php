@@ -54,6 +54,7 @@ class Task extends Admin_Controller {
 		$data['assigned_to']		    = "";
 		$data['status']			        = "";
 	    $data['comments']			    = "";
+		$data['is_approved']			="";
 		if ($id){	  
 		     $data['page_title']		= lang('edit_task');
 			 $data['task']			    = $task	= $this->Task_model->get($id);
@@ -74,6 +75,7 @@ class Task extends Admin_Controller {
 		$data['assigned_to']		     = $task->assign_to;
 		$data['status']			         = $task->status;
 	    $data['comments']			     = $task->comments;
+		$data['is_approved']			 = $task->is_approved;
 		}
 		$this->form_validation->set_rules('TaskName','lang:TaskName', 'trim|required');
 		$this->form_validation->set_rules('projectid','lang:ProjectName', 'trim|required');
@@ -92,6 +94,7 @@ class Task extends Admin_Controller {
 			 $save['assign_to']			        =  $this->input->post('assigned_to');
 			 $save['status'] 	             	=  $this->input->post('status');
 			 $save['comments']			        =  $this->input->post('content_section_description');
+			  $save['is_approved']			    =  $this->input->post('is_approved');
 		     $this->Task_model->save($save);
 			 if($id){
 				$this->session->set_flashdata('message', lang('task_details_updated'));

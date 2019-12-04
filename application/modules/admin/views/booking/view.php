@@ -584,7 +584,7 @@ legend.scheduler-border {
 												<td>
 											<?php switch($row->paid_status){
 														case 0:
-														echo '<a  data-id='.$row->id.' data-amount='.$row->amount.' style="color:#3d9970!important;">Receipt</a>';
+														echo ' <a href='. base_url('admin/booking/undo_payment').'/'.$row->id .'/'.$booking->id.'/'.$row->amount.' class="tip po"  onclick="return areyousure_undo(this)">Undo</a> | <a  data-id='.$row->id.' data-amount='.$row->amount.' style="color:#3d9970!important;">Receipt</a>';
 														break;
 														case 1:
 														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a>';

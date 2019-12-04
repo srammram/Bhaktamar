@@ -101,6 +101,24 @@
 			});
 			//return false;
 		}
+		function areyousure_undo(e){
+			event.preventDefault();
+			alertify.confirm("Are You Sure Undo This Payment.",
+				function(){
+					var href = $(this).attr('href');
+					//alert(e);
+					window.location = e;
+					//lertify.success('Ok');
+					
+					//$('.ajs-button').text("No");
+					return true;
+				},
+				function(){
+					//alertify.error('Cancel');
+					return true;
+			});
+			//return false;
+		}
 	</script>	
 	 <script>
   function genrateMaintenance(e){

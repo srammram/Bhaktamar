@@ -153,8 +153,9 @@
                                                             </div>
                                                         </div>
 
+
                                                         <!--/span-->
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Priority</label>
                                                             
@@ -176,6 +177,17 @@
                                                             
                                                             </div>
                                                         </div>
+														
+															<div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Approved</label>
+                                                                    <input type="checkbox" name="is_approved" id="radio13"
+                                                                        value="1" <?php echo (@$is_approved==1)?'checked':'';?>>
+                                                                   
+                                                                   
+                                                            </div>
+                                                        </div>
+
 														 <div class="col-md-12">
 														<b> <?php echo lang('content_section');?> <?php echo lang('description');?></b>
 														<div class="form-group">

@@ -292,6 +292,7 @@ class Booking extends Admin_Controller {
 		}
 	}
 	function payment($bookingid){
+		$paymentid=$this->input->post('paymentid');
 		$data=array("booking_id"=>$bookingid,"date"=>$this->input->post('paiddate'),
 		"amount"=>$this->input->post('emi_amount'),
 		"paid_by"=>$this->input->post('paid_by'),
@@ -303,15 +304,16 @@ class Booking extends Admin_Controller {
 		"cardtype"=>$this->input->post('cardtype'),
 		"month"=>$this->input->post('month'),
 		"year"=>$this->input->post('years'),
-		"note"=>$this->input->post('note'));
-		$paymentid=$this->input->post('paymentid');
+		"note"=>$this->input->post('note'),
+		'paymentid'=>$paymentid);
 		$result=$this->Booking_model->add_payment($data,$bookingid,$paymentid);
 		if($result){
+			  $this->session->set_flashdata('message', lang("payment_added"));
+              redirect($_SERVER["HTTP_REFERER"]);
+		}else{
 			$this->session->set_flashdata('error', lang("Payment_status"));
 			  redirect($_SERVER["HTTP_REFERER"]);
-		}else{
-			   $this->session->set_flashdata('message', lang("payment_added"));
-               redirect($_SERVER["HTTP_REFERER"]);
+			 
 		} 
 	}
 	function get_due_payment(){
@@ -325,8 +327,6 @@ class Booking extends Admin_Controller {
 				if(!empty($due_payment)){ 
 				foreach($due_payment as $row){
 					$html .='<tr><td><input type="checkbox"  class="paymentids" value="'.$row->id.'">'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'<input type="hidden" class="paymentlistid" name="paymentid[]" value='.$row->amount.'></td></tr>';
-					
-					
 				}
 				}else{
 					$html .='<tr><td>No due Payment</td></tr>';
@@ -334,5 +334,4 @@ class Booking extends Admin_Controller {
 		$html .=' </tbody></table>';
 		echo $html;
 	}
-	
 }

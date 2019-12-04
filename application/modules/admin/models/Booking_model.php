@@ -193,4 +193,39 @@ function payment_status_update($save,$booking_id){
 		return $data;
 	}
 	}
+	function add_partial_payment($bookingid,$paymentid,$paiddate,$partial_amount){
+		$this->db->where("booking_id",$bookingid);
+		$this->db->where_in("id",$paymentid);
+		if($this->db->update("booking_payment_plan",array("paid_status"=>0))){
+			$this->db->select("*");
+			$this->db->where("booking_id",$bookingid);
+			$this->db->where_in("id",$paymentid);
+			$q=$this->db->get("booking_payment_plan");
+			if($q->num_rows()>0){
+				foreach($q->result() as $row){
+			$data=array("booking_id"=>$bookingid,"date"=>$paiddate,
+		           "amount"=>$row->amount,
+		           "note"=>"Partial Amountpaid on".$paiddate);
+			$this->db->insert("booking_payment_details",$data);
+				}
+				$this->db->set('balance', 'balance-'.$partial_amount, FALSE);
+		        $this->db->where('id',$bookingid );
+		        $this->db->update('booking');
+			}
+			return true;
+		}
+		return false;
+	}
+	function undo_paid_payment($bookingid,$paymentid,$amount){
+		$this->db->where(array("booking_id"=>$bookingid,"payment_planid"=>$paymentid));
+	    if($this->db->update("booking_payment_plan",array("paid_status"=>1))){
+		  $this->db->where(array("booking_id"=>$bookingid,"paymentid"=>$paymentid));
+		  $this->db->delete("booking_payment_details");
+		  $this->db->set('balance', 'balance+'.$amount, FALSE);
+		  $this->db->where('id',$bookingid );
+		  $this->db->update('booking');
+		  return true;
+		}
+		return false;
+	}
 }
