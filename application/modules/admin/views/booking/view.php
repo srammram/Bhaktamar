@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
 <style>
 .error {
     color: #FF0000;
@@ -197,6 +198,39 @@ legend.scheduler-border {
 	.bottom_s .form-group .form-control{border: none!important;}
 	.well_1 .form-group{margin-bottom:5px;}
 	#myModal .modal-body{padding-top:0px;}
+	
+/*	*/
+	input[type=checkbox] {
+         position: relative;
+	       cursor: pointer;
+    }
+    input[type=checkbox]:before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 16px;
+         height: 16px;
+         top: 0;
+         left: 0;
+         border: 2px solid #555555;
+         border-radius: 3px;
+         background-color: white;
+}
+    input[type=checkbox]:checked:after {
+         content: "";
+         display: block;
+         width: 5px;
+         height: 10px;
+         border: solid black;
+         border-width: 0 2px 2px 0;
+         -webkit-transform: rotate(45deg);
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         position: absolute;
+         top: 2px;
+         left: 6px;
+}
+	#payments_list{max-height: 250px;overflow: auto;}
 </style>
 <?php   $seg= $this->uri->segment(5);?>
 <section class="content-header">
@@ -758,8 +792,8 @@ legend.scheduler-border {
                                         <div class="payment">
                                             <div class="form-group has-feedback">
                                                 <label for="amount_1">Amount</label>
-												<input type="text" value="" name="emi_amount" id="emi_amount" class="form-control" readonly="">
-				                         		<input type="hidden" name="status" id="status" class="form-control" readonly="" value="Unpaid">
+												<input type="text" value="" name="emi_amount" id="emi_amount" class="form-control" readonly>
+				                         		<input type="hidden" name="status" id="status" class="form-control" readonly value="Unpaid">
                                                <!-- <input name="amount-paid" type="text" id="amount_1"  class="pa form-control kb-pad amount" required="required" data-bv-field="amount-paid"><i class="form-control-feedback" data-bv-icon-for="amount-paid" style="display: none;">-->
                                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="amount-paid" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
                                         </div>
@@ -911,8 +945,8 @@ legend.scheduler-border {
 							 
                                 </div>
 								</div>
-								
-					 <div class="row">
+					<div class="clearfix"></div>			
+					 <div class="row" style="margin-top: 15px;">
 						<input type="hidden"  id="paymentid" name="paymentid">
 						 <div class="form-group pull-right">
 							<input type="submit" name="add_payment" value="Add Payment"  id="paymentbutton"class="btn btn-primary">
@@ -928,11 +962,20 @@ legend.scheduler-border {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 </section>
+
 <script src="<?php echo base_url('assets/plugin/moment.min.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/daterangepicker/daterangepicker.js')?>"></script>
 <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url('assets/admin/plugins')?>/jquery-validation/jquery.validate.min.js"></script>
+
+<script src="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+	$("#payments_list").mCustomScrollbar({
+		 theme:"dark"
+});
+</script>
+
 <script>
   $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',

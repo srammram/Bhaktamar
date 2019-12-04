@@ -324,7 +324,7 @@ class Booking extends Admin_Controller {
 				</tr></thead><tbody>';
 				if(!empty($due_payment)){ 
 				foreach($due_payment as $row){
-					$html .='<tr><td><input type="checkbox"  class="paymentids" value="'.$row->id.'">'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'<input type="hidden" class="paymentlistid" name="paymentid[]" value='.$row->amount.'></td></tr>';
+					$html .='<tr><td><input type="checkbox" class="paymentids" value="'.$row->id.'">&nbsp&nbsp&nbsp'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'<input type="hidden" class="paymentlistid" name="paymentid[]" value='.$row->amount.'></td></tr>';
 					
 					
 				}
