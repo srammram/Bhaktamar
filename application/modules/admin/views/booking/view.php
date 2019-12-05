@@ -621,7 +621,7 @@ legend.scheduler-border {
 														echo '<a href='. base_url('admin/booking/undo_payment/').'/'.$row->id.'/'.$booking->id.'/'.$row->amount.' class="tip po"  onclick="return areyousure_undo(this)"> Undo </a> | <a  data-id='.$row->id.' data-amount='.$row->amount.' style="color:#3d9970!important;">Receipt</a>';
 														break;
 														case 1:
-														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a>';
+														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a> |<a href='. base_url('admin/booking/demand_letter_pdf/').'/'.$row->id.'/'.$booking->id.'/'.' class="tip po"  > Demand Letter </a>';
 														break;
 														case 2:
 													echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#ff3333;">Due</a>';

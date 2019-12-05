@@ -20,10 +20,11 @@
      <ol class="breadcrumb">
          <li><a href="<?php echo site_url('admin/dashboard') ?>"><i class="fa fa-dashboard"></i>
                  <?php echo lang('dashboard')?></a></li>
-         <li><a href="<?php echo site_url('admin/Task') ?>"> <?php echo lang('Task')?> </a></li>
-         <li class="active"><?php echo (empty($seg))?lang('add'):lang('edit');?></li>
+         <li><a href="<?php echo site_url('admin/booking') ?>"> <?php echo lang('demand_letter')?> </a></li>
+        
      </ol>
  </section>
+ <br>
  <section class="content">
      <div class="row">
          <div class="col-xs-12">
@@ -32,10 +33,10 @@
                      <div class="tab-pane active" id="1a">
                          <div class="box">
                              <div class="box-header">
-                                 <h3 class="box-title"><?php echo lang('Task'); ?></h3>
+                                 <h3 class="box-title"><?php echo lang('demand_letter'); ?> Sample format</h3>
                              </div><!-- /.box-header -->
                              <div class="box-body">
-                                 <form method="post" action="<?php echo site_url('admin/Task/form/'); ?>"
+                                 <form method="post" action="<?php echo site_url('admin/booking/demand_letter/'); ?>"
                                      enctype="multipart/form-data" id="projectform">
                                     <div class="panel-wrapper collapse in">
                                         <div class="panel-body">
@@ -48,11 +49,11 @@
 																	<td>
 																		<table class="table">
 																			<tr>
-																				<td align="center"><h4><input type="checkbox">&nbsp;<input type="text" value="Demand Letter"></h4></td>
+																				<td align="center"><h4><input value="1" type="checkbox" name="title"  <?php  if(!empty($title) && $title==1){ echo 'checked' ; } ?>>&nbsp;<input type="text" value=" <?php  if(!empty($title_text) ){ echo $title_text; } ?>" name="title_text" ></h4></td>
 																			</tr>
 																			
 																			<tr>
-																				<td align="right"	><input type="checkbox"> &nbsp;Date</td>
+																				<td align="right"	><input value="1" type="checkbox" name="date"  <?php  if(!empty($date) && $date==1){ echo 'checked'; } ?>> &nbsp;Date</td>
 																			</tr>
 																		</table>
 																	</td>
@@ -61,13 +62,13 @@
 																	<td>
 																		<table>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Your name</td>
+																				<td><input type="checkbox" value="1" name="name" <?php  if(!empty($yourname) && $yourname==1){ echo 'checked'; } ?>> &nbsp;Your name</td>
 																			</tr>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Address</td>
+																				<td><input type="checkbox" value="1" name="address" <?php  if(!empty($address) && $address==1){ echo 'checked'; } ?>> &nbsp;Address</td>
 																			</tr>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Address</td>
+																				<td><input type="checkbox" value="1" name="contact"  <?php  if(!empty($contact) && $contact==1){ echo 'checked'; } ?>> &nbsp;Contact</td>
 																			</tr>
 																		</table>
 																	</td>
@@ -77,16 +78,14 @@
 																	<td>
 																		<table>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Debtor’s name</td>
+																				<td><input type="checkbox" value="1" name="d_name" <?php  if(!empty($debate_name) && $debate_name==1){ echo 'checked'; } ?>> &nbsp;Debtor’s name</td>
+																			</tr>
+																			
+																			<tr>
+																				<td><input type="checkbox" value="1" name="d_address"  <?php  if(!empty($debate_address_1) && $debate_address_1==1){ echo 'checked' ; } ?>> &nbsp;Address</td>
 																			</tr>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Title</td>
-																			</tr>
-																			<tr>
-																				<td><input type="checkbox"> &nbsp;Address</td>
-																			</tr>
-																			<tr>
-																				<td><input type="checkbox"> &nbsp;Address</td>
+																				<td><input type="checkbox" value="1" name="d_contact"  <?php  if(!empty($debate_contact) && $debate_contact==1){ echo 'checked' ; } ?>> &nbsp;Contact</td>
 																			</tr>
 																		</table>
 																	</td>
@@ -95,13 +94,17 @@
 																	<td>
 																		<table>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Dear(Debtor’s name)</td>
+																				<td><input type="checkbox" value="1" name="dear_debot"  <?php  if(!empty($dear_debtor) && $dear_debtor==1){ echo 'checked' ; } ?>> &nbsp;Dear(Debtor’s name)</td>
 																			</tr>
+																		
+																		</table>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<table>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;Title</td>
-																			</tr>
-																			<tr>
-																				<td><input type="checkbox"> &nbsp;Address</td>
+																				<td><input type="checkbox" value="1" name="subject"  <?php  if(!empty($subject) && $subject==1){ echo 'checked'; } ?>> &nbsp;<b> Subject : Letter of demand – outstanding payment for On Completion of 2nd Slab(%5)</b></td>
 																			</tr>
 																		</table>
 																	</td>
@@ -110,7 +113,7 @@
 																	<td>
 																		<table>
 																			<tr>
-																				<td><input type="checkbox"> &nbsp;<b>Letter of demand – outstanding payment</b></td>
+																				<td><input type="checkbox" value="1" name="out_standing_amount"  <?php  if(!empty($out_standing_amount) && $out_standing_amount==1){ echo 'checked'; } ?>> &nbsp;<b> Payment Details : 500,000</b></td>
 																			</tr>
 																		</table>
 																	</td>
@@ -137,7 +140,7 @@
 														<td>
 															<table>
 																<tr>
-																	<td><input type="checkbox"> &nbsp;Yours sincerely,</td>
+																	<td><input type="checkbox" value="1" name="sincerely" <?php  if(!empty($your_sincerely) && $your_sincerely==1){ echo 'checked'; } ?>> &nbsp;Yours sincerely,</td>
 																</tr>
 															</table>
 														</td>
@@ -148,8 +151,7 @@
 												
 								</div>
                                   </div>		
-								</div>        
-                                </div>
+							
                             </div>
                         </div>
                                      <div class="box-footer">

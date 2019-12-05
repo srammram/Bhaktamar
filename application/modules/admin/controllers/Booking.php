@@ -285,8 +285,7 @@ class Booking extends Admin_Controller {
 				$this->session->set_flashdata('message', 'Booking Details Not Found');
 				redirect('admin/booking');
 			}
-		}
-		else{
+		}else{
 			    $this->session->set_flashdata('error','Booking Data not Found');
 				redirect('admin/booking');
 		}
@@ -355,9 +354,80 @@ class Booking extends Admin_Controller {
 			  redirect($_SERVER["HTTP_REFERER"]);
 		} 
 	}
-	function demand_letter(){
-		 $admin = $this->session->userdata('admin');
-         $data['page_title'] = lang('booking');
-         $this->render_admin('booking/demand_letter', $data);
+	
+	function demand_letter($id =false){
+		    $data['page_title'] = lang('booking');
+			$id=1;
+	       	$data['id']					=1;
+		    $data['title']				= '';
+			$data['title_text']         = '';
+		    $data['yourname']			= '';
+		    $data['address']		    = '';
+		    $data['address1']		    = '';
+		    $data['comments']		    = '';
+		    $data['date']	         	= '';
+		    $data['debate_name']	    = '';
+			$data['debate_address_1']	= '';
+			$data['debate_contact']   	= '';
+			$data['dear_debtor']	    = '';
+			$data['your_sincerely']	    = '';
+			$data['subject']	        = '';
+			$data['out_standing_amount']= '';
+		if ($id){	
+		    $demand_letter		        = $this->Booking_model->get_demand_letter($id);
+			$data['id']					= $demand_letter->id;
+			$data['title']				= $demand_letter->title;
+			$data['title_text']			= $demand_letter->title_text;
+		    $data['yourname']			= $demand_letter->yourname;
+		    $data['address']		    = $demand_letter->address;
+		    $data['contact']		    = $demand_letter->contact;
+		    $data['comments']		    = $demand_letter->comments;
+		    $data['date']	         	= $demand_letter->date;
+		    $data['debate_name']	    = $demand_letter->debate_name;
+			$data['debate_address_1']	= $demand_letter->debate_address_1;
+			$data['debate_contact']	    = $demand_letter->debate_contact;
+			$data['dear_debtor']	    = $demand_letter->dear_debtor;
+			$data['your_sincerely']	    = $demand_letter->your_sincerely;
+			$data['subject']	        = $demand_letter->subject;
+			$data['out_standing_amount']= $demand_letter->out_standing_amount;
+		}
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
+		if ($this->form_validation->run() == FALSE){
+			$this->render_admin('booking/demand_letter', $data);		
+		}else{
+			$save['id']				         = $id;
+			$save['title']			         = $this->input->post('title');
+			$save['title_text']			     = $this->input->post('title_text');
+			$save['yourname']			     = $this->input->post('name');
+			$save['address']			     = $this->input->post('address');
+			$save['contact']		         = $this->input->post('contact');
+			$save['comments']		         = $this->input->post('content_section_description');
+			$save['date']		             = $this->input->post('date');
+			$save['debate_name']		     = $this->input->post('d_name');
+			$save['debate_address_1']		 = $this->input->post('d_address');
+			$save['debate_contact']		     = $this->input->post('d_contact');
+			$save['dear_debtor']		     = $this->input->post('dear_debot');
+			$save['your_sincerely']		     = $this->input->post('sincerely');
+			$save['subject']		         = $this->input->post('subject');
+			$save['out_standing_amount']      = $this->input->post('out_standing_amount');
+			$this->Booking_model->demand_letter_save($save);
+			if($id){
+				$this->session->set_flashdata('message', lang('floor_update'));
+			}else{
+				$this->session->set_flashdata('message', lang('floor_save'));
+			}
+			redirect('admin/booking/demand_letter');
+		}
+		
+	}
+	function demand_letter_pdf($paymentid,$bookingid){
+		$this->load->library('pdf');
+		$data['payment_details']        =$this->Booking_model->get_payment_plan_details($paymentid);
+		$data['demand_letter']          =$this->Booking_model->get_demand_letter(1);
+		$data['booking_details']        =$this->Booking_model->getbookingByid($bookingid);
+		$html = $this->load->view('admin/booking/demand_letter_pdf',$data,true);
+		$this->pdf->create($html,'test');
+		
+		
 	}
 }

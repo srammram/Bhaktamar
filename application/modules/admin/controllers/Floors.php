@@ -53,7 +53,7 @@ class Floors extends Admin_Controller {
 		$data['shared_public_area']	= '';
 		if ($id){	
 			$data['floor']			=	$floor		= $this->floor_model->get($id);
-			$data['buildings']      = $building= $this->floor_model->get_buildingProjectWise($floor->projectid);
+			$data['buildings']      =   $building   = $this->floor_model->get_buildingProjectWise($floor->projectid);
 			if (!$floor){
 				$this->session->set_flashdata('error', lang('floor_not_found'));
 				redirect('admin/groups');
@@ -90,7 +90,6 @@ class Floors extends Admin_Controller {
 			redirect('admin/floors');
 		}
 	}
-	
 	function delete($id = false){
 		if ($id){	
 			$floor	= $this->floor_model->floorIfexists($id);
@@ -117,8 +116,7 @@ class Floors extends Admin_Controller {
                 $HTML.="<option value='" . $building->bldid . "'>" . $building->name. "</option>";
             }
         }
-        echo $HTML;
-	 
-    }
+           echo $HTML;
+       }
 	
 }

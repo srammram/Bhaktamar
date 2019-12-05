@@ -71,6 +71,7 @@ class Main extends CI_Controller {
 		$message='We Warmly Welcome To Bhaktamar Residency. Our Representative ('.$agentname.') Shall Attend To You Shortly.';
 		$response = file_get_contents("http://173.45.76.227/send.aspx?username=praful19&pass=praful@123&route=trans1&senderid=890&numbers=".$leadNumber."&message=".$message."");
 		$response_array = json_decode($response);
+		$this->greeting_message_save('Enquiry Form',$message,$leadNumber);
 		print_r($response_array);
 		
 	}
@@ -80,6 +81,7 @@ class Main extends CI_Controller {
 		$message='Thankyou For Visiting Bhaktamar Residency ! Please Share Your Review For Our Representative & The Project On The Link Below. ('.$url.')  We Look Forward To Seeing You Again ! Regards Bhaktamar Realities LLP.';
 		$response = file_get_contents("http://173.45.76.227/send.aspx?username=praful19&pass=praful@123&route=trans1&senderid=890&numbers=".$leadNumber."&message=".$message."");
 		$response_array = json_decode($response);
+		$this->greeting_message_save('Post_enquiry',$message,$leadNumber);
 		print_r($response_array);
 		
 	}
@@ -89,5 +91,9 @@ class Main extends CI_Controller {
 		$q=$this->db->get("add_unit");
 		$unit=$q->row();
 		echo json_encode($unit);
+	}
+	function greeting_message_save($type,$message,$leadnumber){
+		$this->db->insert("greeting_message",array("type"=>$type,"lead_number"=>$leadnumber,"message"=>$message));
+		return true;
 	}
 }

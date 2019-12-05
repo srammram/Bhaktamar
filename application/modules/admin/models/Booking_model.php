@@ -236,4 +236,33 @@ function payment_status_update($save,$booking_id){
 		$q=$this->db->get_where("building_info",array("bldid"=>buildingid));
 		return $q->row('project_id');
 	}
+	function demand_letter_save($save){
+		if($save['id']){
+			$this->db->where("id",$save['id']);
+			$this->db->update("demand_letter_format",$save);
+			return true;
+		}else{
+			$this->db->insert("demand_letter_format",$save);
+			return true;
+		}
+		return false;
+	}
+	function get_demand_letter($id){
+		$this->db->select("*");
+		$this->db->where("id",$id);
+		$q=$this->db->get("demand_letter_format");
+		if($q->num_rows()>0){
+			return $q->row();
+		}
+		return false;
+	}
+	function get_payment_plan_details($id){
+		$this->db->select("*");
+		$this->db->where("id",$id);
+		$q=$this->db->get("booking_payment_plan");
+		if($q->num_rows()>0){
+			return $q->row();
+		}
+		return false;
+	}
 }
