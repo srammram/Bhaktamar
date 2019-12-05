@@ -6,11 +6,17 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap.min.css">
 <style>
-	body{background-color: #efefef;}
-	.table_se{width: 800px;margin: 0 auto;background-color: #fff;padding: 20px;}
+	.table_se{width: 100%;}
 	.table tbody tr td{border: none;line-height: 26px;}
 	.table tbody tr td .table{margin-bottom: 0px;}
 	.table tbody tr td .table tbody tr td{padding: 0px;}
+	@page {
+  size: auto;
+  margin-top:10px;
+  margin-bottom:0px;
+}
+	
+	#header,#footer{margin: 0px;}
 	</style>
 </head>
 
