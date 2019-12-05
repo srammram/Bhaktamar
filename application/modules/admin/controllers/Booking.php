@@ -426,7 +426,7 @@ class Booking extends Admin_Controller {
 		$data['payment_details']        =$this->Booking_model->get_payment_plan_details($paymentid);
 		$data['demand_letter']          =$this->Booking_model->get_demand_letter(1);
 		$data['booking_details']        =$this->Booking_model->getbookingByid($bookingid);
-     	$html=$this->load->view('admin/booking/demand_letter_pdf', $data,true);	
-		$this->pdf->create($html,'Demand_letter_pdf');
+     	echo $html=$this->load->view('admin/booking/demand_letter_pdf', $data,true);	
+		//$this->pdf->create($html,'Demand_letter_pdf');
 	}
 }
