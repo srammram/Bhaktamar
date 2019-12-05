@@ -257,8 +257,9 @@ function payment_status_update($save,$booking_id){
 		return false;
 	}
 	function get_payment_plan_details($id){
-		$this->db->select("*");
-		$this->db->where("id",$id);
+	$this->db->select("booking_payment_plan.*,booking_payment_master.name");
+		$this->db->join("booking_payment_master","booking_payment_master.id=booking_payment_plan.payment_planid","left");
+		$this->db->where("booking_payment_plan.id",$id);
 		$q=$this->db->get("booking_payment_plan");
 		if($q->num_rows()>0){
 			return $q->row();

@@ -28,7 +28,26 @@
 					<td>
 						<table class="table">
 							<tr>
-								<td align="center"><h4>Demand Letter</h4></td>
+								<td align="center"><h4><b>Demand Letter</b></h4></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+						<tr>
+								<td><b>From:</b></td>
+							</tr>
+							<tr>
+								<td><?php  echo $settings->name;   ?></td>
+							</tr>
+
+							<tr>
+								<td><?php  echo $settings->address;   ?></td>
+							</tr>
+							<tr>
+								<td><?php  echo $settings->phone;   ?></td>
 							</tr>
 						</table>
 					</td>
@@ -37,13 +56,7 @@
 					<td>
 						<table>
 							<tr>
-								<td>Your name</td>
-							</tr>
-							<tr>
-								<td>Address</td>
-							</tr>
-							<tr>
-								<td>Address</td>
+								<td><b><?php  echo date('Y-m-d');  ?></b></td>
 							</tr>
 						</table>
 					</td>
@@ -51,104 +64,60 @@
 				<tr>
 					<td>
 						<table>
+						<tr>
+								<td><b>To :</b></td>
+							</tr>
 							<tr>
-								<td>Date</td>
+								<td><?php  echo $booking_details->applicant_name  ?></td>
+							</tr>
+							<tr>
+								<td><?php  echo $booking_details->address  ?></td>
+							</tr>
+							<tr>
+								<td><?php  echo $booking_details->contactno  ?></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><b>Subject:Letter of demand – outstanding payment for <?php echo $payment_details->name.'('.$payment_details->percetage.'%)'   ?></b></td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
+				<td>
+					<table>
+						<tr>
+							<td><b> Payment Details : <?php  echo $this->sma->formatMoney($payment_details->amount);  ?></b></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
 					<td>
 						<table>
 							<tr>
-								<td>Debtor’s name</td>
+								<td>Dear  <?php  echo $booking_details->applicant_name  ?></td>
 							</tr>
-							<tr>
-								<td>Title</td>
-							</tr>
-							<tr>
-								<td>Address</td>
-							</tr>
-							<tr>
-								<td>Address</td>
-							</tr>
+							
 						</table>
 					</td>
 				</tr>
+			
 				<tr>
 					<td>
 						<table>
 							<tr>
-								<td>Dear(Debtor’s name)</td>
+								<td><?php  echo $demand_letter->comments;  ?></td>
 							</tr>
-							<tr>
-								<td>Title</td>
-							</tr>
-							<tr>
-								<td>Address</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td><b>Letter of demand – outstanding payment</b></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>I am writing in reference to (details of contract or agreement) and payment not being received.</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>I enclose (specify the titles of the documents you are attaching, such as invoice number and an original quote) dated (insert date) for the outstanding amount of $(amount).</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>I demand full payment of the outstanding amount within (usually 14 days from the date of this letter – best to specify the date).</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>(Optional) Alternatively, and without prejudice to my rights for full recovery of the debt, I am prepared to:</td>
-							</tr>
-							<tr>
-								<td>(Choose the option which is most appropriate)</td>
-							</tr>
-							<tr>
-								<td>
-									<ul>
-										<li>Accept the amount of $ (less than full payment) as full and final settlement of the debt if paid within 7 days (or other appropriate period) from the date of this letter.</li>
-										<li>Accept instalments of $(amount) per (week/month)until the debt is fully paid, the first instalment to be paid on (date) and thereafter on the first working day of every (week/month) until the debt is fully paid.</li>
-									</ul>
-								</td>
-							</tr>
-							<tr>
-								<td>If this matter is not resolved by the time specified above, I reserve the right to commence legal proceedings to recover the debt without further notice to you and this letter may be tendered in court as evidence of your failure to pay.  Legal action may result in you having to pay legal costs, interest and could impact on your credit history. </td>
-							</tr>
-							<tr>
-								<td>Should you wish to contact me to discuss, my telephone number is(insert number).</td>
-							</tr>
+							
+							
+						
 						</table>
 					</td>
 				</tr>
