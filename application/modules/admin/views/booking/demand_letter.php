@@ -7,6 +7,13 @@
 <link href="<?php echo base_url('assets/admin/plugins/multiselect/css/multi-select.css')?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url('assets/admin/plugins/responsivetabs/responsive-tabs.css')?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url('assets/admin/plugins/responsivetabs/style.css')?>" rel="stylesheet" type="text/css" />
+<style>
+	.table tbody tr td{border: none;line-height: 26px;}
+	.table tbody tr td .table{margin-bottom: 0px;}
+	.table tbody tr td .table tbody tr td{padding: 0px;}
+	input[type=text]{border: none;}
+	input[type=text]:focus{outline: none;box-shadow: none;}
+</style>
  <?php  $seg= $this->uri->segment(4);?>
  <section class="content-header">
      <h1><?php echo $page_title; ?></h1>
@@ -30,170 +37,115 @@
                              <div class="box-body">
                                  <form method="post" action="<?php echo site_url('admin/Task/form/'); ?>"
                                      enctype="multipart/form-data" id="projectform">
-                                                <div class=" show" id="new-task-panel" >
                                     <div class="panel-wrapper collapse in">
                                         <div class="panel-body">
                                                 <div class="form-body">
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Task Name</label>
-                                                                <input type="text" id="heading" name="TaskName"
-                                                                    class="form-control" value="<?php if(!empty($taskName)){ echo $taskName;  } ?>">
-                                                            </div>
-                                                        </div>
-                                                        <!--/span-->
-														<div class="col-md-6">
-                                                            <label class="control-label">Parent Task</label>
-                                                            <div class="form-group">
-                                                                <select class="form-control "
-                                                                    name="Parenttaskid">
-                                                                    <option value="">--</option>
-                                                                        <?php if ($tasks) {foreach ($tasks as $row) {?>
-                                                                    <option value="<?php echo $row->id; ?>"<?php echo ($parentasktid==$row->id)?'selected':'';?>><?php echo $row->taskName; ?></option>
-                                                                    <?php	} } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-														<div class="col-md-6">
-                                                            <label class="control-label">Project</label>
-                                                            <div class="form-group">
-                                                                <select class="form-control projectid"
-                                                                    name="projectid" onchange="get_building(this.value)">
-                                                                    <option value="">--</option>
-                                                                        <?php if ($project) {foreach ($project as $row) {?>
-                                                                    <option value="<?php echo $row->id; ?>" <?php echo ($projectid==$row->id)?'selected':'';?>>
-                                                                        <?php echo $row->Name; ?>
-                                                                    </option>
-                                                                    <?php	}}?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-															<div class="col-md-6">
-                                                            <label class="control-label">Building</label>
-                                                            <div class="form-group">
-                                                                <select class="form-control building"
-                                                                    name="building" id="building">
-                                                                    <option value="">--</option>
-																    <?php if ($building) {foreach ($building as $row) {?>
-                                                                    <option value="<?php echo $row->bldid; ?>" <?php echo ($building_id==$row->bldid)?'selected':'';?>>
-                                                                        <?php echo $row->name; ?>
-                                                                    </option>
-																	<?php   }  }   ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-														<div class="col-md-6">
-                                                            <label class="control-label">Project Stage</label>
-                                                            <div class="form-group">
-                                                                <select class="form-control "
-                                                                    name="Projectstageid">
-                                                                    <option value="">--</option>
-                                                                        <?php if ($stages) {foreach ($stages as $item) {?>
-                                                                    <option value="<?php echo $item->id; ?>"  <?php echo ($Projectstageid==$item->id)?'selected':'';?>>
-                                                                        <?php echo $item->Name ?>
-                                                                    </option>
-                                                                    <?php	}}?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Start Date</label>
-                                                                <input type="text" name="start_date" id="start_date "
-                                                                    class="form-control datepicker" autocomplete="off"
-                                                                   value="<?php if(!empty($start_date)){ echo $start_date;  } ?>">
-                                                            </div>
-                                                        </div>
-                                                        <!--/span-->
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Due Date</label>
-                                                                <input type="text" name="due_date" id="due_date"
-                                                                    autocomplete="off" class="form-control datepicker" value="<?php if(!empty($due_date)){ echo $due_date;  } ?>">
-                                                            </div>
-                                                        </div>
-                                                        <!--/span-->
-                                                        
-                                                        <div class="col-md-6">
-                                                            <label class="control-label">Assigned To</label>
-                                                            <div class="form-group">
-                                                                <select class="form-control assigneto"
-                                                                    name="assigned_to">
-                                                                    <option value="">--
-                                                                    </option>
-                                                                        <?php if ($employee) {foreach ($employee as $row) {?>
-                                                                    <option value="<?php echo $row->id; ?>"  <?php echo (@$assigned_to==$row->id)?'selected="selected"':'';?>>
-                                                                        <?php echo $row->first_name . '-' . $row->last_name; ?>
-                                                                    </option>
-
-                                                                    <?php	}}?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 Taskstatus" >
-                                                            <label class="control-label">Status</label>
-                                                            <div class="form-group">
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="incomplete" <?php echo (@$status=='Incomplete')?'selected="selected"':'';?>>Incomplete</option>
-                                                                    <option value="complete" <?php echo (@$status=='Complete')?'selected="selected"':'';?>>Complete</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-														<div class="col-md-6 Taskstatus" >
-                                                            <label class="control-label">Payment Plan</label>
-                                                            <div class="form-group">
-                                                                <select name="payment_plan" id="payment_plan" class="form-control">
-																<option value="">--  </option>
-																<?php  if($payment_plan){ foreach($payment_plan as $row){    ?>
-																<option value="<?php echo $row->id;    ?>" <?php echo (@$payment_planid==$row->id)?'selected="selected"':'';?>><?php echo $row->name;   ?></option>
-																<?php  }  }   ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <!--/span-->
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Priority</label>
-                                                            
-                                                                    <input type="radio" name="priority" id="radio13"
-                                                                        value="High" <?php echo (@$status=='High')?'selected="selected"':'';?>>
-                                                                    <label for="radio13" class="text-danger">
-                                                                        High </label>
-                                                              
-                                                               
-                                                                    <input type="radio" name="priority" checked=""
-                                                                        id="radio14" value="Medium" <?php echo (@$status=='Medium')?'selected="selected"':'';?>>
-                                                                    <label for="radio14" class="text-warning">
-                                                                        Medium </label>
-
-                                                                    <input type="radio" name="priority" id="radio15"
-                                                                        value="Low" <?php echo (@$status=='Low')?'selected="selected"':'';?>>
-                                                                    <label for="radio15" class="text-success">
-                                                                        Low </label>
-                                                            
-                                                            </div>
-                                                        </div>
-														
-															<div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Approved</label>
-                                                                    <input type="checkbox" name="is_approved" id="radio13"
-                                                                        value="1" <?php echo (@$is_approved==1)?'checked':'';?>>
-                                                                   
-                                                                   
-                                                            </div>
-                                                        </div>
-
-														 <div class="col-md-12">
-														<b> <?php echo lang('content_section');?> <?php echo lang('description');?></b>
-														<div class="form-group">
-										<textarea name="content_section_description" class="form-control redactor" ><?php if(!empty($comments)){ echo $comments;  } ?></textarea>
-									</div>	
-								  </div>		
+                                                  <div class="table_se">
+														<table class="table" cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td>
+																		<table class="table">
+																			<tr>
+																				<td align="center"><h4><input type="checkbox">&nbsp;<input type="text" value="Demand Letter"></h4></td>
+																			</tr>
+																			
+																			<tr>
+																				<td align="right"	><input type="checkbox"> &nbsp;Date</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<table>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Your name</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Address</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Address</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+																
+																<tr>
+																	<td>
+																		<table>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Debtor’s name</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Title</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Address</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Address</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<table>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Dear(Debtor’s name)</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Title</td>
+																			</tr>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;Address</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<table>
+																			<tr>
+																				<td><input type="checkbox"> &nbsp;<b>Letter of demand – outstanding payment</b></td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<table class="table">
+																			<tr>
+																				<td>
+																					<div class="col-md-12">
+											<b> <?php echo lang('content_section');?> <?php echo lang('description');?></b>
+											<div class="form-group">
+												<textarea name="content_section_description" class="form-control redactor" ><?php if(!empty($comments)){ echo $comments;  } ?></textarea>
+											</div>	
+								  		</div>
+																				</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+				
+				
+													<tr>
+														<td>
+															<table>
+																<tr>
+																	<td><input type="checkbox"> &nbsp;Yours sincerely,</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>      
+												
 								</div>
                                   </div>		
 								</div>        
