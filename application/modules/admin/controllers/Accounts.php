@@ -1758,6 +1758,27 @@ class Accounts extends Admin_Controller {
 		
 	}
 	
+		function due_payment(){
+		$admin = $this->session->userdata('admin');
+		$data['page_title']	= lang('bill');
+		$this->render_admin('Accounts/due_payment/payment_list', $data);
+	}
+  
+	   function get_due_payment_list(){
+		 $actions = "<div class=\"text-center\">";
+		 $actions .= "<a href='" . base_url('admin/$1') . "' class='tip po'  onclick='return areyousure(this)' title='Sync to Post Enquiry'><i class=\"fa fa-refresh\"></i></a>";
+		 $actions .= "</div>";
+		  $this->load->library('datatables');
+		  $this->datatables
+		  ->select("booking_payment_plan.id,applicant_name,booking_payment_master.name,percetage,grand_total_cost,balance,amount,due_date", FALSE)
+		  ->from("booking_payment_plan")
+		  ->join("booking_payment_master","booking_payment_master.id=booking_payment_plan.payment_planid","left")
+		  ->join("booking","booking.id=booking_payment_plan.booking_id","left")
+		  ->where("booking_payment_plan.paid_status",2)
+		  ->add_column("Actions", $actions, "booking_payment_plan.id");
+		   echo $this->datatables->generate();
+		 
+   }
 	
 
 }

@@ -292,7 +292,7 @@ class Booking extends Admin_Controller {
 		}
 	}
 	function payment($bookingid){
-			$paymentid=$this->input->post('paymentid');
+		$paymentid=$this->input->post('paymentid');
 		$data=array("booking_id"=>$bookingid,"date"=>$this->input->post('paiddate'),
 		"amount"=>$this->input->post('emi_amount'),
 		"paid_by"=>$this->input->post('paid_by'),
@@ -306,7 +306,6 @@ class Booking extends Admin_Controller {
 		"year"=>$this->input->post('years'),
 		"note"=>$this->input->post('note'),
 		"paymentid"=>$paymentid);
-	
 		$result=$this->Booking_model->add_payment($data,$bookingid,$paymentid);
 		if($result){
 			$this->session->set_flashdata('error', lang("Payment_status"));
@@ -326,9 +325,7 @@ class Booking extends Admin_Controller {
 				</tr></thead><tbody>';
 				if(!empty($due_payment)){ 
 				foreach($due_payment as $row){
-					$html .='<tr><td><input type="checkbox" class="paymentids" value="'.$row->id.'">&nbsp&nbsp&nbsp'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'<input type="hidden" class="paymentlistid" name="paymentid[]" value='.$row->amount.'></td></tr>';
-					
-					
+					$html .='<tr><td><input type="checkbox" name="paymentid[]" class="paymentids" value="'.$row->id.'"><input type="hidden" class="payment" name="payment[]" value='.$row->amount.'>&nbsp&nbsp&nbsp'.$row->name.'</td><td>'.$row->percetage.'</td><td>'.$row->paid_status.'</td><td>'. $this->sma->formatMoney($row->amount).'</td></tr>';
 				}
 				}else{
 					$html .='<tr><td>No due Payment</td></tr>';
@@ -337,18 +334,16 @@ class Booking extends Admin_Controller {
 		echo $html;
 	}
 	
-	function partial_payment(){
-		$bookingid=$this->input->post('bookingid');
+	function partial_payment($bookingid){
 		$paymentid=$this->input->post('paymentid');
 		$paiddate=$this->input->post('date');
-		$partial_amount=$this->input->post('date');
+		$partial_amount=$this->input->post('partial_amount');
 		if($this->Booking_model->add_partial_payment($bookingid,$paymentid,$paiddate,$partial_amount)){ 
 	       $this->session->set_flashdata('message', lang("payment_added"));
               redirect($_SERVER["HTTP_REFERER"]);
 		}else{
 			$this->session->set_flashdata('error', lang("Payment_status"));
 			  redirect($_SERVER["HTTP_REFERER"]);
-			 
 		} 
 	}
 	function undo_payment($paymentid,$bookingid,$amount){
@@ -358,9 +353,11 @@ class Booking extends Admin_Controller {
 		}else{
 			$this->session->set_flashdata('error', lang("Payment_status"));
 			  redirect($_SERVER["HTTP_REFERER"]);
-			 
 		} 
-		
 	}
-	
+	function demand_letter(){
+		 $admin = $this->session->userdata('admin');
+         $data['page_title'] = lang('booking');
+         $this->render_admin('booking/demand_letter', $data);
+	}
 }

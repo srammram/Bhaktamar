@@ -160,7 +160,7 @@
                                      class="form-control allownumber" />
                              </div>
                              <div class="form-group col-md-6">
-                                 <label for="size"><?php echo lang('House_details')?><span
+                                 <label for="size">Carpet Area(Sq. mtr)<span
                                          class="errorStar">*</span></label>
                                  <input type="text" name="size" value="<?php  if(isset($size)){ echo $size ;  } ?>"
                                      class="form-control" />
@@ -172,10 +172,17 @@
 
                              </div>
                              <div class="form-group col-md-6">
-                                 <label for="insidearea"><?php echo lang('House_length')?><span
+                                 <label for="insidearea">Enclosed Balcony Carpet Area(Sq. mtr)<span
                                          class="errorStar">*</span></label>
                                  <input type="text" name="Inside_unit"
                                      value="<?php  if(isset($Inside_unit)){ echo $Inside_unit ;  } ?>"
+                                     class="form-control" />
+                             </div>
+							  <div class="form-group col-md-6">
+                                 <label for="insidearea">Open Balcony Carpet Area(Sq. mtr)<span
+                                         class="errorStar">*</span></label>
+                                 <input type="text" name="open_balcony_carpet_area"
+                                     value="<?php  if(isset($open_balcony_carpet_area)){ echo $open_balcony_carpet_area ;  } ?>"
                                      class="form-control" />
                              </div>
 							  <div class="form-group col-md-6">

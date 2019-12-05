@@ -77,6 +77,8 @@ if(!empty($save['id'])){
 	} */
 	foreach($payment_plan as $row){
 		$row['booking_id']=$save['id'];
+		$row['project_id']=$this->getProject($save['building_no']);
+		$row['building_id']=$save['building_no'];
 	    $this->db->insert('booking_payment_plan',$row);
 	}
 	$this->payment_status_update($save,$save['id']);
@@ -92,6 +94,8 @@ if(!empty($save['id'])){
 	} */
 	foreach($payment_plan as $row){
 		$row['booking_id']=$booking_id;
+		$row['project_id']=$this->getProject($save['building_no']);
+		$row['building_id']=$save['building_no'];
 	    $this->db->insert('booking_payment_plan',$row);
 	}
 	$this->payment_status_update($save,$booking_id);
@@ -227,5 +231,9 @@ function payment_status_update($save,$booking_id){
 		  return true;
 		}
 		return false;
+	}
+	function getProject($buildingid){
+		$q=$this->db->get_where("building_info",array("bldid"=>buildingid));
+		return $q->row('project_id');
 	}
 }

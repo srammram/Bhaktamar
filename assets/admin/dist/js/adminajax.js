@@ -1231,9 +1231,6 @@ function get_buildingfloors(str){
 
 		}
 	}
-	
-	
-
 function get_floorunit(str){
 	var projectid=$("#projectid").val();
 	var buildingid=$("#building").val();
@@ -1252,8 +1249,24 @@ function get_floorunit(str){
 					$("#units").append(result);
 				}
 			});
-
 		}
+	}
+
+function get_unit_details(str){
+	var postUrl  = getBaseURL()+'main/get_unit_details' ;
+			$.ajax({
+				 dataType: 'json',
+				type: "POST",
+				url:  postUrl,
+				data: { unit:str },
+				cache: false,
+				success: function(result){
+				
+					$("#carpetarea").val(result.size);
+					$("#enclosed_balconycarpet_area").val(result.insideunit);
+					$("#open_balcony_carpet_area").val(result.open_balcony_carpet_area);
+				}
+			});
 	}
 
 

@@ -1492,6 +1492,8 @@ $lang['arrival']              ="Arrival";
 $lang['Vechile_no']           ="Vechile No"; 
 $lang['Vechile_details']      ="Vechile details"; 
 $lang['Bookinglist']          ="Booking List"; 
+$lang['demand_letter']        ="Demand Letter"; 
+
 
 $lang['Reservationno']          ="Reservation NO"; 
 $lang['Guestname']              ="Guest Name"; 

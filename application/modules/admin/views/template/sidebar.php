@@ -245,6 +245,8 @@
                     <span><?php echo lang('dashboard');?></span></a></li>
             <li><a href="<?php echo site_url('admin/booking/')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Bookinglist');?></span></a></li>
+					  <li><a href="<?php echo site_url('admin/booking/demand_letter')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('demand_letter');?></span></a></li>
           
             <?php   }  ?>
 			

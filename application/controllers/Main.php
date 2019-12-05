@@ -79,8 +79,15 @@ class Main extends CI_Controller {
 		$url=base_url().'/Feeaback';
 		$message='Thankyou For Visiting Bhaktamar Residency ! Please Share Your Review For Our Representative & The Project On The Link Below. ('.$url.')  We Look Forward To Seeing You Again ! Regards Bhaktamar Realities LLP.';
 		$response = file_get_contents("http://173.45.76.227/send.aspx?username=praful19&pass=praful@123&route=trans1&senderid=890&numbers=".$leadNumber."&message=".$message."");
-			$response_array = json_decode($response);
+		$response_array = json_decode($response);
 		print_r($response_array);
 		
+	}
+	function get_unit_details(){
+		$this->db->select("*");
+		$this->db->where("uid",$this->input->post('unit'));
+		$q=$this->db->get("add_unit");
+		$unit=$q->row();
+		echo json_encode($unit);
 	}
 }

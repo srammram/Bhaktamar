@@ -798,7 +798,7 @@ legend.scheduler-border {
                                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="amount-paid" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter/select a value</small></div>
                                         </div>
                                     </div>
-									<input type="text" class="form-control allowdecimalpoint"  name="legal_charges" value="<?php  if(!empty($legal_charges)){ echo  $legal_charges ;  } ?>">
+								
                                     <div class="col-sm-6">
                                         <div class="form-group has-feedback">
                                             <label for="paid_by_1">Paid by *</label>
@@ -912,7 +912,7 @@ legend.scheduler-border {
          
       </div>
         
-		<form method="post" action="<?php echo site_url('admin/booking/payment/'.$booking->id); ?>" >
+		<form method="post" class="parttail_payment_form" action="<?php echo site_url('admin/booking/partial_payment/'.$booking->id); ?>" >
 		<div class="modal-body">
                 <div class="modal-body">
                     <p>Please fill in the information below. The field labels marked with * are required input fields.</p>
@@ -920,19 +920,19 @@ legend.scheduler-border {
                         <div class="col-sm-6">
                             <div class="form-group ">
                                 <label for="date"><?php echo lang('date')?> </label>
-                                <input type="text" name="date"  id="paymentdate" class="form-control datepicker"  required="required" ><i class="form-control-feedback"></i>
+                                <input type="text" name="date"  id="paymentdate" class="form-control datepicker"   ><i class="form-control-feedback"></i>
                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;"><?php echo lang('Ple_enter')?></small></div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reference_no">Partial Amount</label>
-                                <input type="text" name="reference_no" value="" class="form-control allowdecimalpoint" id="reference_no">
+                                <input type="text" name="partial_amount" class="form-control allowdecimalpoint" id="partial_amount">
                             </div>
                         </div>
 						 <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reference_no">Partial Balance Amount</label>
-                                <input type="text" readonly value="" class="form-control allowdecimalpoint" id="reference_no">
+                                <input type="text" readonly  class="form-control allowdecimalpoint" id="balance_amount">
                             </div>
                         </div>
                         
@@ -947,9 +947,9 @@ legend.scheduler-border {
 								</div>
 					<div class="clearfix"></div>			
 					 <div class="row" style="margin-top: 15px;">
-						<input type="hidden"  id="paymentid" name="paymentid">
+						
 						 <div class="form-group pull-right">
-							<input type="submit" name="add_payment" value="Add Payment"  id="paymentbutton"class="btn btn-primary">
+							<input type="submit" name="add_payment" value="Add Payment"  id="partial_form_submit"class="btn btn-primary">
 							<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo lang('close'); ?></button>
 						</div>
 					</div>
@@ -1013,11 +1013,56 @@ $('.payingtype').on('change', function() {
 	 $('.pcc_').css('display','block');
   }
 });
-$('.paymentids').on('change', function() {
-    alert(1);
-});
+
 </script>
 
 <script>
+$(document).on('change', '.paymentids', function() {
+	var Partial_amount=$("#partial_amount").val();
+	if(Partial_amount !=0 && Partial_amount !="" ){
+	$('#partial_amount').css('border-color', '');
+    if(this.checked){
+		  calc();
+    } else {
+		calc();
+    }
+}else{
+	 $(this).prop("checked", false);
+	 $('#partial_amount').css('border-color', 'red');
+}
+});
 $('form').attr('autocomplete', 'off');
+function calc(){
+	var sList = 0;
+	var Partial_amount=$("#partial_amount").val();
+$('.paymentids').each(function () {
+     if(this.checked){
+	sList  +=parseFloat($(this).parent().parent().find(".payment").val());
+	 }
+});
+var balance=parseFloat(Partial_amount) -parseFloat(sList);
+$("#balance_amount").val(balance);
+if(balance !=0){
+	$('#balance_amount').css('border-color', 'red');
+}else{
+	$('#balance_amount').css('border-color', '');
+}
+}
+$("#partial_form_submit").on("click", function() {
+	var error="";
+	if($("#paymentdate").val() ==""){
+		error=true;
+	}
+	if($("#balance_amount").val() !=0  || $("#balance_amount").val() ==''){
+		error=true;
+	}
+	if($("#partial_amount").val() !=0 || $("#partial_amount").val() !=""){
+		$error=true;
+	}
+	if(error){
+		return false;
+	}else{
+	$(".parttail_payment_form").submit()  ;
+	}
+});
 </script>

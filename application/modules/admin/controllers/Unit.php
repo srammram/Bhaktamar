@@ -84,6 +84,7 @@ class Unit extends Admin_Controller {
 	    $data['pmc_id']	            = '';
 		$data['soc_id']			    = '';
 		$data['price']	            = '';
+		$data['open_balcony_carpet_area']='';
 		if ($id){	
 			$data['unit']			=	$unit		= $this->Unit_model->get($id);
 			$data['buildings']      =   $building   = $this->Unit_model->get_buildingProjectWise($unit->Project_id);
@@ -106,6 +107,7 @@ class Unit extends Admin_Controller {
 		    $data['size']	            = $unit->size;
 		    $data['address']	        = $unit->address;
 			$data['Inside_unit']	    = $unit->insideunit;
+			$data['open_balcony_carpet_area']	    = $unit->open_balcony_carpet_area;
 	        $data['note']	            = $unit->note;
 			$data['attachments']	    = json_decode($unit->attachment);
 			$data['contracts']	        = $unit->contract;
@@ -170,6 +172,7 @@ class Unit extends Admin_Controller {
 			 $save['size']			    = $this->input->post('size') ;
 			 $save['address']	        = $this->input->post('address');
 		     $save['insideunit']	    = $this->input->post('Inside_unit');
+			 $save['open_balcony_carpet_area']	    = $this->input->post('open_balcony_carpet_area');
 		     $save['note']	            =$this->input->post('note');
 			 $save['Amenities']	        =json_encode($this->input->post('Amenities'));
 			 $save['building_id']	    =$this->input->post('building_id');

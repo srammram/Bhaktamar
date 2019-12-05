@@ -143,7 +143,7 @@ function update_payment_status($save){
 	}
 	$this->db->where('project_id',$save['project_id']);
 	$this->db->where_not_in('paid_status',0);
-	$this->db->update('booking_payment_plan',array('paid_status'=>2));
+	$this->db->update('booking_payment_plan',array('paid_status'=>2,'due_date'=>date('Y-m-d')));
 	return true;
 	
 }

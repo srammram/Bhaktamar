@@ -375,7 +375,7 @@ legend.scheduler-border {
                                 <div class="form-group col-md-5">
                                     <label>Shop/Flat No</label>
                                     <div class="col-md-12" style="padding: 0px;">
-                                        <select class="form-control select2" id="units" name="unit_id">
+                                        <select class="form-control select2" id="units" name="unit_id" onchange="get_unit_details(this.value)">
                                              <?php  if(!empty($unitlist)){ foreach($unitlist as  $row) { ?>
 													<option value="<?php   echo $row->uid ; ?>"  <?php  if(isset($flat)){ echo $flat == $row->uid ?'selected':'' ;  } ?>><?php echo $row->unit_name ;  ?></option>
 												<?php   }  }  ?>	
@@ -388,18 +388,18 @@ legend.scheduler-border {
                                 <div class="form-group col-md-5">
                                     <label>Carpet Area(5q. mtr)</label>
                                     </label>
-                                        <input type="text" class="form-control allowdecimalpoint" name="carpetarea" value="<?php  if(!empty($carpet_area)){ echo  $carpet_area ;  } ?>">
+                                        <input type="text" class="form-control allowdecimalpoint" id="carpetarea" name="carpetarea" value="<?php  if(!empty($carpet_area)){ echo  $carpet_area ;  } ?>">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label>Enclosed Balcony Carpet Area(5q. mtr)</label>
-                                    <input type="text" class="form-control allowdecimalpoint" name="enclosed_balconycarpet_area" value="<?php  if(!empty($enclosed_balcony_area)){ echo $enclosed_balcony_area;  } ?>">
+                                    <input type="text" class="form-control allowdecimalpoint" id="enclosed_balconycarpet_area" name="enclosed_balconycarpet_area" value="<?php  if(!empty($enclosed_balcony_area)){ echo $enclosed_balcony_area;  } ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label>Open Balcony Carpet Area(5q. mtr)</label>
                                    </label>
-                                        <input type="text" class="form-control allowdecimalpoint"  name="open_balcony_carpet_area" value="<?php  if(!empty($open_balcony_carpet)){ echo$open_balcony_carpet ;  } ?>">
+                                        <input type="text" class="form-control allowdecimalpoint" id="open_balcony_carpet_area"  name="open_balcony_carpet_area" value="<?php  if(!empty($open_balcony_carpet)){ echo$open_balcony_carpet ;  } ?>">
                                 </div>
 
                             </div>
