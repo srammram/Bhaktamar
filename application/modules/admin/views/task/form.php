@@ -136,8 +136,8 @@
                                                             <label class="control-label">Status</label>
                                                             <div class="form-group">
                                                                 <select name="status" id="status" class="form-control">
-                                                                    <option value="incomplete" <?php echo (@$status=='Incomplete')?'selected="selected"':'';?>>Incomplete</option>
-                                                                    <option value="complete" <?php echo (@$status=='Complete')?'selected="selected"':'';?>>Complete</option>
+                                                                    <option value="incomplete" <?php echo (@$status=='incomplete')?'selected="selected"':'';?>>Incomplete</option>
+                                                                    <option value="complete" <?php echo (@$status=='complete')?'selected="selected"':'';?>>Complete</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -177,7 +177,7 @@
                                                             
                                                             </div>
                                                         </div>
-														
+														<?PHP  	if($this->site->has_Permission('approved')==1)	{	  ?>
 															<div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Approved</label>
@@ -187,7 +187,7 @@
                                                                    
                                                             </div>
                                                         </div>
-
+<?php   } ?>
 														 <div class="col-md-12">
 														<b> <?php echo lang('content_section');?> <?php echo lang('description');?></b>
 														<div class="form-group">

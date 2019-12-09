@@ -1938,7 +1938,11 @@ class Settings extends Admin_Controller {
             'name' => $this->input->post('name'),
             'description' => $this->input->post('description'),
         );
-        $insert = $this->global_model->save($data);
+        $insert_id = $this->global_model->save($data);
+		if($insert_id){
+			$this->db->insert("permissions",array("Group_id"=>$insert_id));
+		}
+	
         echo json_encode(array("status" => true));
     }
 	 public function permission_edit($id){
@@ -2007,5 +2011,67 @@ class Settings extends Admin_Controller {
         $data['p'] = $this->setting_model->get_group_permission($id);
         $data['group'] = $this->setting_model->getGroupByID($id);
 		$this->render_admin('settings/permissions', $data);		
+	}
+	
+	function custom_plan(){
+		 $data['page_title']='custom_plan';
+	     $this->render_admin('settings/custom_plan', $data);		
+	}
+	function get_custom_plan(){
+		  $actions = "<div class=\"text-center\">";
+          $actions .= "<a href='" . base_url('admin/settings/custom_plan_active/$1') . "'  class='tip' ><i class=\"fa fa-refresh\"></i></a> <a href='" . base_url('/admin/settings/custom_plan_form/$1') . "'  class='tip' ><i class=\"fa fa-edit\"></i></a> ";
+          $actions .= "</div>";
+            $this->load->library('datatables');
+            $this->datatables
+            ->select("  id  ,name ,  percentage,soft_delete", FALSE)
+            ->from("booking_payment_master")
+			//->where("soft_delete",0)
+            ->add_column("Actions", $actions, "id");
+	        echo $this->datatables->generate();
+	}
+	
+	function custom_plan_form($id = false){
+		$data['page_title']		               = lang('add_custom_plan');
+		$data['id']	                           = '';
+		$data['name']	                       = '';
+		$data['percentage']	                   = '';
+		if ($id){	
+            $data['page_title']		            = lang('edit_custom_plan');
+			$data['custom_payment_plan']		= $custom_payment_plan		= $this->setting_model->get_payment_plan($id);
+			$save['id']		        = $id;
+			if (!$custom_payment_plan){
+				$this->session->set_flashdata('error', lang('custom_payment_plan_not_found'));
+				redirect('admin/settings/custom_plan');
+            }       
+			$data['id']	                        = $custom_payment_plan->id;
+			$data['name']		                = $custom_payment_plan->name;
+	    	$data['percentage']		     	    = $custom_payment_plan->percentage;
+		 }
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
+		if ($this->form_validation->run() == FALSE){
+			$this->render_admin('settings/custom_plan_form', $data);		
+		}
+		else{
+			 $save['name']		                = $this->input->post('name');
+			 $save['percentage']		        = $this->input->post('percentage');
+	     	 $this->setting_model->payment_plan_save($save);
+			if($id){
+				$this->session->set_flashdata('message', lang('custom_payment_plan_update'));
+			}else{
+				$this->session->set_flashdata('message', lang('custom_payment_plan_save'));
+			}
+			redirect('admin/settings/custom_plan'); 
+		}
+	}
+	function custom_plan_active($id){
+		 if ($id){	
+		         $delete	= $this->setting_model->statusChange($id);
+                $this->session->set_flashdata('message', lang('custom_payment_plan_status_changed'));
+                redirect('admin/settings/custom_plan');
+            }else{
+                $this->session->set_flashdata('error', lang('custom_payment_plan_not_found'));
+                redirect('admin/settings/custom_plan');
+            }
+       
 	}
 }

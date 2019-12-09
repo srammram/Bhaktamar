@@ -112,13 +112,13 @@ function save($save){
 	if($save['id']){
 		$this->db->where("id",$save['id']);
 		$this->db->update("task",$save);
-		if($save['status'] =='Complete' && $save['status'] ==1){
+		if($save['status'] =='complete' && $save['is_approved'] ==1){
 		$this->update_payment_status($save);
 		}
 		return true;
 	}else{
 		$this->db->insert("task",$save);
-		if($save['status'] =='Complete' && $save['status'] ==1){
+		if($save['status'] =='complete' && $save['is_approved'] ==1){
 		$this->update_payment_status($save);
 		}
 		return true;

@@ -20,7 +20,7 @@ class Booking extends Admin_Controller {
         $actions .= "</div>";
         $this->load->library('datatables');  
         $this->datatables
-			->select("booking.id,serial_no, date ,building_info.name building,floors.name floors, unit_name ,   applicant_name, total_received_amt,grand_total_cost", false)
+			->select("booking.id,serial_no, date ,building_info.name building,floors.name floors, unit_name ,   applicant_name,grand_total_cost, grand_total_cost -balance,", false)
 			->from("booking")
 			->join("floors","floors.id=booking.floor","left")
 			->join("building_info","building_info.bldid=booking.building_no","left")
@@ -29,7 +29,7 @@ class Booking extends Admin_Controller {
             ->add_column("Actions", $actions, "booking.id");
         echo $this->datatables->generate();
 	}
-	function view($id){
+	function view($id =false){
 		$data['booking']		     	=	$booking   = $this->Booking_model->getbookingByid($id);
 		$data['building']               =   $this->Booking_model->getbuilding();
 		$data['floorlist']			    =   $this->Booking_model->get_floor($booking->building_no);
@@ -307,10 +307,10 @@ class Booking extends Admin_Controller {
 		"paymentid"=>$paymentid);
 		$result=$this->Booking_model->add_payment($data,$bookingid,$paymentid);
 		if($result){
-			$this->session->set_flashdata('error', lang("Payment_status"));
+			  $this->session->set_flashdata('message', lang("payment_added"));
 			  redirect($_SERVER["HTTP_REFERER"]);
 		}else{
-			   $this->session->set_flashdata('message', lang("payment_added"));
+			   $this->session->set_flashdata('message', 'Payment status Failed');
                redirect($_SERVER["HTTP_REFERER"]);
 		} 
 	}
@@ -409,12 +409,12 @@ class Booking extends Admin_Controller {
 			$save['dear_debtor']		     = $this->input->post('dear_debot');
 			$save['your_sincerely']		     = $this->input->post('sincerely');
 			$save['subject']		         = $this->input->post('subject');
-			$save['out_standing_amount']      = $this->input->post('out_standing_amount');
+			$save['out_standing_amount']     = $this->input->post('out_standing_amount');
 			$this->Booking_model->demand_letter_save($save);
 			if($id){
-				$this->session->set_flashdata('message', lang('floor_update'));
+				$this->session->set_flashdata('message', 'Data Saved');
 			}else{
-				$this->session->set_flashdata('message', lang('floor_save'));
+				$this->session->set_flashdata('message', 'Data Updated');
 			}
 			redirect('admin/booking/demand_letter');
 		}
@@ -422,11 +422,11 @@ class Booking extends Admin_Controller {
 	}
 	function demand_letter_pdf($paymentid,$bookingid){
 		$this->load->library('pdf');
-		$data['settings']        =get_setting();
+		$data['settings']               =get_setting();
 		$data['payment_details']        =$this->Booking_model->get_payment_plan_details($paymentid);
 		$data['demand_letter']          =$this->Booking_model->get_demand_letter(1);
 		$data['booking_details']        =$this->Booking_model->getbookingByid($bookingid);
-     	echo $html=$this->load->view('admin/booking/demand_letter_pdf', $data,true);	
-		//$this->pdf->create($html,'Demand_letter_pdf');
+     	$html=$this->load->view('admin/booking/demand_letter_pdf', $data,true);	
+		$this->pdf->create($html,'Demand_letter_pdf');
 	}
 }

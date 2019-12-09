@@ -55,6 +55,7 @@ Class Booking_model extends CI_Model{
   function getbookingByid($id){
 	$this->db->select("*");
 	$this->db->where("soft_delete",0);
+	$this->db->where("id",$id);
 	$q=$this->db->get('booking');
 	if($q->num_rows()>0){
 		return $q->row();
@@ -156,13 +157,16 @@ function booking_delete($id){
 	return false;
 }
 function payment_status_update($save,$booking_id){
+	
 	$this->db->select("payment_planid");
-	$this->db->where("project_id",$save['project_id']);
-	$this->db->where("building_id",$save['building_id']);
+	//$this->db->where("project_id",$save['project_id']);
+	$this->db->where("building_id",$save['building_no']);
 	$this->db->where("payment_planid !=",0);
-	$this->db->where("status !=","complete");
+	$this->db->where("status","complete");
+	$this->db->where("is_approved",1);
 	$this->db->group_by('payment_planid'); 
 	$q=$this->db->get("task");
+	
 	if($q->num_rows()>0){
 	 foreach($q->result() as $row)	{
 		 $this->db->where("booking_id",$booking_id);
@@ -233,7 +237,7 @@ function payment_status_update($save,$booking_id){
 		return false;
 	}
 	function getProject($buildingid){
-		$q=$this->db->get_where("building_info",array("bldid"=>buildingid));
+		$q=$this->db->get_where("building_info",array("bldid"=>$buildingid));
 		return $q->row('project_id');
 	}
 	function demand_letter_save($save){

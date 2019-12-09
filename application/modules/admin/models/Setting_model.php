@@ -895,5 +895,31 @@ Class Setting_model extends CI_Model{
 	     }
 	     return false;
 	   }
-	  
+	  function get_payment_plan($id){
+		  $this->db->select("*");
+		  $this->db->where("id",$id);
+		  $q=$this->db->get("booking_payment_master");
+		  if($q->num_rows()>0){
+			  return $q->row();
+		  }
+		  return false;
+	  }
+	  function payment_plan_save($save){
+		  if($save['id']){
+			  $this->db->where("id",$save['id']);
+			  $this->db->update("booking_payment_master",$save);
+		  }else{
+			  $this->db->insert("booking_payment_master",$save);
+		  }
+		  return true;
+	  }
+	  function  statusChange($id){
+		  $status=$this->db->get_where("booking_payment_master",array("id"=>$id))->row();
+		  ($status->soft_delete ==0)?
+			  $data=array("soft_delete"=>1):$data=array("soft_delete"=>0);
+		  
+		  $this->db->where("id",$id);
+		  $this->db->update("booking_payment_master",$data);
+		  return false;
+	  }
 }

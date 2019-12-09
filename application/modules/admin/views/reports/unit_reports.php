@@ -90,10 +90,10 @@
                           <tr>
                               <th>s.no</th>
                               <th>Project Name</th>
-                              <th>House No</th>
-								<th>House Length</th>
-                              <th>House Details</th>
-                              <th>House Price</th>
+                              <th>Unit No</th>
+								<th>Carpet Area(Sq. mtr)*</th>
+                              <th>Enclosed Balcony Carpet Area(Sq. mtr)*</th>
+                              <th>Unit Price</th>
 
                           </tr>
                         </thead>

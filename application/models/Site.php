@@ -280,4 +280,16 @@ class Site extends CI_Model
 		  }
 		  return false;
 	  }
+	   function has_Permission($action){
+	$module = $this->m;
+	
+	if ( $this->Admin) {
+	    return true;
+	}
+	else if ($this->GP[$module . '_' . $action] == 1) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
 }

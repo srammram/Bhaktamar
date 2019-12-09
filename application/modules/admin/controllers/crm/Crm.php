@@ -1069,4 +1069,28 @@ class Crm extends Admin_Controller {
 		}
 		
 	} */
+	function Post_enquiry(){
+		 $data['page_title']	= lang('Post_enquiry');
+		 $this->render_admin('_crm/post_enqiury', $data);
+	}
+	 public function get_post_enquiry(){
+          $actions = "<div class=\"text-center\">";
+          $actions .= "<a href='" . base_url('admin/crm/Crm/post_enquiry_view/$1') . "'  class='tip' ><i class=\"fa fa-eye\"></i></a>";
+          $actions .= "</div>";
+        $this->datatables
+            ->select("booking.id  ,serial_no , applicant_name,date ,booking.address ,contactno , email  ,building_info.name building,floors.name floor,add_unit.unit_name unit", false)
+            ->from("booking")
+			->join("building_info","building_info.bldid=booking.building_no","left")
+			->join("floors","floors.id=booking.floor","left")
+			->join("add_unit","add_unit.uid=booking.unit_id","left")
+            ->add_column("Actions", $actions, "booking.id");
+        echo $this->datatables->generate();
+    }
+	function post_enquiry_view($id,$tab=false){
+		 $data['page_title']	 = lang('pos_enquiry') ;
+		 $data['enquiryid']      = $id;
+	   	 $data['enquiry']	     = $enquiry = $this->Crm_model->get_enquirys_details($id);
+		 $data['follow_list']    = $this->Crm_model->getFollowupByEnquiry($enquiry->id);
+		 $this->render_admin('_crm/pos_enquiry_view.php', $data);
+	 }
 }

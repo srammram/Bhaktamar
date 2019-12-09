@@ -1766,7 +1766,7 @@ class Accounts extends Admin_Controller {
   
 	   function get_due_payment_list(){
 		 $actions = "<div class=\"text-center\">";
-		 $actions .= "<a href='" . base_url('admin/$1') . "' class='tip po'  onclick='return areyousure(this)' title='Sync to Post Enquiry'><i class=\"fa fa-refresh\"></i></a>";
+		 $actions .= "<a href='#' class='tip po'  onclick='return areyousureWantSync(this)' title='Sync to Post Enquiry'><i class=\"fa fa-refresh\"></i></a>";
 		 $actions .= "</div>";
 		  $this->load->library('datatables');
 		  $this->datatables

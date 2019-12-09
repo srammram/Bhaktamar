@@ -1,9 +1,5 @@
-<link rel="stylesheet" href="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/datepicker3.css">  <?php  $seg= $this->uri->segment(4);?>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<link href="<?php echo base_url('assets/admin/plugins/responsivetabs/responsive-tabs.css')?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url('assets/admin/plugins/responsivetabs/style.css')?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url('assets/admin/plugins/datatables/dataTables.bootstrap.css')?>" rel="stylesheet" type="text/css" />
-
+<link href="<?php echo base_url('assets/admin/plugins/iCheck/all.css')?>" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url('assets/admin')?>/dist/css/bootstrap-datepicker.min.css">
 <style>
 #weekchart{
   width: 100%;
@@ -27,101 +23,296 @@
 }
 .amcharts-chart-div a{display:none !important}
 </style>
-
-<section class="content-header">
-          <h1>
-            <?php echo $page_title; ?>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="<?php echo site_url('admin/dashboard') ?>"><i class="fa fa-dashboard"></i> <?php echo lang('dashboard')?></a></li>
-            <li class="active"><?php echo lang('client_reports'); ?></li>
-          </ol>
-</section>
-
-
 <section class="content">
-         
-		 
-		      <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title"> <?php echo $page_title; ?>
-       </h3>
-                </div><!-- /.box-header -->
-                      <div class="row tab-pane" id="3a">
-            <div class="col-xs-12">
-              <div class="box">
-                
-                <div class="box-body">
-                  <table class="table table-striped" id="example1">
-                     <thead >
-                    <tr>
-                      <th><?php echo lang('no'); ?></th>
-                      <th><?php echo lang('Booking_id'); ?></th>
-                      <th><?php echo lang('refno'); ?></th>
-                      <th><?php echo lang('Client_name'); ?></th>
-                      <th><?php echo lang('Project'); ?></th>
-                      <th><?php echo lang('Unit_No'); ?></th>   
-                      <th><?php echo lang('Status'); ?></th>
-                     </tr>
-                     </thead>
-                    <tbody >
-                    <?php if($booking_reports):?>   
-                    <?php $i=1;foreach ($booking_reports as $booking):?>
-                    <tr>
-                      <td><?php echo  $i; ?></td>
-                      <td><?php echo  $booking->id; ?></td>
-                      <td><?php echo  $booking->ref_no; ?></td>
-                      <td><?php echo  $booking->customer_name; ?></td>
-                      <td><?php echo  $booking->projectname; ?> </td>
-                      <td><?php echo  $booking->unit_no; ?></td>
-                      <td><?php echo  $booking->booking_status; ?></td>                     
-                    </tr>
-                    <?php $i++; endforeach;?>
-                    <?php endif?>
-                    </tbody>
-                </table>
-              </div>
-              </div>
-            </div>
-          </div>
-              </div><!-- /.box -->
+<div class="col-sm-12">
+<div class="box">
+   <div class="box-header">
+        <h2 class="blue"><i class="fa-fw fa fa-heart"></i><?php  echo $page_title;    ?>      </h2>
+        <div class="box-icon">
+            <ul class="btn-tasks">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" id="xls" class="excel_report" title="Download as XLS">
+                        <i class="icon fa fa-file-excel-o"></i>
+                    </a>
+                </li>
+             <!--   <li class="dropdown">
+                    <a href="#" id="image" class="tip" title="Save as Image" data-original-title="Save as Image">
+                        <i class="icon fa fa-file-picture-o"></i>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="box-content">
+        <div class="row">
+           <div class="col-sm-12" >
+                <p class="introtext">Please customize the report below</p>
+                <div id="form" style="">
+						
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="start_date">Start Date</label>                     <input type="text" name="start_date" value="" class="form-control  hasDatepicker datepicker" autocomplete="off" id="start_date" style="border-color: rgb(204, 204, 204);">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="end_date">End Date</label>                     
+								<input type="text" name="end_date" value="" class="form-control  hasDatepicker" autocomplete="off" id="end_date" style="border-color: rgb(204, 204, 204);">
+                                
+                            </div>
+                        </div>
+						<div class="col-sm-1">
+                            <div class="form-group">
+                             <label for="Show">Show</label>                               
+							 <select name="pagelimit" class="form-control" id="pagelimit" style="width: 100px;" >
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="4">4</option>
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="100">100</option>
+                                    <option value="0">All</option>
+                                </select>                               
+                            </div>
+                        </div>
+                    <div class="form-group col-sm-12">
+                        <div class="controls"> <input type="submit" name="submit_report" value="Submit" class="btn btn-primary bill_details">
+ 
+                        </div>
+                    </div>
+                </div>
+                    <!-- </form> -->
+                <div class="clearfix"></div>
+                <div class="col-sm-12 table-responsive">
+                    <table id="ReportDetailsData" class="table table-bordered table-hover table-striped table-condensed reports-table">
+                       <thead>
+                          <tr>
+                              <th>s.no</th>
+                              <th>Serial Number</th>
+                              <th>Date</th>
+								<th>Customer</th>
+                              <th>Unit</th>
+                              <th>Floor</th>
+							    <th>Building</th>
+                             <th>Total</th>
+							  <th>Balance</th>
+							  <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody><tr><td colspan="9" class="dataTables_empty">No data available in table</td></tr></tbody>                   
+                    </table>
+                    <div class="col-md-6 text-right" style="float:right">
+                        <div class="dataTables_paginate paging_bootstrap"></div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
 
-            </div><!-- /.col -->
-          </div><!-- /.row -->
 
-        </section>
+<script type="text/javascript">
+    var $offset = false;
+   /*     $(document).ready(function () {
+    /*     $('#pdf').click(function (event) {
+            event.preventDefault();
+			var path1="<?php echo  base_url('admin/reports/getReports/0/xls/?v=1'.$v)?>";
+            window.location.href = path1;
+            return false;
+        }); */
+       /*  $('#xls').click(function (event) {
+            event.preventDefault();
+			var $url="<?php echo  base_url('admin/reports/getReports/xls')?>";
+             GetData($url);
+            return false;
+        }); */
+      /*  $('#image').click(function (event) {
+			alert('sddss');
+            event.preventDefault();
+            html2canvas($('.box'), {
+                onrendered: function (canvas) {
+                    openImg(canvas.toDataURL());
+                }
+            });
+            return false;
+        });
+    }); */
+        $(document).on('click', '.pagination a',function(e){
+            e.preventDefault();
+            $url = '<?php echo  base_url('admin/reports/get_booking_report')?>';
+            $url_seg = $url.split('/');
+            $count = $url_seg.length-1;  
+			alert($count);			
+            $offset = (isNaN($url_seg[$count]))?false:$url_seg[$count];
+            GetData($url);
+            return false;
+        });
+        $(document).on('click', '.bill_details', function () {
+            $offset = false;
+            $url = '<?php echo  base_url('admin/reports/get_booking_reports')?>';
+            GetData($url);
+        });
 
+        $(document).on('change', '#pagelimit', function () {
+            $offset = false;
+             $url = '<?php echo  base_url('admin/reports/get_booking_reports')?>';
+            GetData($url);
+        });
+            $url = '<?php echo  base_url('admin/reports/get_booking_reports')?>';
+       
 
-<!-- Resources -->
-<script src="<?php echo base_url('assets/admin/plugins/responsivetabs/jquery.responsiveTabs.min.js')?>" type="text/javascript"></script>
-<script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
+function GetData($url){              
+    var start = $('#start_date').val();
+    var end = $('#end_date').val();
+ 
+    var pagelimit = $('#pagelimit').val();
+	var tt='<?php echo $settings->cur_symbol;   ?>';
+	
+    if (start !='' ) {                  
+        $('#start_date,#end_date').css('border-color', '#ccc'); 
+                  $.ajax({
+                        type: 'POST',
+                        url: $url,
+                        data: {start: start, end: end,pagelimit:pagelimit},
+                        dataType: "json",
+                        success: function (data) {
+                            $('#ReportDetailsData > tbody').empty();
+                            if(data.reports =='empty' || data.reports == 'error'){
+                            $('#ReportDetailsData > tbody').append('<tr><td colspan="9" class="dataTables_empty">No data available in table</td></tr>');    
+                            }
+                            else{
+                                $('.dataTables_paginate').html(data.pagination);
+                                 var $row_index = ($offset) ?parseInt($offset)+parseInt(1):1;
+                                $.each(data.reports, function (a,b) 
+                                {
+                                      $html = '<tr>';    
+                                      $html +='<td>'+$row_index+'</td>';
+                                      $html +='<td>'+b.serial_no+'</td>';
+                                      $html +='<td>'+b.date+'</td>';
+                                      $html +='<td>'+b.applicant_name+'</td>';
+                                      $html +='<td>'+b.unit_no+'</td>';                                   
+                                      $html +='<td>'+b.floor+'</td>';
+									  $html +='<td>'+b.name+'</td>';
+									  $html +='<td>'+ tt +formatMoney(b.grand_total_cost)+'</td>';
+                                      $html +='<td>'+ tt+formatMoney(b.balance)+'</td>';
+									  var status=(b.balance>0)?'<span class="label label-danger">Pending</span>':'<span class="label label-success">Paid</span>';
+									  $html +='<td>'+status+'</td>';
+                                      $html +='</tr>';
+                                      $('#ReportDetailsData > tbody').append($html);
+                                      $row_index++;
+                                });
 
-<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/serial.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+                           } 
+                        }
+                    });
+    }
+    else{
+        if (start == '') {                    
+            $('#start_date').css('border-color', 'red');
+        }else{
+           $('#start_date').css('border-color', '#ccc'); 
+        }
+        if (end == '') {                    
+            $('#end_date').css('border-color', 'red');
+        }else{
+            $('#end_date').css('border-color', '#ccc'); 
+        }
+     
+        return false;    
+    }  
+}   
 
-<!-- Chart code -->
+$(document).ready(function(){
+        $('#end_date').datepicker({
+          weekStart: 1,
+           autoclose: true,
+           todayHighlight: true,
+		  format: "yyyy-mm-dd",
+    });
+    $("#start_date").datepicker({
+       weekStart: 1,
+           autoclose: true,
+           todayHighlight: true,
+		  format: "yyyy-mm-dd",
+        onSelect: function(date){            
+            var date1 = $('#start_date').datepicker('getDate');           
+            var date = new Date( Date.parse( date1 ) ); 
+            date.setDate( date.getDate());        
+            var newDate = date.toDateString(); 
+            newDate = new Date( Date.parse( newDate ) );                      
+            $('#end_date').datepicker("option","minDate",newDate);            
+        }
+    });
+});    
 
+</script>
+<style>
+    tr.table_whitelisted{
+        color: red;
+    }
+</style>
 
+</div>
+</section>
+<script>
+function formatSA (x) {
+    x=x.toString();
+    var afterPoint = '';
+    if(x.indexOf('.') > 0)
+       afterPoint = x.substring(x.indexOf('.'),x.length);
+    x = Math.floor(x);
+    x=x.toString();
+    var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+
+    return res;
+}
+function formatMoney(x, symbol) {
+	var currencysymbol=<?php echo $settings->cur_symbol;   ?>;
+	var display_symbol=<?php echo $settings->display_symbol;   ?>;
+	var decimals =<?php echo  $settings->decimals;   ?>;
+	var thousands_sep ='<?php echo $settings->thousands_sep;   ?>';
+	var decimals_sep ='<?php echo $settings->decimals_sep;   ?>';
+	var sac ='<?php echo $settings->sac;   ?>';
+    if(!symbol) { symbol = ""; }
+    if(sac == 1) {
+        return (display_symbol == 1 ? currencysymbol : '') +
+            ''+formatSA(parseFloat(x).toFixed(decimals)) +
+            (display_symbol == 2 ? currencysymbol : '');
+    }
+    var fmoney = accounting.formatMoney(x, symbol, decimals,thousands_sep == 0 ? ' ' : thousands_sep, decimals_sep);
+   
+	return fmoney; 
+   /*  return (display_symbol == 1 ? <?php echo $settings->symbol;   ?> : '') +
+        fmoney +
+        (display_symbol == 2 ? <?php echo $settings->symbol;   ?> : ''); */
+}
+</script>
+
+<script src="<?php echo base_url('assets/admin/dist/js/jquery.table2excel.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/plugins/datatables/jquery.dataTables.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/plugins/datatables/dataTables.bootstrap.js')?>" type="text/javascript"></script>
-<script type="text/javascript">
-  $('#example1').DataTable( {
-    dom: 'Bfrtip',
-    buttons: [
-        'copy', 'excel', 'pdf'
-    ],
-    "paging":   false,
-} );
+<script src="<?php echo base_url('assets/admin/') ?>/plugins/datepicker/bootstrap-datepicker.js"></script>
 
-/*$(function() {
-  $('#example1').dataTable({
-    "paging":   false,
-  });
-  
-});*/
+<script>
+	$(document).ready(function() {
+		$('#paymenttype').select2();
+		$('#pagelimit').select2();
+	});
+</script>
+<script type="text/javascript">
+$("#xls").click(function(){
+      $("#ReportDetailsData").table2excel({
+        exclude: ".noExl",
+        name: "Worksheet Name",
+        filename: "Booking_report  " //do not include extension
+
+      });
+	   });
 
 </script>

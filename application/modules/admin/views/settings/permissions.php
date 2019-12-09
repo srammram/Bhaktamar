@@ -46,7 +46,6 @@ label {
                         <div class="col-lg-12">
                             <p class="introtext"><?= lang("set_permissions"); ?></p>
                             <?php if (!empty($p)) {
-                    if ($p->Group_id != 1) {
                         echo form_open("admin/settings/permissions/" . $id); ?>
                             <div class="table-responsive" style="margin:12px;">
                                 <table class="table table-bordered table-hover table-striped" style="margin:0 auto;">
@@ -442,7 +441,7 @@ label {
                                                 <span style="inline-block">
                                                     <input type="checkbox" value="1" class="checkbox"
                                                         id="system_settings-resident_floor" name="resident_floor"
-                                                        <?php echo $p->{'resident_deleted'} ? "checked" : ''; ?>>
+                                                        <?php echo $p->{'resident_delete'} ? "checked" : ''; ?>>
                                                     <label for="system_settings-resident_floor"
                                                         class="padding05"><?= lang('delete') ?></label>
                                                 </span>
@@ -3331,9 +3330,7 @@ label {
                                 <input type="hidden" name="flag" value="1">
                             </div>
                             <?php echo form_close();
-                    } else {
-                        echo $this->lang->line("group_x_allowed");
-                    }
+                    
                 } else {
                     echo $this->lang->line("group_x_allowed");
                 } ?>

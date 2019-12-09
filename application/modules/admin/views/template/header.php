@@ -179,6 +179,31 @@
 			});
 			//return false;
 		}
+		function areyousureWantSync(e){
+		
+			event.preventDefault();
+			alertify.confirm("Are You Sure Want Sycn This Data.",
+				function(){
+					$(".ajs-button").text('Confirm');
+					var href = $(this).attr('href');
+					//alert(e);
+					window.location = e;
+					//alertify.success('acccpt');
+					
+					//$('.ajs-button').text("No");
+					return true;
+				},
+				function(){
+					alertify.error('Cancel');
+					return true;
+			}).set('labels', {ok:'Confirm', cancel:'Cancel'}); 
+			//return false;
+		
+		
+		
+		
+		
+		}
 	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini ">

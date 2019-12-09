@@ -624,7 +624,7 @@ legend.scheduler-border {
 														echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#3c8dbc;">Pay</a> |<a href='. base_url('admin/booking/demand_letter_pdf/').'/'.$row->id.'/'.$booking->id.'/'.' class="tip po"  > Demand Letter </a>';
 														break;
 														case 2:
-													echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#ff3333;">Due</a>';
+													echo '<a href="#myModal"  data-id='.$row->id.' data-amount='.$row->amount.' class="pay_now"style="color:#ff3333;">Due</a> |<a href='. base_url('admin/booking/demand_letter_pdf/').'/'.$row->id.'/'.$booking->id.'/'.' class="tip po"  > Demand Letter </a> ';
 														break;
 
 											}												?></td>

@@ -11,8 +11,7 @@ Class Report_model extends CI_Model
     }
 	
 
-     function get_all_booking_details()
-      {
+     function get_all_booking_details(){
         $this->db->select('sale_project.*,project.Name as projectname,crm_customer.customer_name,add_unit.unit_no,
                           CASE
                             WHEN (booking_type=1) THEN "Confirm"
@@ -177,7 +176,7 @@ WHERE Soft_delete=1 and bill_id=$id ")->row();
     }
 	   function getUnitReports($bookedtype,$limit,$offset){
        $this->db->start_cache();
-       $this->db->select('au.unit_no,IFNULL(au.House_length,"") as House_length,IFNULL(au.House_details,"") as House_details,IFNULL(au.unitPrice,0)as unitPrice,p.Name as project');
+       $this->db->select('au.unit_no,IFNULL(au.size,"") as House_length,IFNULL(au.insideunit,"") as House_details,IFNULL(au.unitPrice,0)as unitPrice,p.Name as project');
 	   $this->db->join('project p','p.id=au.Project_id','left');
                 if($bookedtype ==1){
 					$this->db->where('Booked_status',1);
@@ -437,7 +436,99 @@ WHERE Soft_delete=1 and bill_id=$id ")->row();
 	}
 	   return false;
 	}
-	
-	
-	
+	function get_client_report($limit,$offset){
+       $this->db->start_cache();
+       $this->db->select('s.*,au.unit_no,b.name');
+	   $this->db->join('building_info b','b.bldid=s.building_no','left');
+	   $this->db->join('add_unit au','au.uid=s.unit_id','left');   
+              $this->db->stop_cache();
+              $this->db->limit($limit,$offset);
+	          $q = $this->db->get('booking s');
+              $this->db->flush_cache();
+              $data =  array();
+              if($q->num_rows()>0){
+              foreach($q->result() as $k => $row){
+                $data[] = $row;
+               }
+            }
+        return array('data'=>$data,'total'=>$q->num_rows()); 
+    }
+	function get_greeting_message_report($start,$end,$type,$limit,$offset){
+			  $this->db->start_cache();
+			  $this->db->select('gm.*');
+			   if(!empty($end)){
+			  $this->db ->where('DATE(gm.created_on) >=', $start);
+              $this->db->where('DATE(gm.created_on) <=', $end);
+			  }else{
+				   $this->db ->where('DATE(gm.created_on) =', $start);
+			  }
+			  if($type =='Post_enquiry'){
+				    $this->db ->where('type', $type);
+			  }
+              $this->db->stop_cache();
+              $this->db->limit($limit,$offset);
+	          $q = $this->db->get('greeting_message gm');
+              $this->db->flush_cache();
+              $data =  array();
+              if($q->num_rows()>0){
+              foreach($q->result() as $k => $row){
+                $data[] = $row;
+               }
+            }
+        return array('data'=>$data,'total'=>$q->num_rows()); 
+    }
+	function get_booking_report($start,$end,$limit,$offset){
+              $this->db->start_cache();
+              $this->db->select('b.*,au.unit_no,bi.name,f.name floor');
+			  $this->db->join('building_info bi','bi.bldid=b.building_no','left');
+	          $this->db->join('add_unit au','au.uid=b.unit_id','left');
+			  $this->db->join('floors f','f.id=b.floor','left');
+			  if(!empty($end)){
+			  $this->db ->where('DATE(b.date) >=', $start);
+              $this->db->where('DATE(b.date) <=', $end);
+			  }else{
+				   $this->db ->where('DATE(b.date) =', $start);
+			  }
+              $this->db->stop_cache();
+              $this->db->limit($limit,$offset);
+	          $q = $this->db->get('booking b');
+			  
+              $this->db->flush_cache();
+              $data =  array();
+              if($q->num_rows()>0){
+              foreach($q->result() as $k => $row){
+                $data[] = $row;
+               }
+            }
+        return array('data'=>$data,'total'=>$q->num_rows()); 
+    }
+	function get_payment_report($paymenttype,$limit,$offset){
+              $this->db->start_cache();
+              $this->db->select('b.*,au.unit_no,bi.name,f.name floor,booking_payment_master.name bpm,bpp.amount,bpp.percetage,bpp.paid_status');
+			  $this->db->join('booking b','b.id=bpp.booking_id','left');
+			  $this->db->join('booking_payment_master ','booking_payment_master.id=bpp.payment_planid','left');
+			  $this->db->join('booking_payment_details ','booking_payment_details.paymentid=bpp.id','left');
+			  $this->db->join('building_info bi','bi.bldid=b.building_no','left');
+	          $this->db->join('add_unit au','au.uid=b.unit_id','left');
+			  $this->db->join('floors f','f.id=b.floor','left');
+			/*   if(!empty($end)){
+			  $this->db ->where('DATE(b.date) >=', $start);
+              $this->db->where('DATE(b.date) <=', $end);
+			  }else{
+				   $this->db ->where('DATE(b.date) =', $start);
+			  } */
+			 
+			  $this->db->where('bpp.paid_status', $paymenttype);
+              $this->db->stop_cache();
+              $this->db->limit($limit,$offset);
+	          $q = $this->db->get('booking_payment_plan bpp');
+              $this->db->flush_cache();
+              $data =  array();
+              if($q->num_rows()>0){
+              foreach($q->result() as $k => $row){
+                $data[] = $row;
+               }
+            }
+        return array('data'=>$data,'total'=>$q->num_rows()); 
+    }
 }

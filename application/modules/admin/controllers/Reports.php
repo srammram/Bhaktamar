@@ -21,12 +21,12 @@ class Reports extends Admin_Controller {
 
 	public function index(){
 		$data['page_title']	= lang('client_reports');
-		$data['crm_customer']      = $this->Crm_model->getCustomerlist();
+		$data['settings']=$this->report_model->getSettings();
 		$this->render_admin('reports/client_reports', $data);
 	}
 	public function booking_report(){
 		$data['page_title']	= lang('booking_reports');
-		$data['booking_reports']      = $this->report_model->get_all_booking_details();
+		$data['settings']=$this->report_model->getSettings();
 		$this->render_admin('reports/booking_reports', $data);
 	}	
 
@@ -724,4 +724,106 @@ class Reports extends Admin_Controller {
 	echo json_encode($dataproject);
 	}
 	
+	public function get_client_reports(){
+        $Mode = $this->input->post('Mode');
+        $limit = $this->input->post('pagelimit');        
+        $offsetSegment = 4;
+        $offset = $this->uri->segment($offsetSegment,0);
+        $data= '';
+            $data = $this->report_model->get_client_report($limit,$offset);
+            if (!empty($data['data'])){
+                 $report = $data['data'];
+             }
+             else{
+                $report = 'empty';
+             }
+        $total = $data['total'];
+        $pagination = $this->pagination('reports/get_client_reports',$limit,$offsetSegment,$total);
+        $this->sma->send_json(array('reports' => $report,'pagination'=>$pagination));
+        
+   }
+    public function get_booking_reports(){
+        $start = $this->input->post('start');
+        $end = $this->input->post('end');
+        $limit = $this->input->post('pagelimit');        
+        $offsetSegment = 4;
+        $offset = $this->uri->segment($offsetSegment,0);
+        $this->session->set_userdata('start_date', $this->input->post('start'));
+        $this->session->set_userdata('end_date', $this->input->post('end'));
+        $data= '';
+        if ($start != '' ) {
+            $data = $this->report_model->get_booking_report($start,$end,$limit,$offset);
+            if (!empty($data['data'])){
+                 $report = $data['data'];
+             }
+             else{
+                $report = 'empty';
+             }
+        }
+        else{
+            $report = 'error';
+        }
+        $total = $data['total'];
+        $pagination = $this->pagination('reports/get_booking_reports',$limit,$offsetSegment,$total);
+        $this->sma->send_json(array('reports' => $report,'pagination'=>$pagination));
+   }
+   function payment_report(){
+	   $data['page_title']	= lang('payment_report');
+		$data['settings']=$this->report_model->getSettings();
+		$this->render_admin('reports/payment_report', $data);
+   }
+   public function get_payment_reports(){
+       /*  $start = $this->input->post('start');
+        $end = $this->input->post('end'); */
+		$paymenttype = $this->input->post('paymenttype');
+        $limit = $this->input->post('pagelimit');        
+        $offsetSegment = 4;
+        $offset = $this->uri->segment($offsetSegment,0);
+       /*  $this->session->set_userdata('start_date', $this->input->post('start'));
+        $this->session->set_userdata('end_date', $this->input->post('end')); */
+        $data= '';
+       
+            $data = $this->report_model->get_payment_report($paymenttype,$limit,$offset);
+            if (!empty($data['data'])){
+                 $report = $data['data'];
+             }
+             else{
+                $report = 'empty';
+             }
+        $total = $data['total'];
+        $pagination = $this->pagination('reports/get_payment_reports',$limit,$offsetSegment,$total);
+        $this->sma->send_json(array('reports' => $report,'pagination'=>$pagination));
+   }
+       function greeting_message(){
+	   $data['page_title']	= lang('greeting_message');
+		$data['settings']=$this->report_model->getSettings();
+		$this->render_admin('reports/greeting_message', $data);
+       }
+   
+   public function get_greeting_message_reports(){
+        $start = $this->input->post('start');
+        $end = $this->input->post('end');
+		$type = $this->input->post('type');
+        $limit = $this->input->post('pagelimit');        
+        $offsetSegment = 4;
+        $offset = $this->uri->segment($offsetSegment,0);
+        $this->session->set_userdata('start_date', $this->input->post('start'));
+        $this->session->set_userdata('end_date', $this->input->post('end'));
+        $data= '';
+        if ($start != '' ) {
+            $data = $this->report_model->get_greeting_message_report($start,$end,$type,$limit,$offset);
+            if (!empty($data['data'])){
+                 $report = $data['data'];
+             }
+             else{
+                $report = 'empty';
+             }
+        }
+        else{
+            $report = 'error';
+        }
+        $total = $data['total'];
+        $pagination = $this->pagination('reports/get_greeting_message_reports',$limit,$offsetSegment,$total);
+        $this->sma->send_json(array('reports' => $report,'pagination'=>$pagination));
+   }
 }

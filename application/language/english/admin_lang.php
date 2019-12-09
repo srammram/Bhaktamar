@@ -345,6 +345,10 @@ $lang['Call']           = "Call";
 $lang['Directvisit']   = "Direct Visit";
 $lang['Followupdeleted']   = "FollowUp deleted";
 
+$lang['Post_enquiry']   = "Post Enquiry";
+
+
+
 $lang['Customer']   = "Customer List";
 $lang['Intial_Amount']   = "Initial Amount ";
 $lang['Deposite_receipt']   = "Deposite Receipt";
@@ -847,6 +851,7 @@ $lang['order_number']      	   = "Order Number";
 $lang['services_paid']      	   = "Total Paid For Services";
 $lang['print']      	   	   = "Print";
 $lang['payment'] 	     	   = "Payment";
+$lang['due_payment'] 	     	   = "Due Payment";
 
 $lang['shortcode']      	   = "Short Code";
 $lang['apply']      		   = "Apply";
@@ -1686,25 +1691,33 @@ $lang['Sale_commission_Percentage']= "Commission Percentage";
 $lang['Sale_commission_Status']    = "Status";
 
 
-$lang['uid']                       = "Unit Id";
-$lang['unit_no']                   = "Unit No";
-$lang['unit_name']                   = "Unit Name";
-$lang['unit_type']                 = "Unit TYpe";
-$lang['source_of_enquiry']                 = "Source of Enquiry";
-$lang['source_of_enquiry_form']                 = "Source of Enquiry Form";
-$lang['source_of_enquiry_name']                 = "Name";
-$lang['source_of_enquiry_saved']                 = "Source Of Enquiry Saved";
-$lang['source_of_enquiry_Updated']                 = "Source Of Enquiry Updated";
-$lang['source_of_enquiry_deleted']                 = "Source Of Enquiry deleted";
-$lang['source_of_enquiry_NOF']                 = "Source Of Enquiry Not Found";
+$lang['uid']                                        = "Unit Id";
+$lang['unit_no']                                    = "Unit No";
+$lang['unit_name']                                  = "Unit Name";
+$lang['unit_type']                                  = "Unit TYpe";
+$lang['source_of_enquiry']                          = "Source of Enquiry";
+$lang['source_of_enquiry_form']                     = "Source of Enquiry Form";
+$lang['source_of_enquiry_name']                     = "Name";
+$lang['source_of_enquiry_saved']                    = "Source Of Enquiry Saved";
+$lang['source_of_enquiry_Updated']                  = "Source Of Enquiry Updated";
+$lang['source_of_enquiry_deleted']                  = "Source Of Enquiry deleted";
+$lang['source_of_enquiry_NOF']                      = "Source Of Enquiry Not Found";
+
+$lang['custom_plan']                                = "Custom Payment Plan";
+$lang['add_custom_plan']                            = "Add Custom Payment Plan";
+$lang['edit_custom_plan']                            = "Edit Custom Payment Plan";
+$lang['custom_payment_plan_save']                   = "Custom Payment Plan Saved";
+$lang['custom_payment_plan_update']                 = "Custom Payment Plan Update";
+$lang['custom_payment_plan_not_found']              = "Custom Payment Plan Not Found";
+$lang['custom_payment_plan_status_changed']         = "Custom Payment Plan Status Changed";
+
 
 $lang['pincode']                          = "Pincode";
-
-$lang['Payment_details']                 = "Payment details Deleted";
-$lang['Sales_commissionEdit']            = "Sales Commission Edit Form";
-$lang['Agent_name']                      = "Agent_name";
-$lang['Payment_updated']                 = "Payment Updated";
-$lang['SalesCommissionReceipt']          = "Sales Commission  Receipt";
+$lang['Payment_details']                  = "Payment details Deleted";
+$lang['Sales_commissionEdit']             = "Sales Commission Edit Form";
+$lang['Agent_name']                       = "Agent_name";
+$lang['Payment_updated']                  = "Payment Updated";
+$lang['SalesCommissionReceipt']           = "Sales Commission  Receipt";
 
 
 ///report
@@ -1722,6 +1735,8 @@ $lang['Prospective_enquiry']       = "Prospective Enquiry";
 $lang['followuptype']              = "Followup Type";
 $lang['agenttype']                 = "Agent Type";
 $lang['salemanwise_sales']         = "Salesman Wise Sales";
+$lang['payment_report']            = "Payment Report";
+$lang['greeting_message']          = "Greeting Message";
 
 
 $lang['request_board']           = "Request Board";

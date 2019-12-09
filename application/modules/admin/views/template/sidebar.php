@@ -229,6 +229,9 @@
 					    <li class="<?php echo ($this->uri->segment(4)=='followup')?'active':''?>"><a
                     href="<?php echo site_url('admin/crm/Crm/followup/')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('FollowUp');?></span></a></li>
+					   <li class="<?php echo ($this->uri->segment(4)=='post_enquiry')?'active':''?>"><a
+                    href="<?php echo site_url('admin/crm/Crm/post_enquiry/')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('Post_enquiry');?></span></a></li>
 					  <li class="<?php echo ($this->uri->segment(4)=='ClientList')?'active':''?>"><a
                     href="<?php echo site_url('admin/crm/Crm/ClientList/')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Customer');?></span></a></li>
@@ -287,16 +290,19 @@
             </li>
             <?php   }  ?>
             <?php if($this->uri->segment(2)=='Reports' ){   ?>
+		      <li ><a href="<?php echo site_url('admin/Reports/unit_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('unit_reports');?></span></a></li>
               <li ><a href="<?php echo site_url('admin/Reports')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('client_reports');?></span></a></li>
-		      <li ><a href="<?php echo site_url('admin/Reports/booking_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('booking_reports');?></span></a></li>	
+		      <li ><a href="<?php echo site_url('admin/Reports/booking_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('booking_reports');?></span></a></li>
+			  <li ><a href="<?php echo site_url('admin/Reports/payment_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('payment_report');?></span></a></li>
+              <li ><a href="<?php echo site_url('admin/Reports/greeting_message')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('greeting_message');?></span></a></li><!--			  
 		      <li ><a href="<?php echo site_url('admin/Reports/unAttendant_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('unattendant_enquiry');?></span></a></li>
 		      <li ><a href="<?php echo site_url('admin/Reports/pendingFollowup_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('Pending_followup');?></span></a></li>
 		      <li ><a href="<?php echo site_url('admin/Reports/prospectiveEnquiry_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('Prospective_enquiry');?></span></a></li>
-		      <li ><a href="<?php echo site_url('admin/Reports/unit_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('unit_reports');?></span></a></li>
+		      
 		      <li ><a href="<?php echo site_url('admin/Reports/salemanwiseSales_report')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('salemanwise_sales');?></span></a></li>	
               <li ><a href="<?php echo site_url('admin/Reports/saleReport')?>"><i class="fa fa-circle-o"></i> <span><?php echo lang('sales_report');?></span></a></li>		
-             <li><a href="<?php echo site_url('admin/Reports/projectStatus_report')?>"><i class="fa fa-circle-o"></i>
-                    <span><?php echo lang('project_status');?></span></a></li>
+           <!--  <li><a href="<?php echo site_url('admin/Reports/projectStatus_report')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('project_status');?></span></a></li>-->
             <?php   }  ?>
             <?php  if($this->uri->segment(2)=='Inventory'  || $this->uri->segment(2)=='Inventory'  || $this->uri->segment(2)=='procurment' || $this->uri->segment(2)=='Procurment' ){  ?>
           
@@ -360,8 +366,6 @@
                 </ul>
 				</li>
             <?php    }    ?>
-			
-			
 			<?php    if($this->uri->segment(2)=='accounts' ||$this->uri->segment(2)=='Accounts' ){   ?>
             <li><a href="<?php echo site_url('admin/accounts/bill')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('bill');?></span></a></li>
@@ -371,6 +375,9 @@
 					 <li class="<?php echo ($this->uri->segment(3)=='payment')?'active':''?>"><a
                     href="<?php echo site_url('admin/accounts/payment')?>"><i class="fa fa-circle-o"></i>
                     <span><?php echo lang('Payment');?></span></a></li>
+					<li class="<?php echo ($this->uri->segment(3)=='payment')?'active':''?>"><a
+                    href="<?php echo site_url('admin/accounts/due_payment')?>"><i class="fa fa-circle-o"></i>
+                    <span><?php echo lang('due_payment');?></span></a></li>
 					 <li>
                 <a href="#">
                     <i class="fa fa-circle-o"></i>
@@ -628,6 +635,9 @@
                     <li class="<?php echo ($this->uri->segment(3)=='settings')?'active':''?>"><a
                             href="<?php echo site_url('admin/settings/unitType')?>"><i class="fa fa-circle-o"></i>
                             <span><?php echo lang('unit_type');?></span></a></li>
+							  <li class="<?php echo ($this->uri->segment(3)=='settings')?'active':''?>"><a
+                            href="<?php echo site_url('admin/settings/custom_plan')?>"><i class="fa fa-circle-o"></i>
+                            <span><?php echo lang('custom_plan');?></span></a></li>
 							  
                 </ul>
 				</li>

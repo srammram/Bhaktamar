@@ -96,4 +96,5 @@ class Main extends CI_Controller {
 		$this->db->insert("greeting_message",array("type"=>$type,"lead_number"=>$leadnumber,"message"=>$message));
 		return true;
 	}
+	 
 }
